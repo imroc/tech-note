@@ -46,6 +46,21 @@
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2023%2F09%2F28%2F20230928115651.png)
 
+
+## 页面启用 algolia 搜索
+
+将邮件中收到的 api key 信息填入配置:
+
+```js title="docusaurus.config.js"
+themeConfig: {
+    algolia: {
+      apiKey: "***********",
+      appId: "***********",
+      indexName: "*****",
+    },
+}
+```
+
 ## 参考资料
 
 * [Docusaurus Search](https://docusaurus.io/docs/search)
