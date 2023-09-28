@@ -51,6 +51,7 @@
 
 将邮件中收到的 api key 信息填入配置:
 
+
 ```js title="docusaurus.config.js"
 themeConfig: {
     algolia: {
