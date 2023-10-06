@@ -1,4 +1,8 @@
-# 搜索
+---
+sidebar_position: 40
+---
+
+# 添加 algolia 搜索功能
 
 ## 向 algolia 申请免费爬虫
 
@@ -20,13 +24,14 @@
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2023%2F09%2F28%2F20230928114123.png)
 
-## 配置爬虫运行周期
+## 配置爬虫
 
-默认一周爬一次，这个间隔太久了，最低可以调到一天一次，参考 [官方文档 schedule 参数说明](https://www.algolia.com/doc/tools/crawler/apis/configuration/schedule/)
+algolia 爬虫运行需要配置，默认的配置可能不太使用 docusaurus，可以使用 algolia 官方针对 docusaurus 的配置模版进行配置：
 
-![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2023%2F09%2F28%2F20230928115027.png)
+* [docusaurus v3 模版](https://docsearch.algolia.com/docs/templates/#docusaurus-v3-template)
+* [docusaurus v2 模版](https://docsearch.algolia.com/docs/templates/#docusaurus-v2-template)
 
-下面我们来修改 schedule 配置。
+根据自己当前使用的 docusaurus 版本选取配置模板，然后替换模板中的全大写的值，然后按照下面的方法替换 algolia 爬虫配置。
 
 登陆 [爬虫管理页](https://crawler.algolia.com/)，进入 algolia 自动为我们创建的免费爬虫:
 
@@ -36,7 +41,15 @@
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2023%2F09%2F28%2F20230928114640.png)
 
-修改 `schedule`:
+然后替换配置内容再点击 `Save` 即可。
+
+## 配置爬虫运行周期
+
+默认一周爬一次，这个间隔太久了，最低可以调到一天一次，参考 [官方文档 schedule 参数说明](https://www.algolia.com/doc/tools/crawler/apis/configuration/schedule/)
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2023%2F09%2F28%2F20230928115027.png)
+
+可以按照前面的方法修改 algolia 爬虫配置，只需改 `schedule` 配置:
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2023%2F09%2F28%2F20230928114912.png)
 

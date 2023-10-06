@@ -1,3 +1,7 @@
+---
+sidebar_position: 20
+---
+
 # 添加 giscus 评论功能
 
 ## 解决 Docusaurus 的 Bug

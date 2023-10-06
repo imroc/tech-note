@@ -1,4 +1,8 @@
-# 插件
+---
+sidebar_position: 10
+---
+
+# 安装常用插件
 
 ## docusaurus-plugin-sass
 
@@ -46,10 +50,23 @@ npm install --save flexanalytics/plugin-image-zoom
 
 ## plugin-pwa
 
+用于将网页安装成本地应用 (需浏览器支持):
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2023%2F10%2F06%2F20231006195119.png)
+
+安装后在程序列表中就可以直接以应用的形式打开本网站了。
+
+
 安装插件:
 
 ```bash npm2yarn
 npm install --save @docusaurus/plugin-pwa
+```
+
+如果你用的 docusaurus 是 next 版本，就这样安装：
+
+```bash npm2yarn
+npm install --save @docusaurus/plugin-pwa@next
 ```
 
 创建[PWA manifest](https://web.dev/add-manifest/):
@@ -128,6 +145,12 @@ npm install --save @docusaurus/plugin-pwa
 
 ```bash npm2yarn
 npm install @docusaurus/remark-plugin-npm2yarn
+```
+
+如果你用的 docusaurus 是 next 版本，就这样安装：
+
+```bash npm2yarn
+npm install @docusaurus/remark-plugin-npm2yarn@next
 ```
 
 > 命令展示效果也如上所示
