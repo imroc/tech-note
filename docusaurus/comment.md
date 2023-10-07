@@ -4,79 +4,31 @@ sidebar_position: 20
 
 # 添加 giscus 评论功能
 
-## 解决 Docusaurus 的 Bug
-
-由于 `Docusaurus` bug 导致 `Giscus` 有时获取的仍然是上一篇文章的评论，需要做一点魔改来解决这个问题。
-
-安装依赖：
-
-```bash npm2yarn
-npm install --save @giscus/react mitt
-```
-
-创建一个 `clientModule`:
-
-```ts title="src/clientModules/routeModules.ts" showLineNumbers
-import mitt from 'mitt';
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
-
-const emitter = mitt();
-
-if (ExecutionEnvironment.canUseDOM) {
-  window.emitter = emitter;
-}
-
-export function onRouteDidUpdate() {
-  if (ExecutionEnvironment.canUseDOM) {
-    setTimeout(() => {
-      window.emitter.emit('onRouteDidUpdate');
-    });
-  }
-  // https://github.com/facebook/docusaurus/issues/8278
-}
-```
-
-:::info
-相关 [issue](https://github.com/facebook/docusaurus/issues/8278)
-:::
-
-修改配置:
-
-```js title="docusaurus.config.js"
-module.exports = {
-  clientModules: [require.resolve('./src/clientModules/routeModules.ts')]
-};
-```
-
 ## 创建评论组件
 
 ```ts title="src/components/comment/index.tsx" showLineNumbers
-import React, { forwardRef, useEffect, useState } from 'react';
-import BrowserOnly from '@docusaurus/BrowserOnly';
-import Giscus from '@giscus/react';
-import { useColorMode } from '@docusaurus/theme-common';
+import React from 'react'
+import { useColorMode } from '@docusaurus/theme-common'
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+import Giscus, { GiscusProps } from '@giscus/react'
 import { useLocation } from '@docusaurus/router';
 
-export const Comment = forwardRef<HTMLDivElement>((_props, ref) => {
-  const { colorMode } = useColorMode();
-  const giscusTheme = colorMode === 'dark' ? 'transparent_dark' : 'light';
-  const [routeDidUpdate, setRouteDidUpdate] = useState(false);
+const defaultConfig: Partial<GiscusProps> = {
+  id: 'comments',
+  mapping: 'specific',
+  reactionsEnabled: '1',
+  emitMetadata: '0',
+  inputPosition: 'top',
+  loading: 'lazy',
+  strict: '0',
+}
 
-  useEffect(() => {
-    function eventHandler(e) {
-      setRouteDidUpdate(true);
-    }
+export default function Comment(): JSX.Element {
+  const { i18n } = useDocusaurusContext()
 
-    window.emitter.on('onRouteDidUpdate', eventHandler);
-
-    return () => {
-      window.emitter.off('onRouteDidUpdate', eventHandler);
-    };
-  }, []);
-
-  if (!routeDidUpdate) {
-    return null;
-  }
+  // merge default config
+  const giscus = { ...defaultConfig }
 
   const path = useLocation().pathname.replace(/^\/|\/$/g, '');
   const firstSlashIndex = path.indexOf('/');
@@ -90,56 +42,42 @@ export const Comment = forwardRef<HTMLDivElement>((_props, ref) => {
     subPath = "index"
   }
 
-  var repo: string = ""
-  var repoId: string = ""
-  var category: string = ""
-  var categoryId: string = ""
   switch (topPath) {
     case "kubernetes":
-      repo = 'imroc/kubernetes-guide'
-      repoId = 'R_kgDOG-4vhA'
-      category = 'General'
-      categoryId = 'DIC_kwDOG-4vhM4COPpN'
+      giscus.repo = 'imroc/kubernetes-guide'
+      giscus.repoId = 'R_kgDOG-4vhA'
+      giscus.category = 'General'
+      giscus.categoryId = 'DIC_kwDOG-4vhM4COPpN'
       break;
     case "istio":
-      repo = 'imroc/istio-guide'
-      repoId = 'R_kgDOHFP9XQ'
-      category = 'General'
-      categoryId = 'DIC_kwDOHFP9Xc4COUDN'
+      giscus.repo = 'imroc/istio-guide'
+      giscus.repoId = 'R_kgDOHFP9XQ'
+      giscus.category = 'General'
+      giscus.categoryId = 'DIC_kwDOHFP9Xc4COUDN'
       break;
   }
 
-  if (repo === "") {
-    return ("")
+  if (!giscus.repo) {
+    return ('')
   }
+
+  if (!giscus.repo || !giscus.repoId || !giscus.categoryId) {
+    throw new Error(
+      'You must provide `repo`, `repoId`, and `categoryId` to `themeConfig.giscus`.',
+    )
+  }
+
+  giscus.term = subPath
+  giscus.theme =
+    useColorMode().colorMode === 'dark' ? 'transparent_dark' : 'light'
+  giscus.lang = i18n.currentLocale
 
   return (
     <BrowserOnly fallback={<div>Loading Comments...</div>}>
-      {() => (
-        <div ref={ref} id="comment" style={{ paddingTop: 50 }}>
-          <Giscus
-            id="comments"
-            mapping="specific"
-            strict="0"
-            reactionsEnabled="1"
-            emitMetadata="0"
-            inputPosition="bottom"
-            lang="zh-CN"
-            loading="lazy"
-            term={subPath}
-            repo={repo}
-            repoId={repoId}
-            category={category}
-            categoryId={categoryId}
-            theme={giscusTheme}
-          />
-        </div>
-      )}
+      {() => <Giscus {...giscus} />}
     </BrowserOnly>
-  );
-});
-
-export default Comment;
+  )
+}
 ```
 
 ## 文档页面支持评论
