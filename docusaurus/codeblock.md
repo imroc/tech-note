@@ -53,7 +53,71 @@ func main() {
 
 ## 高亮行
 
-### 单行
+### docusaurus 配置
+
+<Tabs>
+<TabItem value="js" label="docusaurus.config.js">
+
+```js
+      prism: {
+        theme: require('prism-react-renderer/themes/vsDark'),
+        magicComments: [
+          {
+            className: 'code-block-highlighted-line',
+            line: 'highlight-next-line',
+            block: { start: 'highlight-start', end: 'highlight-end' }
+          },
+          {
+            className: 'code-block-add-line',
+            line: 'highlight-add-line',
+            block: { start: 'highlight-add-start', end: 'highlight-add-end' }
+          },
+          {
+            className: 'code-block-update-line',
+            line: 'highlight-update-line',
+            block: { start: 'highlight-update-start', end: 'highlight-update-end' }
+          },
+        ],
+        // languages enabled by default: https://github.com/FormidableLabs/prism-react-renderer/blob/master/packages/generate-prism-languages/index.ts#L9-L23
+        // prism supported languages: https://prismjs.com/#supported-languages
+        additionalLanguages: [
+          'java',
+          'json',
+          'hcl',
+        ],
+      }
+```
+
+</TabItem>
+
+<TabItem value="scss" label="custom.scss">
+
+```scss
+.code-block-highlighted-line {
+  background-color: rgb(72, 77, 91);
+  span[class*='codeLineNumber'] {
+    background-color: rgb(72, 77, 91);
+  }
+}
+.code-block-add-line {
+  background-color: #213227;
+  span[class*='codeLineNumber'] {
+    background-color: #213227;
+  }
+}
+.code-block-update-line {
+  background-color: #362d1e;
+  span[class*='codeLineNumber'] {
+    background-color: #362d1e;
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+
+### 高亮单行
 
 使用 `highlight-next-line` 注释：
 
@@ -99,7 +163,7 @@ func main() {
 </TabItem>
 </Tabs>
 
-### 多行
+### 高亮多行
 
 使用 `highlight-start` 和 `highlight-end` 注释：
 
@@ -191,9 +255,7 @@ func main() {
 </TabItem>
 </Tabs>
 
-## 高亮行(新增样式)
-
-### 单行
+### 高亮单行(新增样式)
 
 使用 `highlight-add-line` 注释：
 
@@ -239,7 +301,7 @@ func main() {
 </TabItem>
 </Tabs>
 
-### 多行
+### 高亮多行(新增样式)
 
 使用 `highlight-add-start` 和 `highlight-add-end` 注释：
 
@@ -287,9 +349,7 @@ func main() {
 </TabItem>
 </Tabs>
 
-## 高亮行(修改样式)
-
-### 单行
+### 高亮单行(修改样式)
 
 使用 `highlight-update-line` 注释：
 
@@ -335,7 +395,7 @@ func main() {
 </TabItem>
 </Tabs>
 
-### 多行
+### 高亮多行(修改样式)
 
 使用 `highlight-update-start` 和 `highlight-update-end` 注释：
 
