@@ -51,6 +51,51 @@ func main() {
 </TabItem>
 </Tabs>
 
+## 显示文件名
+
+在元数据处加上 `title="xxx"`:
+
+<Tabs>
+<TabItem value="md" label="markdown 写法">
+
+````md {1}
+```go title="main.go"
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  for i := 0; i < 10; i++ {
+    fmt.Println("hello world", i)
+  }
+}
+```
+````
+
+</TabItem>
+
+<TabItem value="go" label="效果">
+
+```go title="main.go"
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  for i := 0; i < 10; i++ {
+    fmt.Println("hello world", i)
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+
 ## 高亮行
 
 ### docusaurus 配置
@@ -77,6 +122,11 @@ func main() {
             line: 'highlight-update-line',
             block: { start: 'highlight-update-start', end: 'highlight-update-end' }
           },
+          {
+            className: 'code-block-error-line',
+            line: 'highlight-error-line',
+            block: { start: 'highlight-error-start', end: 'highlight-error-end' }
+          },
         ],
         // languages enabled by default: https://github.com/FormidableLabs/prism-react-renderer/blob/master/packages/generate-prism-languages/index.ts#L9-L23
         // prism supported languages: https://prismjs.com/#supported-languages
@@ -90,7 +140,7 @@ func main() {
 
 </TabItem>
 
-<TabItem value="scss" label="custom.scss">
+<TabItem value="scss" label="src/css/custom.scss">
 
 ```scss
 .code-block-highlighted-line {
@@ -109,6 +159,12 @@ func main() {
   background-color: #362d1e;
   span[class*='codeLineNumber'] {
     background-color: #362d1e;
+  }
+}
+.code-block-error-line {
+  background-color: #ff000020;
+  span[class*='codeLineNumber'] {
+    background-color: #ff000020;
   }
 }
 ```
@@ -437,6 +493,52 @@ func main() {
     fmt.Println("hello world", i)
   }
   // highlight-update-end
+}
+```
+
+</TabItem>
+</Tabs>
+
+### 高亮单行(错误样式)
+
+使用 `highlight-error-line` 注释：
+
+<Tabs>
+<TabItem value="md" label="markdown 写法">
+
+````md {10}
+```go showLineNumbers
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  for i := 0; i < 10; i++ {
+    // highlight-error-line
+    fmt.Println("hello world", i)
+  }
+}
+```
+````
+
+</TabItem>
+
+<TabItem value="go" label="效果">
+
+```go showLineNumbers
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  for i := 0; i < 10; i++ {
+    // highlight-error-line
+    fmt.Println("hello world", i)
+  }
 }
 ```
 
