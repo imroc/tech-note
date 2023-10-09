@@ -19,7 +19,18 @@ Docusaurus 官方提供了 [Importing code snippets](https://docusaurus.io/docs/
 1. 所有标签无需显式 import。
 2. 使用 `FileBlock` 标签导入代码文件，可指定代码文件路径，无需显式读取和传递文件内容。
 
+### 安装依赖
+
+```bash npm2yarn
+npm install --save raw-loader path-browserify
+```
+
 ### 创建 FileBlock 组件
 
 <FileBlock showLineNumbers file="FileBlock.tsx" title="src/components/FileBlock.tsx">
+</FileBlock>
+
+### 扩展 MDXComponents
+
+<FileBlock showLineNumbers file="MDXComponents.tsx" title="src/theme/MDXComponents.tsx">
 </FileBlock>
