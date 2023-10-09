@@ -101,7 +101,7 @@ npm install --save raw-loader path-browserify
   ]
 ```
 
-## 在 markdown 中使用 FileBlock 标签引用文件
+## 在 markdown 中使用 FileBlock 引用代码文件
 
 <Tabs>
   <TabItem value="file" label="指定代码文件路径">
