@@ -34,7 +34,7 @@ npm install --save raw-loader path-browserify
 
 ### 扩展 MDXComponents
 
-新建文件 `src/theme/MDXComponents.tsx`：
+新建文件 `src/theme/MDXComponents.tsx` 来扩展默认的 `MDXComponents`：
 
 <FileBlock showLineNumbers file="MDXComponents.tsx" title="src/theme/MDXComponents.tsx">
 </FileBlock>
