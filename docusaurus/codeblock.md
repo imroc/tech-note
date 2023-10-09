@@ -14,39 +14,15 @@ import TabItem from '@theme/TabItem';
 <Tabs>
 <TabItem value="md" label="markdown 写法">
 
-````md {1}
-```go showLineNumbers
-package main
-
-import (
-  "fmt"
-)
-
-func main() {
-  for i := 0; i < 10; i++ {
-    fmt.Println("hello world", i)
-  }
-}
-```
-````
+<FileBlock file="show-line-numbers.md">
+</FileBlock>
 
 </TabItem>
 
 <TabItem value="go" label="效果">
 
-```go showLineNumbers
-package main
-
-import (
-  "fmt"
-)
-
-func main() {
-  for i := 0; i < 10; i++ {
-    fmt.Println("hello world", i)
-  }
-}
-```
+<FileBlock showLineNumbers file="hello.go">
+</FileBlock>
 
 </TabItem>
 </Tabs>
@@ -58,39 +34,15 @@ func main() {
 <Tabs>
 <TabItem value="md" label="markdown 写法">
 
-````md {1}
-```go title="main.go"
-package main
-
-import (
-  "fmt"
-)
-
-func main() {
-  for i := 0; i < 10; i++ {
-    fmt.Println("hello world", i)
-  }
-}
-```
-````
+<FileBlock file="set-title.md">
+</FileBlock>
 
 </TabItem>
 
 <TabItem value="go" label="效果">
 
-```go title="main.go"
-package main
-
-import (
-  "fmt"
-)
-
-func main() {
-  for i := 0; i < 10; i++ {
-    fmt.Println("hello world", i)
-  }
-}
-```
+<FileBlock title="main.go" file="hello.go">
+</FileBlock>
 
 </TabItem>
 </Tabs>
@@ -623,7 +575,6 @@ class HelloWorld {
 
 </TabItem>
 </Tabs>
-
 
 ## 参考资料
 
