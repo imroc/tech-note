@@ -1,30 +1,23 @@
 ---
-sidebar_position: 40.01
+sidebar_position: 41
 ---
 
 # 代码块
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 ## 显示行号
 
 在元数据处加上 `showLineNumbers` 即可：
 
 <Tabs>
-<TabItem value="md" label="markdown 写法">
+  <TabItem value="md" label="markdown 写法">
+    <FileBlock file="show-line-numbers.md">
+    </FileBlock>
+  </TabItem>
 
-<FileBlock file="show-line-numbers.md">
-</FileBlock>
-
-</TabItem>
-
-<TabItem value="go" label="效果">
-
-<FileBlock showLineNumbers file="hello.go">
-</FileBlock>
-
-</TabItem>
+  <TabItem value="go" label="效果">
+    <FileBlock showLineNumbers file="hello.go">
+    </FileBlock>
+  </TabItem>
 </Tabs>
 
 ## 显示文件名
@@ -32,19 +25,15 @@ import TabItem from '@theme/TabItem';
 在元数据处加上 `title="xxx"`:
 
 <Tabs>
-<TabItem value="md" label="markdown 写法">
+  <TabItem value="md" label="markdown 写法">
+    <FileBlock file="set-title.md">
+    </FileBlock>
+  </TabItem>
 
-<FileBlock file="set-title.md">
-</FileBlock>
-
-</TabItem>
-
-<TabItem value="go" label="效果">
-
-<FileBlock title="main.go" file="hello.go">
-</FileBlock>
-
-</TabItem>
+  <TabItem value="go" label="效果">
+    <FileBlock title="main.go" file="hello.go">
+    </FileBlock>
+  </TabItem>
 </Tabs>
 
 
