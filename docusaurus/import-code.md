@@ -45,7 +45,7 @@ npm install --save raw-loader path-browserify
 
 存放到 `codeblock` 目录下的所有文件用于代码文件的导入，不单独渲染页面，配置 `plugin-content-docs` 插件在生成页面时忽略该目录下的文件：
 
-```js
+```js showLineNumbers title="docusaurus.config.js"
 plugins: [
     [
       /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
