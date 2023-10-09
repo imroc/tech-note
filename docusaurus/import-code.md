@@ -2,7 +2,7 @@
 sidebar_position: 42
 ---
 
-# 导入代码文件
+# 导入代码文件到代码块
 
 ## 背景
 
@@ -18,6 +18,8 @@ Docusaurus 官方提供了 [Importing code snippets](https://docusaurus.io/docs/
 
 1. 所有标签无需显式 import。
 2. 使用 `FileBlock` 标签导入代码文件，可指定代码文件路径，无需显式读取和传递文件内容。
+3. 可根据文件后缀自动识别语言类型进行语法高亮渲染。
+4. 可选显示文件名，也可以手动设置文件名。
 
 ### 安装依赖
 
@@ -38,3 +40,63 @@ npm install --save raw-loader path-browserify
 
 <FileBlock showLineNumbers file="MDXComponents.tsx" title="src/theme/MDXComponents.tsx">
 </FileBlock>
+
+### 配置插件
+
+存放到 `codeblock` 目录下的所有文件用于代码文件的导入，不单独渲染页面，配置 `plugin-content-docs` 插件在生成页面时忽略该目录下的文件：
+
+```js
+plugins: [
+    [
+      /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
+      '@docusaurus/plugin-content-docs',
+      ({
+        id: 'kubernetes',
+        path: 'kubernetes',
+        // highlight-next-line
+        exclude: ['codeblock/**'],
+        routeBasePath: '/kubernetes',
+        sidebarPath: require.resolve('./kubernetes/sidebars.js'),
+        remarkPlugins: [
+          [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
+        ],
+        editUrl: ({ docPath }) =>
+          `https://github.com/imroc/kubernetes-guide/edit/master/${docPath}`,
+      }),
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
+      ({
+        id: 'istio',
+        path: 'istio',
+        // highlight-next-line
+        exclude: ['codeblock/**'],
+        routeBasePath: '/istio',
+        sidebarPath: require.resolve('./istio/sidebars.js'),
+        remarkPlugins: [
+          [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
+        ],
+        editUrl: ({ docPath }) =>
+          `https://github.com/imroc/istio-guide/edit/master/${docPath}`,
+      }),
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
+      ({
+        id: 'note',
+        path: 'note',
+        // highlight-next-line
+        exclude: ['codeblock/**'],
+        routeBasePath: '/note',
+        sidebarPath: require.resolve('./note/sidebars.js'),
+        remarkPlugins: [
+          [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
+        ],
+        editUrl: ({ docPath }) =>
+          `https://github.com/imroc/imroc.cc/edit/master/note/${docPath}`,
+      }),
+    ],
+  ]
+```
