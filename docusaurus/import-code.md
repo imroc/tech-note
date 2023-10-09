@@ -105,31 +105,63 @@ npm install --save raw-loader path-browserify
 
 <Tabs>
   <TabItem value="file" label="指定代码文件路径">
-    ````md
-    <FileBlock file="test/hello.go">
-    </FileBlock>
-    ````
+    <Tabs>
+      <TabItem value="md-file" label="markdown 写法">
+        ````md
+        <FileBlock file="demo/hello.go">
+        </FileBlock>
+        ````
+      </TabItem>
+      <TabItem value="demo-file" label="效果">
+        <FileBlock file="demo/hello.go">
+        </FileBlock>
+      </TabItem>
+    </Tabs>
   </TabItem>
 
   <TabItem value="showLineNumbers" label="显示行号">
-    ````md
-    <FileBlock showLineNumbers file="test/hello.go">
-    </FileBlock>
-    ````
+    <Tabs>
+      <TabItem value="md-showLineNumbers" label="markdown 写法">
+        ````md
+        <FileBlock showLineNumbers file="demo/hello.go">
+        </FileBlock>
+        ````
+      </TabItem>
+      <TabItem value="demo-showLineNumbers" label="效果">
+        <FileBlock showLineNumbers  file="demo/hello.go">
+        </FileBlock>
+      </TabItem>
+    </Tabs>
   </TabItem>
 
   <TabItem value="showFileName" label="显示文件名">
-    ````md
-    <FileBlock showFileName file="test/hello.go">
-    </FileBlock>
-    ````
+    <Tabs>
+      <TabItem value="md-showFileName" label="markdown 写法">
+        ````md
+        <FileBlock showFileName file="demo/hello.go">
+        </FileBlock>
+        ````
+      </TabItem>
+      <TabItem value="demo-showFileName" label="效果">
+        <FileBlock showFileName file="demo/hello.go">
+        </FileBlock>
+      </TabItem>
+    </Tabs>
   </TabItem>
 
   <TabItem value="title" label="手动指定文件名">
-    ````md
-    <FileBlock file="test/hello.go" title="main.go">
-    </FileBlock>
-    ````
+    <Tabs>
+      <TabItem value="md-title" label="markdown 写法">
+        ````md
+        <FileBlock file="demo/hello.go" title="main.go">
+        </FileBlock>
+        ````
+      </TabItem>
+      <TabItem value="demo-title" label="效果">
+        <FileBlock file="demo/hello.go" title="main.go">
+        </FileBlock>
+      </TabItem>
+    </Tabs>
   </TabItem>
 </Tabs>
 
