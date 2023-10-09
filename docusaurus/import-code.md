@@ -104,6 +104,7 @@ npm install --save raw-loader path-browserify
 ## 在 markdown 中使用 FileBlock 引用代码文件
 
 <Tabs>
+
   <TabItem value="file" label="指定代码文件路径">
     <Tabs>
       <TabItem value="md-file" label="markdown 写法">
@@ -163,5 +164,6 @@ npm install --save raw-loader path-browserify
       </TabItem>
     </Tabs>
   </TabItem>
+
 </Tabs>
 
