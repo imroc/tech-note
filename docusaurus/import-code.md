@@ -100,3 +100,36 @@ npm install --save raw-loader path-browserify
     ],
   ]
 ```
+
+## 在 markdown 中使用 FileBlock 标签引用文件
+
+<Tabs>
+  <TabItem value="file" label="指定代码文件路径">
+    ````md
+    <FileBlock file="test/hello.go">
+    </FileBlock>
+    ````
+  </TabItem>
+
+  <TabItem value="showLineNumbers" label="显示行号">
+    ````md
+    <FileBlock showLineNumbers file="test/hello.go">
+    </FileBlock>
+    ````
+  </TabItem>
+
+  <TabItem value="showFileName" label="显示文件名">
+    ````md
+    <FileBlock showFileName file="test/hello.go">
+    </FileBlock>
+    ````
+  </TabItem>
+
+  <TabItem value="title" label="手动指定文件名">
+    ````md
+    <FileBlock file="test/hello.go" title="main.go">
+    </FileBlock>
+    ````
+  </TabItem>
+</Tabs>
+
