@@ -167,3 +167,16 @@ npm install --save raw-loader path-browserify
 
 </Tabs>
 
+## 结合 Tab 与 TabItem 实现多标签代码块
+
+import MultiTab from '../_codeblock/demo/multi-tab.md';
+
+<Tabs>
+  <TabItem value="md" label="markdown 写法">
+    <FileBlock file="demo/multi-tab.md">
+    </FileBlock>
+  </TabItem>
+  <TabItem value="demo" label="效果">
+    <MultiTab />
+  </TabItem>
+</Tabs>
