@@ -35,7 +35,7 @@ npm install --save raw-loader path-browserify
 
 新建文件 `src/components/FileBlock.tsx`：
 
-<FileBlock showLineNumbers file="FileBlock.tsx" title="src/components/FileBlock.tsx">
+<FileBlock showLineNumbers file="@site/src/components/FileBlock.tsx" title="src/components/FileBlock.tsx">
 </FileBlock>
 
 ### 扩展 MDXComponents
