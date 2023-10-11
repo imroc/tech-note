@@ -14,13 +14,11 @@ import FileBlock from '@site/src/components/FileBlock'
 
 <Tabs>
   <TabItem value="md" label="markdown 写法">
-    <FileBlock file="show-line-numbers.md">
-    </FileBlock>
+    <FileBlock file="show-line-numbers.md" />
   </TabItem>
 
   <TabItem value="go" label="效果">
-    <FileBlock showLineNumbers file="hello.go">
-    </FileBlock>
+    <FileBlock showLineNumbers file="hello.go" />
   </TabItem>
 </Tabs>
 
@@ -30,13 +28,11 @@ import FileBlock from '@site/src/components/FileBlock'
 
 <Tabs>
   <TabItem value="md" label="markdown 写法">
-    <FileBlock file="set-title.md">
-    </FileBlock>
+    <FileBlock file="set-title.md" />
   </TabItem>
 
   <TabItem value="go" label="效果">
-    <FileBlock title="main.go" file="hello.go">
-    </FileBlock>
+    <FileBlock title="main.go" file="hello.go" />
   </TabItem>
 </Tabs>
 
@@ -492,82 +488,36 @@ func main() {
 
 ## 多语言
 
-<Tabs>
-<TabItem value="mdx" label="markdown 写法">
+### inline 写法
 
-````md
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import MultiTabInline from '../_codeblock/demo/multi-tab-inline.md';
 
 <Tabs>
-<TabItem value="js" label="JavaScript">
+  <TabItem value="mdx" label="markdown 写法">
+    <FileBlock file="demo/multi-tab-inline.md" />
+  </TabItem>
 
-```js
-function helloWorld() {
-  console.log('Hello, world!');
-}
-```
-
-</TabItem>
-<TabItem value="py" label="Python">
-
-```py
-def hello_world():
-  print("Hello, world!")
-```
-
-</TabItem>
-<TabItem value="java" label="Java">
-
-```java
-class HelloWorld {
-  public static void main(String args[]) {
-    System.out.println("Hello, World");
-  }
-}
-```
-
-</TabItem>
+  <TabItem value="go" label="效果">
+    <MultiTabInline />
+  </TabItem>
 </Tabs>
-````
 
-</TabItem>
+### FileBlock 写法
 
-<TabItem value="go" label="效果">
+import MultiTab from '../_codeblock/demo/multi-tab.md';
 
 <Tabs>
-<TabItem value="js" label="JavaScript">
-
-```js
-function helloWorld() {
-  console.log('Hello, world!');
-}
-```
-
-</TabItem>
-<TabItem value="py" label="Python">
-
-```py
-def hello_world():
-  print("Hello, world!")
-```
-
-</TabItem>
-<TabItem value="java" label="Java">
-
-```java
-class HelloWorld {
-  public static void main(String args[]) {
-    System.out.println("Hello, World");
-  }
-}
-```
-
-</TabItem>
+  <TabItem value="md" label="markdown 写法">
+    <FileBlock file="demo/multi-tab.md" />
+  </TabItem>
+  <TabItem value="demo" label="效果">
+    <MultiTab />
+  </TabItem>
 </Tabs>
 
-</TabItem>
-</Tabs>
+:::info
+FileBlock 是我自己实现的标签组件，详见 [这里](fileblock.md)
+:::
 
 ## 参考资料
 

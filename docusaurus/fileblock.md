@@ -20,7 +20,6 @@ Docusaurus 官方提供了 [Importing code snippets](https://docusaurus.io/docs/
 
 由于官方方案存在的缺陷，我决定扩展出一个更好的方案：
 
-1. 所有标签无需显式 import。
 2. 使用 `FileBlock` 标签导入代码文件，可指定代码文件路径，无需显式读取和传递文件内容。
 3. 可根据文件后缀自动识别语言类型进行语法高亮渲染。
 4. 可选显示文件名，也可以手动设置文件名。
@@ -35,15 +34,13 @@ npm install --save raw-loader path-browserify
 
 新建文件 `src/components/FileBlock.tsx`：
 
-<FileBlock showLineNumbers file="@site/src/components/FileBlock.tsx" title="src/components/FileBlock.tsx">
-</FileBlock>
+<FileBlock showLineNumbers file="@site/src/components/FileBlock.tsx" title="src/components/FileBlock.tsx" />
 
 ### 扩展 MDXComponents
 
 新建文件 `src/theme/MDXComponents.tsx` 来扩展默认的 `MDXComponents`：
 
-<FileBlock showLineNumbers file="MDXComponents.tsx" title="src/theme/MDXComponents.tsx">
-</FileBlock>
+<FileBlock showLineNumbers file="MDXComponents.tsx" title="src/theme/MDXComponents.tsx" />
 
 ### 配置插件
 
@@ -113,13 +110,11 @@ npm install --save raw-loader path-browserify
     <Tabs>
       <TabItem value="md-file" label="markdown 写法">
         ````md
-        <FileBlock file="demo/hello.go">
-        </FileBlock>
+        <FileBlock file="demo/hello.go" />
         ````
       </TabItem>
       <TabItem value="demo-file" label="效果">
-        <FileBlock file="demo/hello.go">
-        </FileBlock>
+        <FileBlock file="demo/hello.go" />
       </TabItem>
     </Tabs>
   </TabItem>
@@ -128,13 +123,11 @@ npm install --save raw-loader path-browserify
     <Tabs>
       <TabItem value="md-showLineNumbers" label="markdown 写法">
         ````md
-        <FileBlock showLineNumbers file="demo/hello.go">
-        </FileBlock>
+        <FileBlock showLineNumbers file="demo/hello.go" />
         ````
       </TabItem>
       <TabItem value="demo-showLineNumbers" label="效果">
-        <FileBlock showLineNumbers  file="demo/hello.go">
-        </FileBlock>
+        <FileBlock showLineNumbers  file="demo/hello.go" />
       </TabItem>
     </Tabs>
   </TabItem>
@@ -143,13 +136,11 @@ npm install --save raw-loader path-browserify
     <Tabs>
       <TabItem value="md-showFileName" label="markdown 写法">
         ````md
-        <FileBlock showFileName file="demo/hello.go">
-        </FileBlock>
+        <FileBlock showFileName file="demo/hello.go" />
         ````
       </TabItem>
       <TabItem value="demo-showFileName" label="效果">
-        <FileBlock showFileName file="demo/hello.go">
-        </FileBlock>
+        <FileBlock showFileName file="demo/hello.go" />
       </TabItem>
     </Tabs>
   </TabItem>
@@ -158,13 +149,11 @@ npm install --save raw-loader path-browserify
     <Tabs>
       <TabItem value="md-title" label="markdown 写法">
         ````md
-        <FileBlock file="demo/hello.go" title="main.go">
-        </FileBlock>
+        <FileBlock file="demo/hello.go" title="main.go" />
         ````
       </TabItem>
       <TabItem value="demo-title" label="效果">
-        <FileBlock file="demo/hello.go" title="main.go">
-        </FileBlock>
+        <FileBlock file="demo/hello.go" title="main.go" />
       </TabItem>
     </Tabs>
   </TabItem>
@@ -177,8 +166,7 @@ import MultiTab from '../_codeblock/demo/multi-tab.md';
 
 <Tabs>
   <TabItem value="md" label="markdown 写法">
-    <FileBlock file="demo/multi-tab.md">
-    </FileBlock>
+    <FileBlock file="demo/multi-tab.md" />
   </TabItem>
   <TabItem value="demo" label="效果">
     <MultiTab />
