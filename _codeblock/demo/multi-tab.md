@@ -1,6 +1,6 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import FileBlock from '@site/src/components/FileBlock'
+import FileBlock from '@site/src/components/FileBlock';
 
 <Tabs>
   <TabItem value="js" label="JavaScript">

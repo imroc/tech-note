@@ -4,7 +4,7 @@ sidebar_position: 42
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import FileBlock from '@site/src/components/FileBlock'
+import FileBlock from '@site/src/components/FileBlock';
 
 # 导入代码文件到代码块
 

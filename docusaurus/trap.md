@@ -4,7 +4,7 @@ sidebar_position: 42
 
 # 踩过的坑
 
-import FileBlock from '@site/src/components/FileBlock'
+import FileBlock from '@site/src/components/FileBlock';
 
 ## 扩展 MDXComponents 默认 import 导致内存占用过高
 
