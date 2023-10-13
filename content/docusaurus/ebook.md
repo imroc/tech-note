@@ -1,4 +1,10 @@
+---
+sidebar_position: 50
+---
+
 # 使用 docusaurus 构建开源电子书
+
+import FileBlock from '@site/src/components/FileBlock';
 
 ## 创建电子书
 
@@ -14,7 +20,9 @@ npm install --save docusaurus-plugin-sass sass @giscus/react raw-loader path-bro
 
 ## 自定义样式
 
-将 `src/css/custom.css` 重命名为 `src/css/custom.scss`，贴入以下内容：
+将 `src/css/custom.css` 重命名为 `src/css/custom.scss`，覆盖为以下内容：
+
+<FileBlock showLineNumbers file="@site/src/css/custom.scss" title="src/css/custom.scss" />
 
 ## 清理不需要的文件
 
@@ -29,75 +37,12 @@ rm -rf static/img/*
 rm sidebars.js
 ```
 
-## 启用 giscus 评论
+## 创建自定义组件
 
-`src/components/Comment.tsx`:
+### giscus 评论组件
 
-```ts
-import React from 'react'
-import { useThemeConfig, useColorMode } from '@docusaurus/theme-common'
-import BrowserOnly from '@docusaurus/BrowserOnly'
-import Giscus, { GiscusProps } from '@giscus/react'
-import { useLocation } from '@docusaurus/router';
+<FileBlock showLineNumbers file="@site/src/components/Comment.tsx" title="src/components/Comment.tsx" />
 
-const defaultConfig: Partial<GiscusProps> = {
-  id: 'comments',
-  mapping: 'specific',
-  reactionsEnabled: '1',
-  emitMetadata: '0',
-  inputPosition: 'top',
-  loading: 'lazy',
-  strict: '0',
-  lang: 'zh-CN',
-}
-
-export default function Comment(): JSX.Element {
-  const themeConfig = useThemeConfig()
-
-  // merge default config
-  const giscus = { ...defaultConfig, ...themeConfig.giscus }
-
-  if (!giscus.repo || !giscus.repoId || !giscus.categoryId) {
-    throw new Error(
-      'You must provide `repo`, `repoId`, and `categoryId` to `themeConfig.giscus`.',
-    )
-  }
-
-  const path = useLocation().pathname.replace(/^\/|\/$/g, '');
-  const firstSlashIndex = path.indexOf('/');
-  var subPath: string = ""
-  if (firstSlashIndex !== -1) {
-    subPath = path.substring(firstSlashIndex + 1)
-  } else {
-    subPath = "index"
-  }
-
-  giscus.term = subPath
-  giscus.theme =
-    useColorMode().colorMode === 'dark' ? 'transparent_dark' : 'light'
-
-  return (
-    <BrowserOnly fallback={<div>评论加载中...</div>}>
-      {() => <Giscus {...giscus} />}
-    </BrowserOnly>
-  )
-}
-```
-
-```js
-  themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
-      giscus: {
-        repo: 'imroc/kubernetes-guide',
-        repoId: 'R_kgDOG-4vhA',
-        category: 'General',
-        categoryId: 'DIC_kwDOG-4vhM4COPpN',
-      },
-```
-
-## 增强代码块 FileBlock
-
- `src/components/FileBlock.tsx`：
+### 增强代码块 FileBlock
 
 <FileBlock showLineNumbers file="@site/src/components/FileBlock.tsx" title="src/components/FileBlock.tsx" />
