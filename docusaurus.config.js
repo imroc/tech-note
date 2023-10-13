@@ -98,10 +98,10 @@ const config = {
       // },
       // giscus 评论功能
       giscus: {
-        repo: 'imroc/note',
-        repoId: 'R_kgDOG-4vhA',
+        repo: 'imroc/tech-note',
+        repoId: 'R_kgDOKZP5NA',
         category: 'General',
-        categoryId: 'DIC_kwDOG-4vhM4COPpN',
+        categoryId: 'DIC_kwDOKZP5NM4CaGZY',
       },
       navbar: {
         title: '技术笔记', // 左上角的电子书名称
