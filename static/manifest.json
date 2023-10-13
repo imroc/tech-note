@@ -1,0 +1,21 @@
+{
+  "name": "技术笔记",
+  "short_name": "技术笔记",
+  "theme_color": "#12affa",
+  "background_color": "#424242",
+  "display": "standalone",
+  "scope": "https://imroc.cc/note/",
+  "start_url": "https://imroc.cc/note/",
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://imroc.cc/note/manifest.json"
+    }
+  ],
+  "icons": [
+    {
+      "src": "img/logo.svg",
+      "sizes": "any"
+    }
+  ]
+}
