@@ -1,3 +1,7 @@
+---
+sidebar_position: 42
+---
+
 # 扩展 MDXComponents 默认 import
 
 ## 背景
