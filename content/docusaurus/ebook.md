@@ -4,8 +4,6 @@ sidebar_position: 50
 
 # 使用 docusaurus 构建开源电子书
 
-import FileBlock from '@site/src/components/FileBlock';
-
 ## 创建电子书
 
 ```bash npm2yarn

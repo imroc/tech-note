@@ -2,10 +2,6 @@
 sidebar_position: 42
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import FileBlock from '@site/src/components/FileBlock';
-
 # 创建 FileBlock 自定义组件
 
 ## 背景
