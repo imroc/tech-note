@@ -6,7 +6,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import FileBlock from '@site/src/components/FileBlock';
 
-# 导入代码文件到代码块
+# 创建 FileBlock 自定义组件
 
 ## 背景
 
@@ -19,30 +19,29 @@ Docusaurus 官方提供了 [Importing code snippets](https://docusaurus.io/docs/
 ## 基于 CodeBlock 实现 FileBlock
 
 由于官方方案存在的缺陷，我决定扩展出一个更好的方案：
+1. 使用 `FileBlock` 标签导入代码文件，可指定代码文件路径，无需显式读取和传递文件内容。
+2. 可根据文件后缀自动识别语言类型进行语法高亮渲染。
+3. 可选显示文件名，也可以手动设置文件名。
 
-2. 使用 `FileBlock` 标签导入代码文件，可指定代码文件路径，无需显式读取和传递文件内容。
-3. 可根据文件后缀自动识别语言类型进行语法高亮渲染。
-4. 可选显示文件名，也可以手动设置文件名。
-
-### 安装依赖
+## 安装依赖
 
 ```bash npm2yarn
 npm install --save raw-loader path-browserify
 ```
 
-### 创建 FileBlock 组件
+## 创建 FileBlock 组件
 
 新建文件 `src/components/FileBlock.tsx`：
 
 <FileBlock showLineNumbers file="@site/src/components/FileBlock.tsx" title="src/components/FileBlock.tsx" />
 
-### 扩展 MDXComponents
+## 扩展 MDXComponents
 
 新建文件 `src/theme/MDXComponents.tsx` 来扩展默认的 `MDXComponents`：
 
 <FileBlock showLineNumbers file="MDXComponents.tsx" title="src/theme/MDXComponents.tsx" />
 
-### 配置插件
+## 配置插件
 
 存放到 `codeblock` 目录下的所有文件用于代码文件的导入，不单独渲染页面，配置 `plugin-content-docs` 插件在生成页面时忽略该目录下的文件：
 
@@ -55,7 +54,6 @@ npm install --save raw-loader path-browserify
         id: 'kubernetes',
         path: 'kubernetes',
         // highlight-next-line
-        exclude: ['codeblock/**'],
         routeBasePath: '/kubernetes',
         sidebarPath: require.resolve('./kubernetes/sidebars.js'),
         remarkPlugins: [
@@ -72,7 +70,6 @@ npm install --save raw-loader path-browserify
         id: 'istio',
         path: 'istio',
         // highlight-next-line
-        exclude: ['codeblock/**'],
         routeBasePath: '/istio',
         sidebarPath: require.resolve('./istio/sidebars.js'),
         remarkPlugins: [
