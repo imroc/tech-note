@@ -14,6 +14,7 @@ import Unlisted from '@theme/Unlisted';
 import type { Props } from '@theme/DocItem/Layout';
 
 import styles from './styles.module.css';
+// highlight-add-line
 import Comment from '../../../components/Comment';
 
 /**
@@ -42,8 +43,10 @@ function useDocTOC() {
 
 export default function DocItemLayout({ children }: Props): JSX.Element {
   const docTOC = useDocTOC();
+  // highlight-add-start
   const { frontMatter } = useDoc();
   const { hide_comment: hideComment } = frontMatter;
+  // highlight-add-end
   const {
     metadata: { unlisted },
   } = useDoc();
@@ -62,6 +65,7 @@ export default function DocItemLayout({ children }: Props): JSX.Element {
           </article>
           <DocItemPaginator />
         </div>
+        // highlight-add-line
         {!hideComment && <Comment />}
       </div>
       {docTOC.desktop && <div className="col col--3">{docTOC.desktop}</div>}
