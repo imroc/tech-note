@@ -65,7 +65,7 @@ export default function DocItemLayout({ children }: Props): JSX.Element {
           </article>
           <DocItemPaginator />
         </div>
-        // highlight-add-line
+        {/* highlight-add-line */}
         {!hideComment && <Comment />}
       </div>
       {docTOC.desktop && <div className="col col--3">{docTOC.desktop}</div>}
