@@ -1,4 +1,6 @@
-## 编译 kiali 镜像
+# 编译 kiali 镜像
+
+## 编译前端代码
 
 首先进入 kiali 项目目录，编译前端代码：
 
@@ -6,20 +8,20 @@
 yarn && yarn build
 ```
 
-再编译后端二进制：
+## 编译二进制
 
 ```bash
 make build
 ```
 
-最后编译镜像：
+## 编译镜像
 
 ```bash
 export CONTAINER_NAME=imroc/kiali
 make container-build-kiali
 ```
 
-重新 tag：
+## 重新 tag
 
 ```bash
 docker tag quay.io/kiali/kiali:dev imroc/kiali:dev
@@ -27,7 +29,7 @@ docker tag quay.io/kiali/kiali:dev imroc/kiali:dev
 
 需要测试的话就自行 push 并替换kiali镜像。
 
-## 注意
+## 注意事项
 
 新版 istio  的 `15014:/debug/endpointz`  接口有 breaking change，导致 kiali 报错:
 
