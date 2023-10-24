@@ -111,7 +111,7 @@ const config = {
         },
         items: [
           {
-            href: 'https://github.com/imroc/kubenretes-guide', // 改成自己的仓库地址
+            href: 'https://github.com/imroc/tech-note', // 改成自己的仓库地址
             label: 'GitHub',
             position: 'right',
           },
