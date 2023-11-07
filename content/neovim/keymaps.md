@@ -23,15 +23,17 @@
 
 ## Git
 
-| 快捷键       | 描述                                         | 
-| ------------ | -------------------------------------------- | 
-| `<leader>gh` | Git History                                  |
-| `<leader>gs` | Git Status ( 用 telescope 列出有改动的文件 ) |
-| `<leader>gS` | Git Status ( 用 Diffview 查看有改动的文件 )  |
-| `<leader>gt` | 打开 tig (cwd)                               |
-| `<leader>gT` | 打开 tig (root dir)                          |
-| `<leader>gx` | 关闭 Diffview                                |
-| `<leader>gH` | telescope 打开 GitHub 菜单                   |
+| 快捷键       | 描述                                                | 
+| ------------ | --------------------------------------------------- | 
+| `<leader>gh` | Git History                                         |
+| `<leader>gs` | Git Status ( 用 telescope 列出有改动的文件 )        |
+| `<leader>gS` | Git Status ( 用 Diffview 查看有改动的文件 )         |
+| `<leader>gd` | Git Diff ( 用 Diffview 查看当前文件的改动 )         |
+| `<leader>gd` | Toggle Git Diff ( 用 Git Signs 查看当前文件的改动 ) |
+| `<leader>gt` | 打开 tig (cwd)                                      |
+| `<leader>gT` | 打开 tig (root dir)                                 |
+| `<leader>gx` | 关闭 Diffview                                       |
+| `<leader>gH` | telescope 打开 GitHub 菜单                          |
 
 ## Markdown
 
@@ -43,6 +45,6 @@
 
 ## K8S
 
-| 快捷键 | 描述 | 
-| ------ | ------ | 
-| `gk`   |打开k9s |
+| 快捷键 | 描述    | 
+| ------ | ------- | 
+| `gk`   | 打开k9s |
