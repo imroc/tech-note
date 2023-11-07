@@ -21,3 +21,28 @@
 | `gs`         | 搜文本(在 neotree 中聚焦的目录下)           |
 | `gS`         | 搜文本(在 neotree 中聚焦的目录下且使用参数) |
 
+## Git
+
+| 快捷键       | 描述                                         | 
+| ------------ | -------------------------------------------- | 
+| `<leader>gh` | Git History                                  |
+| `<leader>gs` | Git Status ( 用 telescope 列出有改动的文件 ) |
+| `<leader>gS` | Git Status ( 用 Diffview 查看有改动的文件 )  |
+| `<leader>gt` | 打开 tig (cwd)                               |
+| `<leader>gT` | 打开 tig (root dir)                          |
+| `<leader>gx` | 关闭 Diffview                                |
+| `<leader>gH` | telescope 打开 GitHub 菜单                   |
+
+## Markdown
+
+| 快捷键           | 描述                     | 
+| ---------------- | ------------------------ | 
+| `<localleader>f` | 格式化当前表格           |
+| `<localleader>p` | 浏览器预览或关闭当前文档 |
+
+## K8S
+
+| 快捷键           | 描述                     | 
+| ---------------- | ------------------------ | 
+| `gk` |打开k9s|
+| `<localleader>p` | 浏览器预览或关闭当前文档 |
