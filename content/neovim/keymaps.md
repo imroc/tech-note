@@ -21,19 +21,29 @@
 | `gs`         | 搜文本(在 neotree 中聚焦的目录下)           |
 | `gS`         | 搜文本(在 neotree 中聚焦的目录下且使用参数) |
 
+## 标签页
+
+| 快捷键      | 描述             | 
+| ----------- | ---------------- | 
+| `<leader>o` | 只保留当前标签页 |
+
 ## Git
 
-| 快捷键       | 描述                                                | 
-| ------------ | --------------------------------------------------- | 
-| `<leader>gh` | Git History                                         |
-| `<leader>gs` | Git Status ( 用 telescope 列出有改动的文件 )        |
-| `<leader>gS` | Git Status ( 用 Diffview 查看有改动的文件 )         |
-| `<leader>gd` | Git Diff ( 用 Diffview 查看当前文件的改动 )         |
-| `<leader>gd` | Toggle Git Diff ( 用 Git Signs 查看当前文件的改动 ) |
-| `<leader>gt` | 打开 tig (cwd)                                      |
-| `<leader>gT` | 打开 tig (root dir)                                 |
-| `<leader>gx` | 关闭 Diffview                                       |
-| `<leader>gH` | telescope 打开 GitHub 菜单                          |
+| 快捷键       | 描述                                              | 
+| ------------ | ------------------------------------------------- | 
+| `<leader>gh` | Git History                                       |
+| `<leader>gf` | Git History (当前文件)                            |
+| `<leader>gs` | Git Status (用 telescope 列出有改动的文件)        |
+| `<leader>gS` | Git Status (用 Diffview 查看有改动的文件)         |
+| `<leader>gd` | Git Diff (用 Diffview 查看当前文件的改动)         |
+| `<leader>gd` | Toggle Git Diff (用 Git Signs 查看当前文件的改动) |
+| `<leader>gt` | 打开 tig (root dir)                               |
+| `<leader>gT` | 打开 tig (cwd)                                    |
+| `<leader>gg` | 打开 lazygit (root dir)                           |
+| `<leader>gG` | 打开 lazygit (cwd)                                |
+| `<leader>gx` | 关闭 Diffview                                     |
+| `<leader>ge` | 打开 Git Explorer                                 |
+| `<leader>gH` | 打开 GitHub 菜单                                  |
 
 ## Markdown
 
