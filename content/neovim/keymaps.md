@@ -68,3 +68,4 @@
 | `zR`         | 展开所有未改动的行 |
 | `zM`         | 隐藏所有为改动的行 |
 | `<leader>gx` | 关闭 Diffview      |
+| `gf`         | Diffview           |
