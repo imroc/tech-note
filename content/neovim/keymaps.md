@@ -96,5 +96,3 @@
 | `<leader>w-`  | 窗口上下分割   |
 | `<leader>wd`  | 删除窗口       |
 | `<leader>ww`  | 切换到其它窗口 |
-
-| `<leader>ww`  | 切换到其它窗口 |
