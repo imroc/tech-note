@@ -38,7 +38,14 @@ mvn exec:java -Dexec.mainClass="com.demo.hello.App" -Dexec.args="arg0 arg1 arg2"
 
 修改 `pom.xml` （注意高亮部分）：
 
-<FileBlock file="java/package-jar-pom.xml" showLineNumbers />
+<Tabs>
+  <TabItem value="1" label="方式一">
+    <FileBlock file="java/package-jar-pom-1.xml" showLineNumbers />
+  </TabItem>
+  <TabItem value="2" label="方式二">
+    <FileBlock file="java/package-jar-pom-2.xml" showLineNumbers />
+  </TabItem>
+</Tabs>
 
 然后执行打包：
 

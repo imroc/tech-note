@@ -15,7 +15,7 @@
     <maven.compiler.target>19</maven.compiler.target>
   </properties>
   <build>
-    <!-- 指定项目最终生成的 jar 文件名，建议固定下来，方便在 Dockerfile 中 COPY 固定文件名 -->
+    <!-- 指定项目最终生成的 jar 文件名，如果是编译容器镜像，建议写上，将 jar 文件名固定下来，方便在 Dockerfile 中引用 -->
     <!-- highlight-next-line -->
     <finalName>hello</finalName>
     <plugins>
