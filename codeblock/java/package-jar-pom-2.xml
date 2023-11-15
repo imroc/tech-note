@@ -9,7 +9,9 @@
   <url>http://maven.apache.org</url>
   <properties>
     <!-- 指定 maven 编译时用的 jdk 版本，与 maven 基础镜像中的版本一致 -->
+    <!-- highlight-next-line -->
     <maven.compiler.source>19</maven.compiler.source>
+    <!-- highlight-next-line -->
     <maven.compiler.target>19</maven.compiler.target>
   </properties>
   <build>
