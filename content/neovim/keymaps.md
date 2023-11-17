@@ -122,6 +122,7 @@
 | `<leader>o`  | 删除所有其它 Buffer       |
 | `<leader>bl` | 删除所有左边的 Buffer     |
 | `<leader>br` | 删除所有右边的 Buffer     |
+| `gb`         | 跳转到指定 buffer         |
 
 ## Debug
 
