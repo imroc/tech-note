@@ -110,6 +110,19 @@
 | `<leader>;`      | 关闭标签页     |
 | `<leader><Tab>d` | 关闭标签页     |
 
+## Tab
+
+| 快捷键       | 描述                      |
+| ------------ | ------------------------- |
+| `<leader>bb` | 切换到另一个 buffer       |
+| `<leader>bd` | 删除 Buffer               |
+| `<leader>bp` | 对 Buffer 标记/取消标记   |
+| `<leader>bP` | 删除所有没打标记的 Buffer |
+| `<leader>bo` | 删除所有其它 Buffer       |
+| `<leader>o`  | 删除所有其它 Buffer       |
+| `<leader>bl` | 删除所有左边的 Buffer     |
+| `<leader>br` | 删除所有右边的 Buffer     |
+
 ## Debug
 
 | 快捷键       | 描述               |
