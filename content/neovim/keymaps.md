@@ -51,6 +51,7 @@
 | `<leader>gx` | 关闭 Diffview                                     |
 | `<leader>ge` | 打开 Git Explorer                                 |
 | `<leader>gH` | 打开 GitHub 菜单                                  |
+| `<leader>gb` | 显示当前文件中所有行的 Git Blame                  |
 
 ## Markdown
 
@@ -71,7 +72,9 @@
 | 快捷键       | 描述               | 
 | ------------ | ------------------ | 
 | `]c`         | 下一个改动         |
+| `<M-.>`      | 下一个改动         |
 | `[c`         | 上一个改动         |
+| `<M-,>`      | 上一个改动         |
 | `zR`         | 展开所有未改动的行 |
 | `zM`         | 隐藏所有为改动的行 |
 | `<leader>gx` | 关闭 Diffview      |
@@ -96,3 +99,23 @@
 | `<leader>w-`  | 窗口上下分割   |
 | `<leader>wd`  | 删除窗口       |
 | `<leader>ww`  | 切换到其它窗口 |
+
+## Tab
+
+| 快捷键           | 描述           |
+| ---------------- | -------------- |
+| `<leader>>`      | 下一个标签页   |
+| `<leader><`      | 上一个标签页   |
+| `<leader><Tab>o` | 选择标签页打开 |
+| `<leader><Tab>d` | 关闭标签页     |
+
+## Debug
+
+| 快捷键       | 描述               |
+| ------------ | ------------------ |
+| `<leader>du` | 打开调试UI         |
+| `<leader>dc` | 开始调试(Continue) |
+| `<M-L>`      | Step Into          |
+| `<M-H>`      | Step Out           |
+| `<M-J>`      | Step Over          |
+| `<M-K>`      | Continue           |
