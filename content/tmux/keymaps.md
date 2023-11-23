@@ -34,13 +34,14 @@
 
 ## Session
 
-| 快捷键   | 描述                 |     
-| -------- | -------------------- | 
-| `<C-a>s` | 列出 Session         |
-| `<C-a>)` | 跳转到下一个 Session |
-| `<C-a>(` | 跳转到上一个 Session |
-| `<C-a>d` | Detach Session       |
-| `<C-a>$` | 重命名 Session       |
+| 快捷键       | 描述                 |
+| ------------ | -------------------- |
+| `<C-a>s`     | 列出 Session         |
+| `<C-a>)`     | 跳转到下一个 Session |
+| `<C-a>(`     | 跳转到上一个 Session |
+| `<C-a>d`     | Detach Session       |
+| `<C-a>$`     | 重命名 Session       |
+| `<C-a><C-c>` | 新建 Session         |
 
 ## 其它
 
