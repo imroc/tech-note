@@ -179,6 +179,7 @@ const config: Config = {
           'hcl',
           'bash',
           'diff',
+          'scss',
         ],
       },
     }),
