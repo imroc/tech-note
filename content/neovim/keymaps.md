@@ -88,7 +88,7 @@
 | ------- | ----------------------------- |
 | `<M-u>` | 终端进入 Normal 模式          |
 | `<C-/>` | 打开终端(root dir)            |
-| `gt`    | 打开终端(当前文件的 [root](2023-11-17_root.md) dir) |
+| `gt`    | 打开终端(当前文件的 root dir) |
 | `gT`    | 打开终端(当前文件目录)        |
 
 ## 窗口
@@ -124,7 +124,7 @@
 | `<leader>o`  | 删除所有其它 Buffer       |
 | `<leader>bl` | 删除所有左边的 Buffer     |
 | `<leader>br` | 删除所有右边的 Buffer     |
-| `gb`         | 跳转到指定 buffer         |
+| `<leader>,`         | 跳转到指定 buffer         |
 
 ## Debug
 

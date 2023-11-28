@@ -1,13 +1,9 @@
-// @ts-check
-// `@type` JSDoc annotations allow editor autocompletion and type checking
-// (when paired with `@ts-check`).
-// There are various equivalent ways to declare your Docusaurus config.
-// See: https://docusaurus.io/docs/api/docusaurus-config
+import PrismDark from './src/utils/prismDark';
+import type { Config } from '@docusaurus/types';
 
 const beian = '蜀ICP备2021009081号-1'
 
-/** @type {import('@docusaurus/types').Config} */
-const config = {
+const config: Config = {
   title: '技术笔记', // 网站标题
   tagline: '日常记录技术相关的笔记', // slogan
   favicon: 'img/logo.svg', // 电子书 favicon 文件，注意替换
@@ -64,7 +60,7 @@ const config = {
         // 文档的路由前缀
         routeBasePath: '/',
         // 左侧导航栏的配置
-        sidebarPath: require.resolve('./content/sidebars.js'),
+        sidebarPath: require.resolve('./content/sidebars.ts'),
         // 每个文档左下角 "编辑此页" 的链接
         editUrl: ({ docPath }) =>
           `https://github.com/imroc/tech-note/edit/main/content/${docPath}`,
@@ -152,7 +148,7 @@ const config = {
       },
       // 自定义代码高亮
       prism: {
-        theme: require('prism-react-renderer/themes/vsDark'),
+        theme: PrismDark,
         magicComments: [
           {
             className: 'code-block-highlighted-line',
@@ -181,9 +177,11 @@ const config = {
           'java',
           'json',
           'hcl',
+          'bash',
+          'diff',
         ],
       },
     }),
 };
 
-module.exports = config;
+export default config;
