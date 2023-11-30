@@ -156,12 +156,11 @@ dlv
     ```makefile
     .PHONY: build
     build:
-    	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/app -ldflags '-extldflags "-static"' ; \
-    	docker buildx build --platform="linux/amd64" -t myapp:latest; \
+    	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/app -ldflags '-extldflags "-static"'
     	@if [ "$(DEBUG)" != "" ]; then \
     		cp dlv bin/dlv
     	fi
-    	docker buildx build --platform="linux/amd64" -t myapp:latest; \
+    	docker buildx build --platform="linux/amd64" -t myapp:latest
     ```
 
 ### 为调试使用专属部署 yaml
@@ -174,3 +173,5 @@ dlv
               exec:
                 command: ["/bin/sh", "-c", "nohup /app/bin/dlv dap -l 0.0.0.0:40000 &"]
 ```
+
+可以考虑给 `Makefile` 增加 `deploy.debug` 目标，部署 debug 专用 yaml 到 k8s 环境中。
