@@ -180,6 +180,7 @@ const config: Config = {
           'bash',
           'diff',
           'scss',
+          'lua',
         ],
       },
     }),

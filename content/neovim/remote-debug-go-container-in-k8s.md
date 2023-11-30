@@ -10,7 +10,7 @@
 
 ## neovim 依赖插件
 
-确保 [nvim-dap](https://github.com/mfussenegger/nvim-dap) 插件安装好，且支持 go 语言调试。
+确保 [nvim-dap](https://github.com/mfussenegger/nvim-dap) 插件安装好。
 
 由于不需要在本地启动调试服务，所以不需要安装 [nvim-dap-go](https://github.com/leoluz/nvim-dap-go)。
 
