@@ -181,6 +181,8 @@ const config: Config = {
           'diff',
           'scss',
           'lua',
+          'makefile',
+          'ignore',
         ],
       },
     }),

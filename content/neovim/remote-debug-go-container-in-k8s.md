@@ -111,3 +111,55 @@ kubectl port-forward pod/<POD> 40000:40000
 ## 开始调试
 
 使用 neovim 打开 go 项目，在需要下断点的地方执行 `:DapToggleBreakpoint` 命令，然后执行 `:DapContinue` 选择调试配置，选到这里配置的 `Debug Go (Attach to Remote Process)`，然后调试就开始了，想办法按照复现条件触发一下，让进程逻辑走到断点处，然后就可以停在断点处进行调试了。
+
+## 高端玩法
+
+如果经常需要远程调试，按照前面的做法，启动调试还挺麻烦，下面介绍下高级玩法，配置更复杂，但配置完后可以让每次启动调试变得很简单。
+
+### 自动编译 dlv 二进制
+
+在项目的 `Makefile` 中加入 `dlv` 目标：
+
+```makefile
+dlv:
+	git clone --depth 1 https://github.com/go-delve/delve
+	GOOS=linux GOARCH=amd64 CGO_ENABLED=0  go build -C delve/cmd/dlv  -o ${PWD}/dlv -ldflags '-extldflags "-static"'
+	rm -rf delve #  编译完后只保留 dlv 二进制，删除 delve 源码目录
+```
+
+当第一次执行 `make dlv` 时，会自动下载 `delve` 源码并编译 `dlv` 二进制到项目根目录，后面执行 `make dlv` 时，由于已经有 `dlv` 二进制了，不会再重复进行下载和编译。
+
+同时将 `dlv` 二进制加到 `.gitignore`:
+
+```gitignore title=".gitignore"
+dlv
+```
+
+### 将 dlv 打包到 debug 镜像
+
+专门为 debug 打包容器镜像，在 `Makefile` 中判断环境变量，如果设置了 `DEBUG`，就执行编译 debug 镜像的逻辑。几种思路：
+
+1. 专门为调试新增一个 `Dockerfile`，比如 `debug.Dockerfile`，使用本机 go 命令编译 go 应用二进制，然后用 COPY 指令将其拷贝到镜像内，同时也将 `dlv` 二进制拷贝到镜像内。示例 `Makefile`:
+    ```makefile
+    .PHONY: build
+    build:
+    	@if [ "$(DEBUG)" != "" ]; then \
+    		CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o app -ldflags '-extldflags "-static"' ; \
+    		docker buildx build --platform="linux/amd64" -f debug.Dockerfile -t myapp:debug; \
+    	else \
+    		CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -o app -ldflags '-extldflags "-static"' ; \
+    		docker buildx build --platform="linux/amd64" -f Dockerfile -t myapp:latest; \
+    	fi
+    ```
+
+2. 如果 `Dockerfile` 中本身就用了 COPY 指令拷贝目录到镜像，且目录中包含项目编译出的二进制，此时可以在 `Makefile` 中控制镜像编译脚本，将 `dlv` 二进制先拷贝到将要被 COPY 的目录中，然后在编译镜像时由于会 COPY 这个目录，所以 `dlv` 二进制也就会顺便被打包到镜像内，也不需要修改 `Dockerfile` 了。示例 `Makefile`:
+    ```makefile
+    .PHONY: build
+    build:
+    	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/app -ldflags '-extldflags "-static"' ; \
+    	docker buildx build --platform="linux/amd64" -t myapp:latest; \
+    	@if [ "$(DEBUG)" != "" ]; then \
+    		cp dlv bin/dlv
+    	fi
+    	docker buildx build --platform="linux/amd64" -t myapp:latest; \
+    ```
