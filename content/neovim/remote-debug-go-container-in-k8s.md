@@ -75,6 +75,8 @@ nohup /dlv dap -l 0.0.0.0:40000 &
 kubectl port-forward pod/<POD> 40000:40000
 ```
 
+> 注意端口要与前面 neovim 的 dap adapter 配置中的 `port` 一致。
+
 ## 配置 launch.json
 
 根据 neovim 的 dap 相关配置，在相应路径下新增调试配置文件（默认是 `.vscode/launch.json`，我使用的是 `debug-roc/launch.json`）:
