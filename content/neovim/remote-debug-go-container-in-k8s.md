@@ -106,8 +106,6 @@ kubectl port-forward pod/<POD> 40000:40000
 
 有些项目 Dockerfile 使用多阶段构建，不依赖本机的 go 命令进行编译，这种情况使得第 3 点条件无法满足，可以考虑在专门为调试新增一个 Dockerfile，使用本机 go 命令编译二进制，然后用 COPY 指令将其拷贝到镜像内。
 
-如果第 2 和第 3 点不好满足怎么办？可以考虑在 `launch.json` 中配置 `substitutePath` 来对标准库、依赖库以及当前项目源码路径进行替换（也会很麻烦）。参考： https://github.com/golang/vscode-go/blob/master/docs/debugging.md#trimpath-tips
-
 ## 开始调试
 
 使用 neovim 打开 go 项目，在需要下断点的地方执行 `:DapToggleBreakpoint` 命令，然后执行 `:DapContinue` 选择调试配置，选到这里配置的 `Debug Go (Attach to Remote Process)`，然后调试就开始了，想办法按照复现条件触发一下，让进程逻辑走到断点处，然后就可以停在断点处进行调试了。
