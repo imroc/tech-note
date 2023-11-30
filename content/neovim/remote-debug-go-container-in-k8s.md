@@ -52,16 +52,6 @@ GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags '-extldflags "-static"'
 kubectl cp -c <CONTAINER> ./dlv <POD>:/dlv
 ```
 
-## 编译容器镜像的注意事项
-
-1. 尽量使容器内 go 应用二进制和 dlv 二进制使用相同 go 版本进行编译，避免出现一些版本不兼容问题。
-2. 确保容器内的 go 应用在 go build 时没有加上 `-trimpath` 参数，否则下的断点不起作用。
-3. 确保容器内的 go 应用二进制是由 neovim 所在机器上的 go 命令编译，否则下的断点不起作用。
-
-有些项目 Dockerfile 使用多阶段构建，不依赖本机的 go 命令进行编译，这种情况使得第 3 点条件无法满足，可以考虑在专门为调试新增一个 Dockerfile，使用本机 go 命令编译二进制，然后用 COPY 指令将其拷贝到镜像内。
-
-如果第 2 和第 3 点不好满足怎么办？可以考虑在 `launch.json` 中配置 `substitutePath` 来对标准库、依赖库以及当前项目源码路径进行替换（也会很麻烦）。参考： https://github.com/golang/vscode-go/blob/master/docs/debugging.md#trimpath-tips
-
 ## 启动 delve
 
 使用 kubectl 启动 delve，作为 dap server 监听一个端口：
@@ -107,6 +97,16 @@ kubectl port-forward pod/<POD> 40000:40000
 * `type` 与 `dap.adapters` 下新增的 adapter 字段名对应。
 * `mode` 为 local 是指相对于 dap server 的本地调试，这里 dap server 是 dlv，是远程部署在容器的，而目标调试进程相对于 dlv 来说就是本机进程。
 * `processId` 是目标调试进程的 pid，这里是 1，因为一般容器内的应用是以 1 号进程启动的，如有不同可根据实际情况调整。
+
+## 编译容器镜像的注意事项
+
+1. 尽量使容器内 go 应用二进制和 dlv 二进制使用相同 go 版本进行编译，避免出现一些版本不兼容问题。
+2. 确保容器内的 go 应用在 go build 时没有加上 `-trimpath` 参数，否则下的断点不起作用。
+3. 确保容器内的 go 应用二进制是由 neovim 所在机器上的 go 命令编译，否则下的断点不起作用。
+
+有些项目 Dockerfile 使用多阶段构建，不依赖本机的 go 命令进行编译，这种情况使得第 3 点条件无法满足，可以考虑在专门为调试新增一个 Dockerfile，使用本机 go 命令编译二进制，然后用 COPY 指令将其拷贝到镜像内。
+
+如果第 2 和第 3 点不好满足怎么办？可以考虑在 `launch.json` 中配置 `substitutePath` 来对标准库、依赖库以及当前项目源码路径进行替换（也会很麻烦）。参考： https://github.com/golang/vscode-go/blob/master/docs/debugging.md#trimpath-tips
 
 ## 开始调试
 
