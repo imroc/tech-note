@@ -163,3 +163,14 @@ dlv
     	fi
     	docker buildx build --platform="linux/amd64" -t myapp:latest; \
     ```
+
+### 为调试使用专属部署 yaml
+
+修改 workload 部署 yaml，在需要调试的容器内加 `postStart`，使用 `nohup` 启动 `dlv dap` 服务：
+
+```yaml title="deployment.yaml"
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "nohup /app/bin/dlv dap -l 0.0.0.0:40000 &"]
+```
