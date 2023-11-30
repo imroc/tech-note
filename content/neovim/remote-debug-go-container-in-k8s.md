@@ -12,7 +12,7 @@
 
 确保 [nvim-dap](https://github.com/mfussenegger/nvim-dap) 插件安装好。
 
-由于不需要在本地启动调试服务，所以不需要安装 [nvim-dap-go](https://github.com/leoluz/nvim-dap-go)。
+由于远程调试不需要在本地启动 dap server 来调试，所以不需要安装 [nvim-dap-go](https://github.com/leoluz/nvim-dap-go)。
 
 ## neovim 配置
 
