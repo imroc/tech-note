@@ -60,6 +60,8 @@ kubectl cp -c <CONTAINER> ./dlv <POD>:/dlv
 
 有些项目 Dockerfile 使用多阶段构建，不依赖本机的 go 命令进行编译，这种情况使得第 3 点条件无法满足，可以考虑在专门为调试新增一个 Dockerfile，使用本机 go 命令编译二进制，然后用 COPY 指令将其拷贝到镜像内。
 
+如果第 2 和第 3 点不好满足怎么办？可以考虑在 launch.json 中配置 `substitutePath` 来对标准库、依赖库以及当前项目源码路径进行替换（也会很麻烦）。参考： https://github.com/golang/vscode-go/blob/master/docs/debugging.md#trimpath-tips
+
 ## 启动 delve
 
 使用 kubectl 启动 delve，作为 dap server 监听一个端口：
