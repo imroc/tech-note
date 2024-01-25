@@ -49,12 +49,14 @@ npm run swizzle @docusaurus/theme-classic DocItem/Layout -- --eject --typescript
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // giscus 评论功能
+      // highlight-start
       giscus: {
         repo: '***************',
         repoId: '************',
         category: 'General',
         categoryId: '********************',
       },
+      // highlight-end
 
 ```
 
