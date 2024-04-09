@@ -26,3 +26,15 @@ typescript              5.2.2   5.2.2   5.4.4  node_modules/typescript          
 ```bash
 npm i @giscus@react@latest clsx@latest ...
 ```
+
+## 一键升级所有包
+
+确保 `npm-check` 已安装：
+
+```bash
+npm install -g npm-check
+```
+
+然后使用 `npm-check -u` 并按 `a` 选择所有包进行安装：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F04%2F09%2F20240409162834.png)
