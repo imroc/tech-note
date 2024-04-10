@@ -71,3 +71,23 @@ npm run swizzle @docusaurus/theme-classic DocItem/Layout -- --eject --typescript
 hide_comment: true
 ---
 ```
+
+## 评论迁移
+
+### 更换路径
+
+如果文档的路径更换了，需要同步修改下对应 Discussion 中的 SHA1 Hash 值（可使用 SHA-1 在线工具进行计算，比如 [SHA-1 hash calculator](https://xorbin.com/tools/sha1-hash-calculator)）：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F04%2F10%2F20240410194023.png)
+
+> 当然对应的 URL 和路径标题最好也同步改下，但这个在精确匹配的模式下不是必须的。
+
+### 更换 GitHub 仓库
+
+有时候需要将文档迁移到新的 GitHub 仓库，比如内容积累太多，需要将部分内容拆分到其它的仓库中。
+
+这时可以将已有的评论对应的 Discussion 迁移到新的仓库中：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F04%2F10%2F20240410194441.png)
+
+> 记得同步修改下新的 SHA1 Hash。
