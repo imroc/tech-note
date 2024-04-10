@@ -6,14 +6,14 @@ sidebar_position: 50
 
 ## 创建电子书
 
-```bash npm2yarn
-npx create-docusaurus@next kubernetes-guide classic --typescript
+```bash
+npx create-docusaurus@latest kubernetes-guide classic --typescript
 ```
 
 ## 安装依赖
 
 ```bash npm2yarn
-npm install --save docusaurus-plugin-sass sass @giscus/react raw-loader path-browserify flexanalytics/plugin-image-zoom @docusaurus/plugin-ideal-image@next @docusaurus/plugin-pwa@next
+npm install --save docusaurus-plugin-sass sass @giscus/react raw-loader path-browserify flexanalytics/plugin-image-zoom @docusaurus/plugin-ideal-image@latest @docusaurus/plugin-pwa@latest
 ```
 
 ## 自定义样式

@@ -11,7 +11,7 @@ const defaultConfig: Partial<GiscusProps> = {
   emitMetadata: '0',
   inputPosition: 'top',
   loading: 'lazy',
-  strict: '0',
+  strict: '1', // 用根据路径标题自动生成的 sha1 值，精确匹配 github discussion，避免路径重叠（比如父和子路径）时评论加载串了
   lang: 'zh-CN',
 }
 

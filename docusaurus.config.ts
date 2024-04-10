@@ -64,6 +64,9 @@ const config: Config = {
         // 每个文档左下角 "编辑此页" 的链接
         editUrl: ({ docPath }) =>
           `https://github.com/imroc/tech-note/edit/main/content/${docPath}`,
+        remarkPlugins: [
+          [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
+        ],
       }),
     ],
   ],
