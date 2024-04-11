@@ -109,6 +109,7 @@ picgo install super-prefix
   end,
 }
 ```
+
 :::tip
 
 `<localleader>` 我用的 `,`，在 markdown 类型的文件中，使用 `,i` 可自动将剪贴板中的截图自动上传到图床，并自动成 markdown 图片链接，直接粘贴到文件中即可。
