@@ -22,11 +22,29 @@ npm install --save @giscus/react
 npm run swizzle @docusaurus/theme-classic DocItem/Layout -- --eject --typescript
 ```
 
+> 使用 eject 方式完全自定义 DocItem，是为了读取 md 文件头中的 `hide_comment` 的值来判断是否隐藏评论。
+
 ### 修改 DocItem
 
-修改以下自动生成的源码文件（高亮的行为增加的内容）:
+修改以下自动生成的源码文件（高亮的行是增加的内容）:
 
 <FileBlock showLineNumbers title="src/theme/DocItem/Layout/index.tsx" file="@site/src/theme/DocItem/Layout/index.tsx" />
+
+## 文档目录页面支持评论
+
+### swizzle DocCategoryGeneratedIndexPage
+
+```bash npm2yarn
+npm run swizzle @docusaurus/theme-classic DocCategoryGeneratedIndexPage -- --wrap --typescript
+```
+
+> 由于目录页面是自动生成的，不存在文件头，就直接使用 wrap 方式来对 `DocCategoryGeneratedIndexPage` 进行轻量修改，固定开启评论（不支持隐藏）。
+
+## 修改 DocCategoryGeneratedIndexPage
+
+修改以下自动生成的源码文件（高亮的行是增加的内容）:
+
+<FileBlock showLineNumbers title="src/theme/DocCategoryGeneratedIndexPage/index.tsx" file="@site/src/theme/DocCategoryGeneratedIndexPage/index.tsx" />
 
 ## 配置 giscus
 
