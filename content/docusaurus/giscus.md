@@ -90,7 +90,7 @@ hide_comment: true
 
 ## 配置 giscus
 
-准备一个 GitHub 仓库（如果是 docusaurus 构建的开源站点，通常用存放网站源码仓库），在设置里启用 Discussions:
+Giscus 的评论数据是存放在 GitHub 仓库的 Discussions 中，所以先准备一个 GitHub 仓库（如果是 docusaurus 构建的开源站点，通常用存放网站源码仓库），在设置里启用 Discussions:
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F01%2F25%2F20240125203425.png)
 
@@ -102,7 +102,7 @@ hide_comment: true
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F01%2F25%2F20240125203848.png)
 
-将其贴在 docsite 配置文件中：
+将其贴在 `docusaurus.config.ts` 配置文件中：
 
 ```ts
   themeConfig:
