@@ -18,4 +18,4 @@
 
 内容 (注意高龄部分的替换)：
 
-<FileBlock file="github-action/docker-ci.yaml" showLineNumbers showFileName />
+<FileBlock file="github-action/docker-ci.yaml" title=".github/workflows/docker-ci.yaml" showLineNumbers />

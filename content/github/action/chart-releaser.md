@@ -38,7 +38,7 @@ git push origin -u gh-pages
     └── helm-release.yaml
 ```
 
-<FileBlock file="github-action/helm-release.yaml" showLineNumbers showFileName />
+<FileBlock file="github-action/helm-release.yaml" title=".github/workflows/helm-release.yaml" showLineNumbers />
 
 :::tip
 
