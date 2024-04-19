@@ -47,6 +47,18 @@ git push origin -u gh-pages
 
 :::
 
+## 触发 Chart 自动发布
+
+确保在 `Chart.yaml` 中定义好 `version`，提交并 push 代码触发 Github Action 工作流。
+
+如果成功，可以在 release 页面看到自动生成的压缩包：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F04%2F19%2F20240419151017.png)
+
+同时，在 `gh-pages` 分支可以看到 `index.yaml` 自动生成（`index.yaml` 中会引用 release 中的 chart 压缩包）：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F04%2F19%2F20240419150944.png)
+
 ## 遇到过的问题
 
 * 第一次提交不会发布 chart，因为它会对比历史来发现 chart 是否有变更，第一次提交无法对比，也不会发布 chart。
