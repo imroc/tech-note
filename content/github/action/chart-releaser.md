@@ -14,7 +14,17 @@
 │       │   ├── _helpers.tpl
 │       │   └── service.yaml
 │       └── values.yaml
+```
 
+## 准备 gh-pages 分支
+
+创建 gh-pages 分支并 push 到 github 仓库：
+
+```bash
+git checkout --orphan gh-pages # 创建 gh-pages 空分支
+touch README.md
+git add README.md
+git push origin -u gh-pages
 ```
 
 ## Github Action
