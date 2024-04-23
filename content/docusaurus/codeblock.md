@@ -512,7 +512,38 @@ import MultiTab from '@site/codeblock/demo/multi-tab.md';
 </Tabs>
 
 :::info
+
 FileBlock 是我自己实现的标签组件，详见 [这里](fileblock.md)
+
+:::
+
+## 代码高亮支持更多的语言
+
+docusaurus 使用 [prism](https://prismjs.com/) 来对不同的语言进行语法高亮，[这里](https://github.com/FormidableLabs/prism-react-renderer/blob/master/packages/generate-prism-languages/index.ts#L9-L25) 是默认支持的语言列表，如果需要启用更多语言的支持，可以在 `docusaurus.config.js` 中配置下 `additionalLanguages`（点 [这里](https://prismjs.com/#supported-languages) 查看 prism 支持的所有语言的列表）:
+
+```js
+      prism: {
+        // prism supported languages: https://prismjs.com/#supported-languages
+        additionalLanguages: [
+          'java',
+          'json',
+          'hcl',
+          'docker',
+          'bash',
+          'diff',
+          'scss',
+          'lua',
+          'makefile',
+          'ignore',
+        ],
+        ...
+      }
+```
+
+:::tip
+
+建议是按需启用，可尽量减少站点依赖的 js 文件体积。
+
 :::
 
 ## 参考资料
