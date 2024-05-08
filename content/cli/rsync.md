@@ -48,3 +48,15 @@ exampledir
 ```bash
 rsync -av --exclude-from='exclude-list.txt' /path/to/src/ /path/to/dest/
 ```
+
+## 踩过的坑
+
+### 目标目录不要是源目录的父目录
+
+如果源目录是目标目录的子目录，拷贝的结果可能不符预期。
+
+比如：
+
+```bash
+rsync -av /path/to/parent/sub/ /path/to/parent/
+```
