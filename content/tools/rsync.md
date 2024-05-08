@@ -30,7 +30,7 @@ rsync -av --exclude tmp /path/to/src/ /path/to/dest/
 
 :::tip
 
-`--exclude` 指定的目录是源目录的相对路径，`tmp` 意思就是排除 `/root.bak/.sdkman/tmp` 这个目录。
+`--exclude` 指定的目录是源目录的相对路径，`tmp` 意思就是排除 `/path/to/src/tmp` 这个目录。
 
 :::
 
