@@ -95,3 +95,12 @@ RUN rsync -av /config/ /
 结果将会是镜像内很多原有的很多文件被删除。
 
 :::
+
+解决方法是，每个一级子目录单独 rsync 一下：
+
+```dockerfile title="Dockerfile"
+COPY ./config /config
+RUN rsync -av /config/etc/ /etc/
+RUN rsync -av /config/lib/ /lib/
+```
+
