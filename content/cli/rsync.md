@@ -60,3 +60,38 @@ rsync -av --exclude-from='exclude-list.txt' /path/to/src/ /path/to/dest/
 ```bash
 rsync -av /path/to/parent/sub/ /path/to/parent/
 ```
+
+一个典型的场景是在编译 dockerfile 时，按照文件系统目录结构准备了各种配置文件：
+
+```txt
+config
+├── etc
+│   ├── nerdctl
+│   │   └── nerdctl.toml
+│   ├── rc.local
+│   └── ssh
+│       ├── ssh_host_ecdsa_key
+│       ├── ssh_host_ecdsa_key.pub
+│       ├── ssh_host_ed25519_key
+│       ├── ssh_host_ed25519_key.pub
+│       ├── ssh_host_rsa_key
+│       ├── ssh_host_rsa_key.pub
+│       └── sshd_config
+├── lib
+│   └── systemd
+│       └── system
+│           └── rc-local.service
+```
+
+希望将所有配置用 rsync 一次性拷贝到根目录下：
+
+```dockerfile title="Dockerfile"
+COPY ./config /config
+RUN rsync -av /config/ /
+```
+
+:::warning
+
+结果将会是镜像内很多原有的很多文件被删除。
+
+:::
