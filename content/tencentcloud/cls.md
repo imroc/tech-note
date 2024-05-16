@@ -7,3 +7,5 @@ select histogram(cast(__TIMESTAMP__ as timestamp),interval 1 second) as time, co
 ```
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F05%2F16%2F20240516112905.png)
+
+> 参考 https://cloud.tencent.com/developer/article/2253792
