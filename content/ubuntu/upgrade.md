@@ -44,4 +44,5 @@ reboot
 
 ##  参考资料
 
-* How to upgrade: https://ubuntu.com/server/docs/how-to-upgrade-your-release
+* Ubuntu 官方升级指引文档: https://ubuntu.com/server/docs/how-to-upgrade-your-release
+* Ubuntu 各发新版的生命周期: https://wiki.ubuntu.com/Releases
