@@ -38,7 +38,7 @@ sudo do-release-upgrade
 
 :::tip
 
-如果刚发布不久，执行 `do-release-upgrade` 可能会提示没有更新可用，这时可以加个 `-d`，即 `do-release-upgrade -d`。
+如果刚发布不久，执行 `do-release-upgrade` 可能会提示没有更新可用，因为可能只是对增量安装发布了，存量升级还不行，这时如果想要提前升级，可以加个 `-d`，即 `do-release-upgrade -d`。
 
 :::
 
