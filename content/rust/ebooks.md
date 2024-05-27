@@ -10,6 +10,7 @@
 * [Rust语言圣经](https://course.rs/about-book.html)
 * [Rust 宏小册(中文翻译)](https://zjp-cn.github.io/tlborm/) (英文原版 [The Little Book of Rust Macros](https://veykril.github.io/tlborm/))
 * [Comprehensive Rust(中文翻译)](https://google.github.io/comprehensive-rust/zh-CN/index.html) (谷歌出品)
+* [Effective Rust(中文翻译)](https://rustx-labs.github.io/effective-rust-cn/cover.html)
 
 ## 参考资料
 
