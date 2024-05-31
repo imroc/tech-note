@@ -11,6 +11,8 @@
 * [Rust 宏小册(中文翻译)](https://zjp-cn.github.io/tlborm/) (英文原版 [The Little Book of Rust Macros](https://veykril.github.io/tlborm/))
 * [Comprehensive Rust(中文翻译)](https://google.github.io/comprehensive-rust/zh-CN/index.html) (谷歌出品)
 * [Effective Rust(中文翻译)](https://rustx-labs.github.io/effective-rust-cn/cover.html)
+* [学习Rust的100个练习](https://colobu.com/rust100/) (英文原版 [100 Exercises To Learn Rust](https://rust-exercises.com/))
+* [The Rust Reference](https://doc.rust-lang.org/stable/reference/)
 
 ## 参考资料
 
