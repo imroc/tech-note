@@ -6,6 +6,16 @@
 
 ## Git 命令修改 author 方法
 
+如果只是最新一条的 commit 的 author，只需一条命令：
+
+```bash
+git commit --amend --author 'roc <roc@imroc.cc>'
+```
+
+> 注意修改 author 为自己的。
+
+如果要修改的 commit 不是最新一条，可使用 git rebase 来改。
+
 1. 先 rebase -i 一下，edit 指定 commit：
 
 ```bash
