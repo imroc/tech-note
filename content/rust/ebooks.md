@@ -2,7 +2,7 @@
 
 ## 电子书
 
-* [Rust 程序设计语言](https://rustwiki.org/zh-CN/book/)
+* [Rust 程序设计语言](https://rustwiki.org/zh-CN/book/) (英文原版 [The Rust Programming Language](https://doc.rust-lang.org/book/))
 * [通过例子学 Rust](https://rustwiki.org/zh-CN/rust-by-example/)
 * [Rust 参考手册](https://rustwiki.org/zh-CN/reference/)
 * [Rust 设计模式(中文翻译)](https://chuxiuhong.com/chuxiuhong-rust-patterns-zh/intro.html) (英文原版 [Rust Design Patterns](https://rust-unofficial.github.io/patterns/))
