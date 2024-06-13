@@ -1,7 +1,3 @@
----
-sidebar_position: 20
----
-
 # 安装 fisher 插件管理器
 
 ## 概述

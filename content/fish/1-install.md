@@ -1,6 +1,3 @@
----
-sidebar_position: 10
----
 # 安装 fish shell
 
 ## MacOS
