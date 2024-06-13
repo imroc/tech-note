@@ -20,7 +20,7 @@ fisher install IlanCosman/tide@v6
 tide configure
 ```
 
-## 小技巧：移除不需要的 prompt
+## 小技巧：移除不需要的 prompt item
 
 可使用 tide 的函数 `_tide_find_and_remove` 将不需要的 prompt items 移除，比如下面将移除 tide 的 context 提示:
 
