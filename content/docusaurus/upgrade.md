@@ -38,3 +38,14 @@ npm install -g npm-check
 然后使用 `npm-check -u` 并按 `a` 选择所有包进行安装：
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F04%2F09%2F20240409162834.png)
+
+如果有类似如下的提示:
+
+```txt
+4 vulnerabilities (2 moderate, 2 high)
+
+To address all issues, run:
+  npm audit fix
+```
+
+就执行一下 `npm audit fix`，会再继续升级一些小版本。
