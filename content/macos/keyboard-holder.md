@@ -1,4 +1,4 @@
-# KeyboardHolder
+# KeyboardHolder: 减少输入法手动切换
 
 ## 功能
 
