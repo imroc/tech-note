@@ -1,8 +1,11 @@
-# Alacritty
+# Alacritty：一款 Rust 写的跨平台终端模拟器
 
-Alacritty 是一款跨平台的终端模拟器，支持 Linux、macOS 和 Windows。
+## 概述
 
-官网网站：https://alacritty.org/
+Alacritty 是一款跨平台的终端模拟器，支持 Linux、macOS 和 Windows，在各个开源的终端模拟器中，它的 star 数量相对较多。
+
+* 开源地址：https://github.com/alacritty/alacritty
+* 官网网站：https://alacritty.org/
 
 ## 在 MacOS 下让 Alt 键生效
 
