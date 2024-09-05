@@ -10,6 +10,6 @@
 
 ## 让 Alt 键生效
 
-有些终端应用会使用 Alt 键作为快捷键，比如 zellij, neovim 等，而 iTerm2 默认不将 Option 键映射为 Alt 键，需要在 `Settings-Profiles-Default-Keys` 中，将 `Left Option Key` 和 `Right Option Key` 选到 `Esc+`：
+有些运行在终端里的应用会使用 Alt 键作为快捷键，比如 zellij, neovim 等，而 iTerm2 默认不将 Option 键映射为 Alt 键，需要在 `Settings-Profiles-Default-Keys` 中，将 `Left Option Key` 和 `Right Option Key` 选到 `Esc+`：
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F09%2F05%2F20240905113402.png)
