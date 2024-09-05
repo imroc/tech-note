@@ -13,3 +13,13 @@
 有些运行在终端里的应用会使用 Alt 键作为快捷键，比如 zellij, neovim 等，而 iTerm2 默认不将 Option 键映射为 Alt 键，需要在 `Settings-Profiles-Default-Keys` 中，将 `Left Option Key` 和 `Right Option Key` 选到 `Esc+`：
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F09%2F05%2F20240905113402.png)
+
+## 改变主题
+
+默认主题显示的颜色太浅，有时候看起来有点吃力，可修改成其它 color scheme，在 [这里](https://iterm2colorschemes.com/) 下载需要的 color scheme，比如我下载的是 `tokyonight`，跟我的 Neovim 里的主题一致。
+
+下载好后在 `Settings-Profiles-Default-Colors` 中，点击 `Color Presets`，选择 `Import`，选择下载好的 `tokyonight.itermcolors` 文件进行导入：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F09%2F05%2F20240905140508.png)
+
+导入后在 `Color Presets` 里选择 `tokyonight` 即可。
