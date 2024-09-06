@@ -30,7 +30,7 @@ brew install im-select
 
 ## VSCode 的 Vim 插件配置
 
-```jsonc
+```json
   // The input method for your normal mode, find more information [here](https://github.com/VSCodeVim/Vim#input-method).
   "vim.autoSwitchInputMethod.defaultIM": "com.apple.keylayout.ABC",
   // If enabled, the input method switches automatically when the mode changes.
