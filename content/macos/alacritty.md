@@ -15,3 +15,7 @@ Alacritty 是一款跨平台的终端模拟器，支持 Linux、macOS 和 Window
 [window]
 option_as_alt = "Both"
 ```
+
+## 遇到的问题
+
+目前 Alacritty 在 MacOS 下使用 Neovim 输入不了中文标点，这也是当前唯一阻碍我使用 Alacritty 的原因，详见 [这个 issue](https://github.com/rime/squirrel/issues/827#issuecomment-2412653580)。
