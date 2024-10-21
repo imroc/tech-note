@@ -27,3 +27,102 @@ iTerm2 只支持 MacOS，但也是 MacOS 下用的最多的终端模拟器，很
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F09%2F05%2F20240905140508.png)
 
 导入后在 `Color Presets` 里选择 `tokyonight` 即可。
+
+## 配置 lrzsz
+
+1. 安装 lrzsz。
+
+```bash
+brew install lrzsz
+```
+
+2. 写入脚本文件 `/usr/local/bin/iterm2-recv-zmodem.sh`。
+
+```bash title="/usr/local/bin/iterm2-recv-zmodem.sh"
+#!/bin/bash
+# Author: Matt Mastracci (matthew@mastracci.com)
+# AppleScript from http://stackoverflow.com/questions/4309087/cancel-button-on-osascript-in-a-bash-script
+# licensed under cc-wiki with attribution required
+# Remainder of script public domain
+
+osascript -e 'tell application "iTerm2" to version' >/dev/null 2>&1 && NAME=iTerm2 || NAME=iTerm
+if [[ $NAME = "iTerm" ]]; then
+  FILE=$(osascript -e 'tell application "iTerm" to activate' -e 'tell application "iTerm" to set thefile to choose folder with prompt "Choose a folder to place received files in"' -e "do shell script (\"echo \"&(quoted form of POSIX path of thefile as Unicode text)&\"\")")
+else
+  FILE=$(osascript -e 'tell application "iTerm2" to activate' -e 'tell application "iTerm2" to set thefile to choose folder with prompt "Choose a folder to place received files in"' -e "do shell script (\"echo \"&(quoted form of POSIX path of thefile as Unicode text)&\"\")")
+fi
+
+if [[ $FILE = "" ]]; then
+  echo Cancelled.
+  # Send ZModem cancel
+  echo -e \\x18\\x18\\x18\\x18\\x18
+  sleep 1
+  echo
+  echo \# Cancelled transfer
+else
+  cd "$FILE"
+  /opt/homebrew/bin/rz --rename --escape --binary --bufsize 4096
+  sleep 1
+  echo
+  echo
+  echo \# Sent \-\> $FILE
+fi
+```
+
+3. 写入脚本文件 `/usr/local/bin/iterm2-send-zmodem.sh`。
+
+```bash title="/usr/local/bin/iterm2-send-zmodem.sh"
+#!/bin/bash
+# Author: Matt Mastracci (matthew@mastracci.com)
+# AppleScript from http://stackoverflow.com/questions/4309087/cancel-button-on-osascript-in-a-bash-script
+# licensed under cc-wiki with attribution required
+# Remainder of script public domain
+
+osascript -e 'tell application "iTerm2" to version' >/dev/null 2>&1 && NAME=iTerm2 || NAME=iTerm
+if [[ $NAME = "iTerm" ]]; then
+  FILE=$(osascript -e 'tell application "iTerm" to activate' -e 'tell application "iTerm" to set thefile to choose file with prompt "Choose a file to send"' -e "do shell script (\"echo \"&(quoted form of POSIX path of thefile as Unicode text)&\"\")")
+else
+  FILE=$(osascript -e 'tell application "iTerm2" to activate' -e 'tell application "iTerm2" to set thefile to choose file with prompt "Choose a file to send"' -e "do shell script (\"echo \"&(quoted form of POSIX path of thefile as Unicode text)&\"\")")
+fi
+if [[ $FILE = "" ]]; then
+  echo Cancelled.
+  # Send ZModem cancel
+  echo -e \\x18\\x18\\x18\\x18\\x18
+  sleep 1
+  echo
+  echo \# Cancelled transfer
+else
+  /opt/homebrew/bin/sz "$FILE" --escape --binary --bufsize 4096
+  sleep 1
+  echo
+  echo \# Received "$FILE"
+fi
+```
+
+4. 赋予权限。
+
+```bash
+sudo chmod 777 /usr/local/bin/iterm2-*
+```
+
+6. 点击 iTerm2 的设置界面 `Perference` -> `Profiles` -> `Default` -> `Advanced` -> `Triggers` 的 `Edit` 按钮
+
+    ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F10%2F21%2F20241021163242.png)
+
+7. 按照以下内容配置。
+
+```txt
+Regular expression: rz waiting to receive.\*\*B0100
+            Action: Run Silent Coprocess
+        Parameters: /usr/local/bin/iterm2-send-zmodem.sh
+           Instant: checked
+
+Regular expression: \*\*B00000000000000
+            Action: Run Silent Coprocess
+        Parameters: /usr/local/bin/iterm2-recv-zmodem.sh
+           Instant: checked
+```
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F10%2F21%2F20241021163330.png)
+
+8. 搞定！可通过 `rz` 和 `sz` 命令测试（无需重启 iTerm2）。
