@@ -105,11 +105,11 @@ fi
 sudo chmod 777 /usr/local/bin/iterm2-*
 ```
 
-6. 点击 iTerm2 的设置界面 `Perference` -> `Profiles` -> `Default` -> `Advanced` -> `Triggers` 的 `Edit` 按钮
+5. 点击 iTerm2 的设置界面 `Perference` -> `Profiles` -> `Default` -> `Advanced` -> `Triggers` 的 `Edit` 按钮
 
-    ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F10%2F21%2F20241021163242.png)
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F10%2F21%2F20241021163242.png)
 
-7. 按照以下内容配置。
+6. 按照以下内容配置。
 
 ```txt
 Regular expression: rz waiting to receive.\*\*B0100
@@ -125,4 +125,4 @@ Regular expression: \*\*B00000000000000
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F10%2F21%2F20241021163330.png)
 
-8. 搞定！可通过 `rz` 和 `sz` 命令测试（无需重启 iTerm2）。
+7. 搞定！可通过 `rz` 和 `sz` 命令测试（无需重启 iTerm2）。
