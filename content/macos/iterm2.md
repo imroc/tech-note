@@ -105,7 +105,7 @@ fi
 sudo chmod 777 /usr/local/bin/iterm2-*
 ```
 
-5. 点击 iTerm2 的设置界面 `Perference` -> `Profiles` -> `Default` -> `Advanced` -> `Triggers` 的 `Edit` 按钮
+5. 点击 iTerm2 的设置界面 `Perference` -> `Profiles` -> `Default` -> `Advanced` -> `Triggers` 的 `Edit` 按钮。
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F10%2F21%2F20241021163242.png)
 
