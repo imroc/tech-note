@@ -1,6 +1,6 @@
 # Follow
 
-[Follow](https://follow.is/) 是我在用 RSS 订阅工具。
+[Follow](https://follow.is/) 是我在用的 RSS 订阅工具。
 
 ## 订阅 Github Release
 
