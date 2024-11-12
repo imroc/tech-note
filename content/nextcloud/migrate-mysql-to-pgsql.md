@@ -13,10 +13,32 @@ GRANT ALL PRIVILEGES ON DATABASE nextcloud TO nextcloud;
 ## 迁移
 
 ```bash
+su - www-data
 php occ db:convert-type --all-apps --password="123456" pgsql nextcloud pgsql-postgresql.db nextcloud
 ```
 
-## 踩坑: This command is temporarily disabled
+## 踩坑一：This account is currently not available.
+
+登录 www-data 用户报错：
+
+```bash
+$ su - www-data
+This account is currently not available.
+```
+
+需修改 `/etc/passwd`，将这个:
+
+```txt
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+```
+
+改成:
+
+```txt
+www-data:x:33:33:www-data:/var/www:/bin/bash
+```
+
+## 踩坑二: This command is temporarily disabled
 
 ```bash
 $ php occ db:convert-type --all-apps --password="123456" pgsql nextcloud pgsql-postgresql.db nextcloud
