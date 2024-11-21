@@ -53,10 +53,15 @@ In ConvertType.php line 183:
 
 db:convert-type [--port PORT] [--password PASSWORD] [--clear-schema] [--all-apps] [--chunk-size CHUNK-SIZE] [--] <type> <username> <hostname> <database>
 ```
-
 相关 issue:
 - https://github.com/linuxserver/docker-nextcloud/issues/441
 - https://github.com/nextcloud/server/issues/45257
+
+如何解决？暂时无解，所以我只是将 MySQL 迁移到了 MariaDB（为了减少内存占用），因为这两者对于 NextCloud 来说都是一样的，只需要手动迁移下数据即可。
+
+迁移方法：
+1. 通过 mysql 命令导出数据库。
+2. 通过 mariadb 命令导入数据库，可能会遇到字符集问题，搜索下解决即可。
 
 ## 参考资料
 
