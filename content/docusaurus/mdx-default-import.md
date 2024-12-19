@@ -35,7 +35,8 @@ FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memor
 一般不建议将单个 docusaurus 站点的文档数量放太多，可以拆分成多个站点，然后放到网站的某个子路径对外展示，比如我的网站是分成了以下几个 docusaurus 站点：
 1. https://imroc.cc (https://github.com/imroc/imroc.cc): 个人主页+博客。
 2. https://imroc.cc/kubernetes (https://github.com/imroc/kubernetes-guide): 《Kubernetes 实践指南》电子书。
-3. https://imroc.cc/istio (https://github.com/imroc/istio-guide): 《istio 实践指南》电子书。
-4. https://imroc.cc/note (https://github.com/imroc/tech-note): 《技术笔记》电子书。
+3. https://github.com/imroc/troubleshooting-kubernetes (https://imroc.cc/kubernetes-troubleshooting): 《Kubernetes 排障指南》电子书。
+4. https://imroc.cc/istio (https://github.com/imroc/istio-guide): 《istio 实践指南》电子书。
+5. https://imroc.cc/note (https://github.com/imroc/tech-note): 《技术笔记》电子书。
 
 这样既能节约算力资源，又能加快编译时间，还可以利用本文的技巧来默认 import 常用标签。
