@@ -32,7 +32,7 @@ FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memor
 
 ## 最佳实践
 
-一般建议将单个 docusaurus 站点的文档数量放太多，可以拆分成多个站点，然后放到网站的某个子路径对外展示，比如我的网站是分成了以下几个 docusaurus 站点：
+一般不建议将单个 docusaurus 站点的文档数量放太多，可以拆分成多个站点，然后放到网站的某个子路径对外展示，比如我的网站是分成了以下几个 docusaurus 站点：
 1. https://imroc.cc (https://github.com/imroc/imroc.cc): 个人主页+博客。
 2. https://imroc.cc/kubernetes (https://github.com/imroc/kubernetes-guide): 《Kubernetes 实践指南》电子书。
 3. https://imroc.cc/istio (https://github.com/imroc/istio-guide): 《istio 实践指南》电子书。
