@@ -44,38 +44,6 @@ npm install --save raw-loader path-browserify
 ```js showLineNumbers title="docusaurus.config.js"
   plugins: [
     [
-      /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
-      '@docusaurus/plugin-content-docs',
-      ({
-        id: 'kubernetes',
-        path: 'kubernetes',
-        // highlight-next-line
-        routeBasePath: '/kubernetes',
-        sidebarPath: require.resolve('./kubernetes/sidebars.js'),
-        remarkPlugins: [
-          [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
-        ],
-        editUrl: ({ docPath }) =>
-          `https://github.com/imroc/kubernetes-guide/edit/master/${docPath}`,
-      }),
-    ],
-    [
-      '@docusaurus/plugin-content-docs',
-      /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
-      ({
-        id: 'istio',
-        path: 'istio',
-        // highlight-next-line
-        routeBasePath: '/istio',
-        sidebarPath: require.resolve('./istio/sidebars.js'),
-        remarkPlugins: [
-          [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
-        ],
-        editUrl: ({ docPath }) =>
-          `https://github.com/imroc/istio-guide/edit/master/${docPath}`,
-      }),
-    ],
-    [
       '@docusaurus/plugin-content-docs',
       /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
       ({
