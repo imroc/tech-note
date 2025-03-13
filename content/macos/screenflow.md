@@ -20,4 +20,4 @@ MacOS 自带的 QuickTime Player 录屏时无法录制播放的音频，即无�
 
 操作教程：
 
-<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=114152999751370&bvid=BV11mQcYnEXX&cid=28838397328&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+<iframe height="480" width="720" src="//player.bilibili.com/player.html?isOutside=true&aid=114152999751370&bvid=BV11mQcYnEXX&cid=28838397328&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
