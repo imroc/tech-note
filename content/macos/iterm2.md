@@ -126,3 +126,8 @@ Regular expression: \*\*B00000000000000
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F10%2F21%2F20241021163330.png)
 
 7. 搞定！可通过 `rz` 和 `sz` 命令测试（无需重启 iTerm2）。
+
+
+## iTerm2 配置与美化
+
+- [iTerm2 配置与美化-自定义配置和优化教程（上）](https://icloudnative.io/posts/customize-iterm2-1/)
