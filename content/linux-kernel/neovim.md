@@ -1,5 +1,9 @@
 # 使用 Neovim 阅读 Linux 内核源码
 
+## Neovim 与 LSP
+
+Neovim 上阅读源码，可通过 LSP 插件提供代码补全、跳转等功能，Linux 内核源码主要是 C 语言，可使用 clangd 作为 LSP Server，我用的 [LazyVim](https://www.lazyvim.org/)，直接通过 `:LazyExtras` 启用 `lang.clangd` 扩展即可。
+
 ## MacOS 注意事项
 
 ### 文件系统区分大小写问题
