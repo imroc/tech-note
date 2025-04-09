@@ -26,6 +26,8 @@ make CC=clang
 python3 ./scripts/clang-tools/gen_compile_commands.py
 ```
 
+如果开发机不使用 Linux（比如用 MacOS），可以将生成的 `compile_commands.json` 文件复制到开发机上的 linux 源码根目录下，并且用工具批量替换 `compile_commands.json` 中的源码目录，比如在 Linux 上源码目录是 `/data/git/linux`，而开发机的源码目录是 `/Users/roc/dev/linux`，就用工具将 `compile_commands.json` 中的 `/data/git/linux` 全部替换成 `/Users/roc/dev/linux`。
+
 ## MacOS 注意事项
 
 ### 文件系统区分大小写问题
