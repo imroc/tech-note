@@ -35,7 +35,7 @@ python3 ./scripts/clang-tools/gen_compile_commands.py
 1. 在 Linux 机器上压缩源码文件（用 `--exclude` 参数忽略一些自动生成的但与代码阅读无关的文件）：
 
 ```bash
-tar --exclude={'.git','.cache', 'include/config', '*.cmd', '*.o', '*.a', '*.bin', '*.gz', 'bzImage', '.tmp*', 'vmlinux', 'vmlinux.unstripped'} -zcvf linux.tar.gz linux
+tar --exclude={'.git','.cache','include/config','*.cmd','*.o','*.a','*.bin','*.gz','bzImage','.tmp*','vmlinux','vmlinux.unstripped'} -zcvf linux.tar.gz linux
 ```
 
 2. 将压缩后的源码文件复制到开发机上并解压。
