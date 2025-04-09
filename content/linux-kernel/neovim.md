@@ -42,9 +42,7 @@ tar --exclude={'.git','.cache', 'include/config', '*.cmd', '*.o', '*.a', '*.bin'
 3. 修改 `compile_commands.json`，使用工具批量替换源码根目录。比如在 Linux 上源码目录是 `/data/git/linux`，而开发机的源码目录是 `/Users/roc/dev/linux`，就用工具将 `compile_commands.json` 中的 `/data/git/linux` 全部替换成 `/Users/roc/dev/linux`。
 4. 做完以上操作后，就可以在开发机上通过 Neovim 阅读内核源码了。
 
-## MacOS 注意事项
-
-### 文件系统区分大小写问题
+## MacOS 注意事项：文件系统区分大小写问题
 
 linux 内核源码有些文件名是大写的，而 MacOS 默认文件系统是不区分大小写的，所以在 MacOS 上克隆 linux 内核源码时可能会有报错：
 
