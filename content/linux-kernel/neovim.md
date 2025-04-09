@@ -4,6 +4,26 @@
 
 Neovim 上阅读源码，可通过 LSP 插件提供代码补全、跳转等功能，Linux 内核源码主要是 C 语言，可使用 clangd 作为 LSP Server，我用的 [LazyVim](https://www.lazyvim.org/)，直接通过 `:LazyExtras` 启用 `lang.clangd` 扩展即可。
 
+## 生成 compile_commands.json
+
+clangd 需要一个 `compile_commands.json` 文件来索引项目文件，该文件通常由项目中提供的工具生成，生成过程会编译项目源码。
+
+首先编译一下：
+
+```bash
+make CC=clang defconfig
+
+make CC=clang
+```
+
+如果编译成功，执行以下命令生成 `compile_commands.json`：
+
+```bash
+python3 ./scripts/clang-tools/gen_compile_commands.py
+```
+
+如果编译报错，请参考后面的注意事项。
+
 ## MacOS 注意事项
 
 ### 文件系统区分大小写问题
@@ -55,10 +75,56 @@ git clone https://github.com/torvalds/linux.git
 ln -s /Volumes/case-sensitive/linux ~/dev/linux
 ```
 
-### 安装 clang/clangd
+### 安装高版本 make
 
-macOS 自带有 clang 和 clangd，但是版本比较低，可以用 brew 安装最新版：
+高版本内核对 make 版本要求较高，macOS 自带的 make 可能会满足不了要求而报错：
+
+```bash
+$ make CC=clang defconfig
+Makefile:15: *** GNU Make >= 4.0 is required. Your Make version is 3.81.  Stop.
+```
+
+可通过 brew 安装高版本的 make：
+
+```bash
+brew install make
+```
+
+安装后默认需使用 `gmake` 命令而不是 `make`，如：
+
+```bash
+gmake CC=clang defconfig
+```
+
+> 你也可以将 `/opt/homebrew/opt/make/libexec/gnubin` 加入 `$PATH` 中，并且保证优先级比系统自带 make 命令所在的路径高，这样就可以直接使用 `make` 命令了。
+
+### 安装高版本 clang/clangd
+
+macOS 自带的 clang 和 clangd 版本比较低，可以用 brew 安装 llvm，里面带了 clang 和 clangd：
 
 ```bash
 brew install llvm
 ```
+
+### 安装高版本 ld
+
+macOS 也有自带的 ld（linker），但会导致失败：
+
+```bash
+$ gmake CC=clang defconfig
+*** Default configuration is based on 'defconfig'
+ld: unknown option: --version
+ld: unknown linker
+scripts/Kconfig.include:57: Sorry, this linker is not supported.
+gmake[2]: *** [scripts/kconfig/Makefile:95: defconfig] Error 1
+gmake[1]: *** [/Volumes/case-sensitive/linux/Makefile:734: defconfig] Error 2
+gmake: *** [Makefile:251: __sub-make] Error 2
+```
+
+可以通过 brew 安装 lld（llvm 的 linker）：
+
+```bash
+brew install lld
+```
+
+将其软链到某个目录，确保这个目录在 `$PATH` 中且优先于系统自带的 ld 所在的目录（`/usr/bin`）：
