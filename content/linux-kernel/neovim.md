@@ -26,7 +26,21 @@ make CC=clang
 python3 ./scripts/clang-tools/gen_compile_commands.py
 ```
 
-如果开发机不使用 Linux（比如用 MacOS），可以将生成的 `compile_commands.json` 文件复制到开发机上的 linux 源码根目录下，并且用工具批量替换 `compile_commands.json` 中的源码目录，比如在 Linux 上源码目录是 `/data/git/linux`，而开发机的源码目录是 `/Users/roc/dev/linux`，就用工具将 `compile_commands.json` 中的 `/data/git/linux` 全部替换成 `/Users/roc/dev/linux`。
+如果你的 Neovim 本就在这台编译内核源码的 Linux 机器上，那么就可以直接用  Neovim 阅读源码了，打开源码文件后会自动索引，可实现代码跳转。
+
+## 在其他机器上阅读源码
+
+如果需要在其它机器上阅读源码，比如日常使用 MacOS 做开发机，那么可以按照下面的方法来做。
+
+1. 在 Linux 机器上压缩源码文件（用 `--exclude` 参数忽略一些自动生成的但与代码阅读无关的文件）：
+
+```bash
+tar --exclude={'.git','.cache', 'include/config', '*.cmd', '*.o', '*.a', '*.bin', '*.gz', 'bzImage', '.tmp*', 'vmlinux', 'vmlinux.unstripped'} -zcvf linux.tar.gz linux
+```
+
+2. 将压缩后的源码文件复制到开发机上并解压。
+3. 修改 `compile_commands.json`，使用工具批量替换源码根目录。比如在 Linux 上源码目录是 `/data/git/linux`，而开发机的源码目录是 `/Users/roc/dev/linux`，就用工具将 `compile_commands.json` 中的 `/data/git/linux` 全部替换成 `/Users/roc/dev/linux`。
+4. 做完以上操作后，就可以在开发机上通过 Neovim 阅读内核源码了。
 
 ## MacOS 注意事项
 
