@@ -26,7 +26,7 @@ make CC=clang
 python3 ./scripts/clang-tools/gen_compile_commands.py
 ```
 
-> 较低版本的内核（比如5.4）使用 `python3 ./scripts/gen_compile_commands.py` 生成。
+> 较低版本的内核（比如5.4），需使用低版本 clang，且使用 `python3 ./scripts/gen_compile_commands.py` 来生成 `compile_commands.json`。
 
 如果你的 Neovim 本就在这台编译内核源码的 Linux 机器上，那么就可以直接用  Neovim 阅读源码了，打开源码文件后会自动索引，可实现代码跳转。
 
