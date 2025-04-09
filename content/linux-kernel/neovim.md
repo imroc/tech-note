@@ -50,3 +50,11 @@ git clone https://github.com/torvalds/linux.git
 ```bash
 ln -s /Volumes/case-sensitive/linux ~/dev/linux
 ```
+
+### 安装 clang/clangd
+
+macOS 自带有 clang 和 clangd，但是版本比较低，可以用 brew 安装最新版：
+
+```bash
+brew install llvm
+```
