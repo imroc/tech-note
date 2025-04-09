@@ -41,7 +41,7 @@ tar --exclude={'.git','.cache','include/config','*.cmd','*.o','*.a','*.bin','*.g
 ```
 
 2. 将压缩后的源码文件复制到开发机上并解压。
-3. 修改 `compile_commands.json`，使用工具批量替换源码根目录。比如在 Linux 上源码目录是 `/data/git/linux`，而开发机的源码目录是 `/Users/roc/dev/linux`，就用工具将 `compile_commands.json` 中的 `/data/git/linux` 全部替换成 `/Users/roc/dev/linux`。
+3. 修改 `compile_commands.json`，使用工具批量替换该文件中的源码根目录的绝对路径。比如在 Linux 上源码目录是 `/data/git/linux`，而开发机的源码目录是 `/Users/roc/dev/linux`，就用工具将 `compile_commands.json` 中的 `/data/git/linux` 全部替换成 `/Users/roc/dev/linux`。
 4. 做完以上操作后，就可以在开发机上通过 Neovim 阅读内核源码了。
 
 ## MacOS 注意事项：文件系统区分大小写问题
