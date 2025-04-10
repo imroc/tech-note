@@ -71,7 +71,6 @@ tar --exclude={'.git','.cache','include/config','*.cmd','*.o','*.a','*.bin','*.g
   "directory": "/Volumes/case-sensitive/linux",
   "file": "ipc/msg.c"
 }
-
 ```
 
 ## MacOS 注意事项：文件系统区分大小写问题
