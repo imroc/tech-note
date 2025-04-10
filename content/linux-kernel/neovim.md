@@ -35,7 +35,7 @@ python3 ./scripts/clang-tools/gen_compile_commands.py
 如果需要在其它机器上阅读源码，比如日常使用 MacOS 做开发机，那么可以按照下面的方法来做。
 
 1. 在 Linux 机器上压缩源码文件（用 `--exclude` 参数忽略一些自动生成的但与代码阅读无关的文件）：
-
+[](2025-04-10_.md)
 ```bash
 tar --exclude={'.git','.cache','include/config','*.cmd','*.o','*.a','*.bin','*.gz','bzImage','.tmp*','vmlinux','vmlinux.unstripped'} -zcvf linux.tar.gz linux
 ```
@@ -43,6 +43,20 @@ tar --exclude={'.git','.cache','include/config','*.cmd','*.o','*.a','*.bin','*.g
 2. 将压缩后的源码文件复制到开发机上并解压。
 3. 修改 `compile_commands.json`，使用工具批量替换该文件中的源码根目录的绝对路径。比如在 Linux 上源码目录是 `/data/git/linux`，而开发机的源码目录是 `/Users/roc/dev/linux`，就用工具将 `compile_commands.json` 中的 `/data/git/linux` 全部替换成 `/Users/roc/dev/linux`。
 4. 做完以上操作后，就可以在开发机上通过 Neovim 阅读内核源码了。
+
+如果你看的是比较旧版本的内核（比如 5.4），那么可能还需要拷贝 clang 的 include 目录。
+
+比如在 Linux 上编译生成的 `compile_commands.json` 中的每个数组元素类似这样：
+
+```json
+{
+  "command": "clang -Wp,-MD,ipc/.msg.o.d -nostdinc -isystem /root/.linuxbrew/Cellar/llvm@12/12.0.1_1/lib/clang/12.0.1/include -I./arch/x86/include -I./arch/x86/include/generated  -I./include -I./arch/x86/include/uapi -I./arch/x86/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h -include ./include/linux/compiler_types.h -D__KERNEL__ -Qunused-arguments -Wall -Wundef -Werror=strict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -fno-PIE -Werror=implicit-function-declaration -Werror=implicit-int -Werror=return-type -Wno-format-security -std=gnu89 -no-integrated-as -Werror=unknown-warning-option -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -fcf-protection=none -m64 -mno-80387 -mstack-alignment=8 -mtune=generic -mno-red-zone -mcmodel=kernel -DCONFIG_AS_CFI=1 -DCONFIG_AS_CFI_SIGNAL_FRAME=1 -DCONFIG_AS_CFI_SECTIONS=1 -DCONFIG_AS_SSSE3=1 -DCONFIG_AS_AVX=1 -DCONFIG_AS_AVX2=1 -DCONFIG_AS_AVX512=1 -DCONFIG_AS_SHA1_NI=1 -DCONFIG_AS_SHA256_NI=1 -Wno-sign-compare -fno-asynchronous-unwind-tables -mretpoline-external-thunk -fno-delete-null-pointer-checks -Wno-frame-address -Wno-address-of-packed-member -O2 -Wframe-larger-than=2048 -fstack-protector-strong -Wno-format-invalid-specifier -Wno-gnu -Wno-tautological-compare -mno-global-merge -Wno-unused-const-variable -fomit-frame-pointer -Wdeclaration-after-statement -Wvla -Wno-pointer-sign -Wno-array-bounds -fno-strict-overflow -fno-merge-all-constants -fno-stack-check -Wno-error=date-time -Werror=incompatible-pointer-types -fmacro-prefix-map=./= -Wno-initializer-overrides -Wno-format -Wno-sign-compare -Wno-format-zero-length -Wno-pointer-to-enum-cast    -DKBUILD_BASENAME='\"msg\"' -DKBUILD_MODNAME='\"msg\"' -c -o ipc/msg.o ipc/msg.c",
+  "directory": "/data/git/linux",
+  "file": "ipc/msg.c"
+}
+```
+
+其中 `-isystem` 指定了 include 已安装的 vllm 的 clang 头文件目录，当拷贝到开发机后，也将 Linux 下的 clang 头文件目录拷过来（上面示例目录是 `/root/.linuxbrew/Cellar/llvm@12/12.0.1_1/lib/clang/12.0.1/include`）放到内核源码根目录下，可以将目录名称改为 `clang-include`，然后修改 `compile_commands.json` 中的 `-isystem` 参数为 `-isystem /Volumes/case-sensitive/linux/clang-include`（假设内核源码根目录为 `/Volumes/case-sensitive/linux`）。
 
 ## MacOS 注意事项：文件系统区分大小写问题
 
