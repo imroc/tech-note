@@ -41,6 +41,7 @@ python3 ./scripts/clang-tools/gen_compile_commands.py
 ```bash
 tar --exclude={'.git','.cache','include/config','*.cmd','*.o','*.a','*.bin','*.gz','bzImage','.tmp*','vmlinux','vmlinux.unstripped'} -zcvf linux.tar.gz linux
 ```
+> 如果希望保留 Git 历史，可从 `--exclude` 中移除 `.git`。
 
 2. 将压缩后的源码文件复制到开发机上并解压。
 3. 修改 `compile_commands.json`，使用工具批量替换该文件中的源码根目录的绝对路径。比如在 Linux 上源码目录是 `/data/git/linux`，而开发机的源码目录是 `/Volumes/case-sensitive/linux-6.14`，就用工具将 `compile_commands.json` 中的 `/data/git/linux` 全部替换成 `/Volumes/case-sensitive/linux-6.14`，此时 `compile_commands.json` 中每个数组元素类似下面这样：
