@@ -11,8 +11,10 @@ clangd 需要一个 `compile_commands.json` 文件来索引项目文件，该文
 首先需要编译一下内核（使用 clang 作为编译器）：
 
 ```bash
-make CC=clang defconfig
+# 编译所有模块，避免部分代码无法跳转
+make CC=clang allyesconfig
 
+# 使用 clang 编译
 make CC=clang
 
 # 如果希望加快编译速度，可以用 -j 参数指定并发编译的核数，最大不超过机器总核数
