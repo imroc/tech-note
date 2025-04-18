@@ -110,6 +110,8 @@ TCP 协议的情况下，会使用 `tcp_sendmsg` 这个函数，从 `net/ipv4/tc
 
 ## 网络层
 
+代码流程：
+
 ```c
 // file: net/ipv4/ip_output.c
 ip_queue_xmit(...) // 网络层入口，对应传输层中 icsk->icsk_af_ops->queue_xmit 的函数引用
