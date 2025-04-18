@@ -1,4 +1,4 @@
-# 梳理网络数据包发送的代码流程
+# 梳理进程发包流程
 
 ## 概述
 
@@ -9,7 +9,8 @@
 代码流程：
 
 ```c
-SYSCALL_DEFINE6(sendto, ...) // 声明系统调用 (net/socket.c)
+// file: net/socket.c
+SYSCALL_DEFINE6(sendto, ...) // 声明系统调用
 |
 +-- __sys_sendto(...) // 系统调用入口
     |
@@ -41,9 +42,10 @@ SYSCALL_DEFINE6(sendto, ...) // 声明系统调用 (net/socket.c)
 代码流程
 
 ```c
-inet_sendmsg(...) // 传输层入口 (net/ipv4/af_inet.c) 对应系统调用函数中的 sk->ops->sendmsg
-|
-+-- tcp_sendmsg(...) // 对应 sk->sk_prot->sendmsg(sock->sk, msg, size)  -- net/ipv4/tcp.c
+// file: net/ipv4/af_inet.c
+inet_sendmsg(...) // 传输层入口, 对应系统调用函数中的 sk->ops->sendmsg
+|   // file: net/ipv4/tcp.c
++-- tcp_sendmsg(...) // 对应 sk->sk_prot->sendmsg(sock->sk, msg, size)
     |
     +-- tcp_sendmsg_locked(...)
         |
@@ -96,10 +98,11 @@ TCP 协议的情况下，会使用 `tcp_sendmsg` 这个函数，从 `net/ipv4/tc
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F04%2F18%2F20250418105916.png)
 
-## 网络层（IP 层）
+## 网络层
 
 ```c
-ip_queue_xmit(...) // IP 层入口（net/ipv4/ip_output.c），对应传输层中 icsk->icsk_af_ops->queue_xmit 的函数引用
+// file: net/ipv4/ip_output.c
+ip_queue_xmit(...) // 网络层入口，对应传输层中 icsk->icsk_af_ops->queue_xmit 的函数引用
 |
 +-- __ip_queue_xmit(...)
     |
@@ -108,12 +111,20 @@ ip_queue_xmit(...) // IP 层入口（net/ipv4/ip_output.c），对应传输层�
          +-- __ip_local_out(...)
          |   |
          |   +-- nf_hook(NFPROTO_IPV4, NF_INET_LOCAL_OUT, ...) // 调用 OUTPUT 链钩子函数
-         |
+         |   // file: include/net/dst.h
          +-- dst_output(...)
-             |
-             +-- ip_outpout(...) // 对应 skb_dst(skb)->output (net/ipv4/ip_output.c)
+             |    // file: net/ipv4/ip_output.c
+             +-- ip_outpout(...) // 对应 skb_dst(skb)->output
                  |
                  +-- NF_HOOK_COND(NFPROTO_IPV4, NF_INET_POST_ROUTING, ... , ip_finish_output, ...) // 调用 POSTROUTING 链钩子函数，如果没丢包会继续调用 ip_finish_output
+                     |
+                     +-- ip_finish_output(...)
+                         |
+                         +-- __ip_finish_output(...)
+                             |
+                             +-- ip_finish_output2(...)
+                                 |
+                                 +-- neigh_output(...) // 丢给数据链路层处理
 ```
 
 传输层中 `icsk->icsk_af_ops->queue_xmit` 的函数引用的 IPv4 实现在 `net/ipv4/tcp_ipv4.c` 中有声明，是 `ip_queue_xmit` 这个函数：
@@ -143,3 +154,7 @@ ip_queue_xmit(...) // IP 层入口（net/ipv4/ip_output.c），对应传输层�
 这个 `outpout` 函数实际对应 `ip_outpout` 函数，里面会调用 POSTROUTING 链的钩子函数，如果没丢包会继续调用 `ip_finish_output`：
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F04%2F18%2F20250418122048.png)
+
+然后调用 `__ip_finish_output`：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F04%2F18%2F20250418142655.png)

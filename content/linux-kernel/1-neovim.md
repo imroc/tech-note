@@ -1,12 +1,12 @@
-# 使用 Neovim 阅读 Linux 内核源码
+# 利用 LSP 阅读 Linux 内核源码
 
-## Neovim 与 LSP
+## LSP 介绍
 
-Neovim 上阅读源码，可通过 LSP 插件提供代码补全、跳转等功能，Linux 内核源码主要是 C 语言，可使用 clangd 作为 LSP Server，我用的 [LazyVim](https://www.lazyvim.org/)，直接通过 `:LazyExtras` 启用 `lang.clangd` 扩展即可。
+语言服务器协议（LSP）是编辑器与语言智能服务间的标准化接口，支持代码补全、跳转定义等功能，实现跨语言和工具的无缝兼容，提升开发效率，不同的编辑器和 IDE 通常都支持安装语言插件，而很多语言插件通常都基于 LSP 实现。
 
 ## 生成 compile_commands.json
 
-clangd 需要一个 `compile_commands.json` 文件来索引项目文件，该文件通常由项目中提供的工具生成，生成过程会编译项目源码。
+Linux 内核源码主要是 C 语言，通常使用 clangd 作为 LSP Server，clangd 需要一个 `compile_commands.json` 文件来索引项目文件，该文件通常由项目中提供的工具生成，生成过程会编译项目源码。
 
 首先需要编译一下内核（使用 clang 作为编译器）：
 
@@ -30,7 +30,13 @@ python3 ./scripts/clang-tools/gen_compile_commands.py
 
 > 较低版本的内核（比如5.4），需使用低版本 clang，且使用 `python3 ./scripts/gen_compile_commands.py` 来生成 `compile_commands.json` (注意脚本路径不一样)。
 
-如果你的 Neovim 本就在这台编译内核源码的 Linux 机器上，那么就可以直接用  Neovim 阅读源码了，打开源码文件后会自动索引，可实现代码跳转。
+## 编辑器或 IDE 安装支持 C/C++ 的 LSP 插件
+
+接下来为你的编辑器或 IDE 安装支持 C/C++ 的 LSP 插件，我用的 Neovim，基于 [LazyVim](https://www.lazyvim.org/) 配置，直接通过 `:LazyExtras` 启用 `lang.clangd` 扩展即可，如果使用其它编辑器或 IDE 可根据自身情况自行安装 LSP 插件。
+
+## 开始阅读源码
+
+如果你的编辑器或 IDE 本来就在这台编译内核源码的 Linux 机器上，那么就可以直接阅读源码了，打开源码文件后会自动索引，可实现代码跳转。
 
 ## 在其他机器上阅读源码
 
