@@ -38,6 +38,12 @@ python3 ./scripts/clang-tools/gen_compile_commands.py
 
 如果你的编辑器或 IDE 本来就在这台编译内核源码的 Linux 机器上，那么就可以直接阅读源码了，打开源码文件后会自动索引，可实现代码跳转。
 
+以下是效果：
+
+<video controls>
+    <source src="https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/videos/read-linux-kernel-use-neovim.mp4" type="video/mp4">
+</video>
+
 ## 在其他机器上阅读源码
 
 如果需要在其它机器上阅读源码，比如日常使用 MacOS 做开发机，那么可以按照下面的方法来做。
