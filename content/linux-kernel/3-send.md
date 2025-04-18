@@ -39,7 +39,7 @@ SYSCALL_DEFINE6(sendto, ...) // 声明系统调用
 
 ## 传输层
 
-代码流程
+代码流程:
 
 ```c
 // file: net/ipv4/af_inet.c
@@ -124,6 +124,8 @@ ip_queue_xmit(...) // 网络层入口，对应传输层中 icsk->icsk_af_ops->qu
                              |
                              +-- ip_finish_output2(...)
                                  |
+                                 +-- ip_neigh_for_gw(...) // arp 查询 mac 地址
+                                 |
                                  +-- neigh_output(...) // 丢给数据链路层处理
 ```
 
@@ -158,3 +160,102 @@ ip_queue_xmit(...) // 网络层入口，对应传输层中 icsk->icsk_af_ops->qu
 然后调用 `__ip_finish_output`：
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F04%2F18%2F20250418142655.png)
+
+接着调 `ip_finish_output2`:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F04%2F18%2F20250418144617.png)
+
+然后先调 `ip_neigh_for_gw` 通过 arp 查 mac 地址，再调 `neigh_output` 丢给数据链路层处理：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F04%2F18%2F20250418152409.png)
+
+## 数据链路层
+
+代码流程:
+
+```c
+// file: include/net/neighbour.h
+neigh_output(...)
+|
++-- neigh_hh_output(...)
+    |
+    +-- dev_queue_xmit(...) // 调用网络设备子系统处理
+```
+
+在 `neigh_output` 中，调用 `neigh_hh_output`：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F04%2F18%2F20250418144859.png)
+
+最后调用 `dev_queue_xmit` 丢给网络设备子系统处理:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F04%2F18%2F20250418151241.png)
+
+## 网络设备子系统
+
+代码流程：
+
+```c
+// file: include/linux/netdevice.h
+dev_queue_xmit(...)
+|   // file: net/core/dev.c
++-- __dev_queue_xmit(...)
+    |
+    +-- __dev_xmit_skb(...) // 如需排队，交给 qdisc 排队发送
+    |
+    +-- dev_hard_start_xmit(...)// 如无需排队，直接发送
+        |
+        +-- xmit_one(...)
+            |   // file: include/linux/netdevice.h
+            +-- netdev_start_xmit(...)
+                |
+                +-- ops->ndo_start_xmit(skb, dev) // 调用网络设备驱动发送数据包
+                
+```
+在 `dev_queue_xmit` 中，直接调用 `__dev_queue_xmit`:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F04%2F18%2F20250418154324.png)
+
+如果需要排队，走 `__dev_xmit_skb`，如果不需要排队，直接调 `dev_hard_start_xmit` 发送：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F04%2F18%2F20250418162243.png)
+
+调用 `xmit_one`:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F04%2F18%2F20250418162742.png)
+
+再调用 `netdev_start_xmit`:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F04%2F18%2F20250418162819.png)
+
+进一步调用 `__netdev_start_xmit`:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F04%2F18%2F20250418163117.png)
+
+最后通过调用 `ops->ndo_start_xmit(skb, dev)` 将数据包丢给网络设备驱动处理：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F04%2F18%2F20250418163149.png)
+
+## 网络设备驱动
+
+`ndo_start_xmit` 是网络设备驱动需实现的函数，以 intel 的 igb 驱动所支持的网卡为例，找到驱动的实现函数为 `igb_xmit_frame`：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F04%2F18%2F20250418163942.png)
+
+代码流程：
+
+```c
+// file: drivers/net/ethernet/intel/igb/igb_main.c
+igb_xmit_frame(...) // intel igb 网卡驱动的实现函数
+|
++-- igb_xmit_frame_ring(...)
+    |
+    +-- igb_tx_map(...) // 将数据丢给网卡转发
+```
+
+调用 `igb_xmit_frame_ring`:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F04%2F18%2F20250418164332.png)
+
+再调用 `igb_tx_map` 将数据丢给网卡转发：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F04%2F18%2F20250418164921.png)
