@@ -46,7 +46,7 @@ npm install --save docusaurus-plugin-zooming
 
 然后就可以了。
 
-项目地址: https://github.com/flexanalytics/plugin-image-zoom
+项目地址: https://github.com/inovector/docusaurus-plugin-zooming
 
 ## plugin-pwa
 
