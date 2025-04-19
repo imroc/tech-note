@@ -33,14 +33,14 @@ npm install --save docusaurus-plugin-sass sass
 安装：
 
 ```bash npm2yarn
-npm install --save flexanalytics/plugin-image-zoom
+npm install --save docusaurus-plugin-zooming
 ```
 
 在 `docusaurus.config.js` 中添加插件名称：
 
 ```js title="docusaurus.config.js"
   plugins: [
-    'plugin-image-zoom'
+    'docusaurus-plugin-zooming'
   ],
 ```
 
