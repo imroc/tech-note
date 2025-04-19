@@ -40,7 +40,7 @@ python3 ./scripts/clang-tools/gen_compile_commands.py
 
 以下是效果：
 
-<video controls>
+<video controls width="90%">
     <source src="https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/videos/read-linux-kernel-use-neovim.mp4" type="video/mp4" />
 </video>
 
