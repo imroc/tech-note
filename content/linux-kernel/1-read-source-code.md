@@ -4,9 +4,11 @@
 
 语言服务器协议（LSP）是编辑器与语言智能服务间的标准化接口，支持代码补全、跳转定义等功能，实现跨语言和工具的无缝兼容，提升开发效率，不同的编辑器和 IDE 通常都支持安装语言插件，而很多语言插件通常都基于 LSP 实现。
 
+本文使用的 C/C++ 的 LSP 基于 clangd，依赖编译源码并生成 `compile_commands.json`，这种方式严格模拟编译过程（如宏展开、条件编译），而像 VSCode 的 C/C++ Intellisense 扩展就不需要这么麻烦，直接就可以跳转，因为它做了头文件与宏定义的自动推断，跳转也基于语法解析而非完整的编译上下文，所以它使用起来更轻量便捷，但准确性不如编译内核并生成 `compile_commands.json` 的方式。
+
 ## 生成 compile_commands.json
 
-Linux 内核源码主要是 C 语言，通常使用 clangd 作为 LSP Server，clangd 需要一个 `compile_commands.json` 文件来索引项目文件，该文件通常由项目中提供的工具生成，生成过程会编译项目源码。
+Linux 内核源码主要是 C 语言，推荐使用 clangd 作为 LSP Server，clangd 需要一个 `compile_commands.json` 文件来索引项目文件，该文件通常由项目中提供的工具生成，生成过程会编译项目源码。
 
 首先需要编译一下内核（使用 clang 作为编译器）：
 
