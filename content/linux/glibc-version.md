@@ -58,3 +58,7 @@ GLIBC_2.35
 GLIBC_2.2.5
 ld.so (Ubuntu GLIBC 2.39-0ubuntu8.4) stable release version 2.39.
 ```
+
+## 参考资料
+
+- [Linux系统中glibc版本号的查看方法](https://cloud.baidu.com/article/3295137)
