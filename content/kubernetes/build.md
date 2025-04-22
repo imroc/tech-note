@@ -19,3 +19,11 @@ make kubectl KUBE_BUILD_PLATFORMS=linux/amd64
 ```bash
 CGO_ENABLED=0 GOLDFLAGS="-s -w -extldflags '-static'" make kubectl KUBE_BUILD_PLATFORMS=linux/amd64
 ```
+
+## 编译指定镜像
+
+比如编译 kube-apiserver 的镜像：
+
+```bash
+WHAT=cmd/kube-apiserver KUBE_BUILD_PLATFORMS=linux/amd64 make release-images
+```
