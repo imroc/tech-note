@@ -11,3 +11,7 @@
 ## 删除连续的多行行尾相同内容
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F06%2F11%2F20250611102205.gif)
+
+## 给连续多行的行首单词加粗
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F06%2F11%2F20250611113728.gif)
