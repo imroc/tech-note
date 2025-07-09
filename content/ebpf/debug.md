@@ -12,4 +12,5 @@ bpf_trace_printk("Hello, World!");
 
 ```bash
 tail -f /sys/kernel/debug/tracing/trace_pipe
+# cat /sys/kernel/debug/tracing/trace_pipe
 ```
