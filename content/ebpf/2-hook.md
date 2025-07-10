@@ -6,14 +6,19 @@
 
 这种内核函数的 hook 方式称为 kprobe，除此之外，还有其他几种 hook 方式，下面用表格列举一下：
 
-| hook 方式  | 回调时机         | bcc attach 入口   |
-| :--------- | :--------------- | :---------------- |
-| kprobe     | 内核函数调用开始 | attach_kprobe     |
-| kretprobe  | 内核函数调用结束 | attach_kretprobe  |
-| tracepoint | 内核函数调用结束 | attach_tracepoint |
+| hook 类型  | hook 方式      | 回调时机                       | bcc attach 入口       | 性能开销 |
+| :--------- | :------------- | :----------------------------- | :-------------------- | :------- |
+| 内核函数   | kprobe         | 内核空间函数调用开始           | attach_kprobe         | 极低     |
+| 内核函数   | kretprobe      | 内核空间函数调用结束           | attach_kretprobe      | 极低     |
+| 内核跟踪点 | tracepoint     | 内核跟踪点被执行               | attach_tracepoint     | 一般     |
+| 内核跟踪点 | raw_tracepoint | 内核跟踪点被执行（不解析参数） | attach_raw_tracepoint | 低       |
+| 网络接口   | xdp            | 网络接口收发数据包             | attach_xdp            | 极低     |
+| 用户函数   | uprobe         | 用户空间函数调用开始           | attach_uprobe         | 极低     |
+| 用户函数   | uretprobe      | 用户空间函数调用结束           | attach_uretprobe      | 极低     |
+| 网卡       | raw_socket     | 网卡收包                       | attach_raw_socket     | 极低     |
 
 
-## 内核函数
+## 有哪些内核函数可以 hook？
 
 Linux 内核通过虚拟文件 `/proc/kallsyms` 动态暴露所有可追踪的符号（函数名、全局变量）:
 
@@ -25,9 +30,9 @@ ffffffffa0636050 t nf_nat_masquerade_ipv4       [nf_nat]
 
 格式：`<地址> <类型> <符号名> [模块名]`
 
-其中符号名即为内核中符号名称，部分符号（函数名）可用于 `kprobe` 或 `kretprobe` 的内核事件 hook 点。
+其中【符号名】即为内核中符号名称，【类型】为 `T/t` 的就是内核函数，可用于 `kprobe` 或 `kretprobe` 的内核事件 hook 点。
 
-其它：
+各字段的详细解释：
 - 地址：内核函数内存地址，这个是动态的，每台机器都不一样。
 - 模块名：内核模块名称，如果为空则表示核心内核函数。
 - 类型：
