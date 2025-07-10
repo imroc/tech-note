@@ -6,7 +6,7 @@
 
 这种内核函数的 hook 方式称为 kprobe，除此之外，还有其他几种 hook 方式，下面用表格列举一下：
 
-| hook 类型  | hook 方式      | 回调时机                       | bcc attach 入口       | 性能开销 |
+| hook 类型  | eBPF 程序类型  | 回调时机                       | bcc attach 入口       | 性能开销 |
 | :--------- | :------------- | :----------------------------- | :-------------------- | :------- |
 | 内核函数   | kprobe         | 内核空间函数调用开始           | attach_kprobe         | 极低     |
 | 内核函数   | kretprobe      | 内核空间函数调用结束           | attach_kretprobe      | 极低     |
@@ -53,3 +53,92 @@ sudo grep tcp /proc/kallsyms | awk '{print $3}'
 sudo grep '\<open' /proc/kallsyms
 ```
 
+## eBPF 程序可以调用哪些辅助函数？
+
+可以通过 `bpftool feature probe` 来查询各类 eBPF 程序可以调用的辅助函数，比如 `kprobe`:
+
+```bash
+$ bpftool feature probe
+...
+eBPF helpers supported for program type kprobe:
+        - bpf_map_lookup_elem
+        - bpf_map_update_elem
+        - bpf_map_delete_elem
+        - bpf_probe_read
+        - bpf_ktime_get_ns
+        - bpf_get_prandom_u32
+        - bpf_get_smp_processor_id
+        - bpf_tail_call
+        - bpf_get_current_pid_tgid
+        - bpf_get_current_uid_gid
+        - bpf_get_current_comm
+        - bpf_perf_event_read
+        - bpf_perf_event_output
+        - bpf_get_stackid
+        - bpf_get_current_task
+        - bpf_current_task_under_cgroup
+        - bpf_get_numa_node_id
+        - bpf_probe_read_str
+        - bpf_perf_event_read_value
+        - bpf_override_return
+        - bpf_get_stack
+        - bpf_get_current_cgroup_id
+        - bpf_map_push_elem
+        - bpf_map_pop_elem
+        - bpf_map_peek_elem
+        - bpf_spin_lock
+        - bpf_spin_unlock
+        - bpf_strtol
+        - bpf_strtoul
+        - bpf_send_signal
+        - bpf_probe_read_user
+        - bpf_probe_read_kernel
+        - bpf_probe_read_user_str
+        - bpf_probe_read_kernel_str
+        - bpf_send_signal_thread
+        - bpf_jiffies64
+        - bpf_get_ns_current_pid_tgid
+        - bpf_get_current_ancestor_cgroup_id
+        - bpf_ktime_get_boot_ns
+        - bpf_ringbuf_output
+        - bpf_ringbuf_reserve
+        - bpf_ringbuf_submit
+        - bpf_ringbuf_discard
+        - bpf_ringbuf_query
+        - bpf_get_task_stack
+        - bpf_copy_from_user
+        - bpf_snprintf_btf
+        - bpf_per_cpu_ptr
+        - bpf_this_cpu_ptr
+        - bpf_task_storage_get
+        - bpf_task_storage_delete
+        - bpf_get_current_task_btf
+        - bpf_for_each_map_elem
+        - bpf_snprintf
+        - bpf_timer_init
+        - bpf_timer_set_callback
+        - bpf_timer_start
+        - bpf_timer_cancel
+        - bpf_get_func_ip
+        - bpf_get_attach_cookie
+        - bpf_task_pt_regs
+        - bpf_get_branch_snapshot
+        - bpf_find_vma
+        - bpf_loop
+        - bpf_strncmp
+        - bpf_copy_from_user_task
+        - bpf_kptr_xchg
+        - bpf_map_lookup_percpu_elem
+        - bpf_dynptr_from_mem
+        - bpf_ringbuf_reserve_dynptr
+        - bpf_ringbuf_submit_dynptr
+        - bpf_ringbuf_discard_dynptr
+        - bpf_dynptr_read
+        - bpf_dynptr_write
+        - bpf_dynptr_data
+        - bpf_ktime_get_tai_ns
+        - bpf_user_ringbuf_drain
+        - bpf_cgrp_storage_get
+        - bpf_cgrp_storage_delete
+...
+```
