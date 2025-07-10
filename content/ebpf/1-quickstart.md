@@ -27,6 +27,65 @@ Linux 内核提供的一种动态 hook 机制，可以将自定义代码逻辑 h
 
 > 为什么不直接都在内核态完成所有操作？因为内核要确保 eBPF 代码执行的安全性，会有许多限制，所以 eBPF 代码一般不会包含业务逻辑，只用于获取相应内核事件相关的关键数据。业务逻辑会通过用户态程序实现，比如用 python, golang, rust 等语言写的用户态程序获取 C 语言写的 eBPF 内核态程序返回的数据，然后用户态程序拿到数据后再做相应的业务逻辑处理。
 
+## bpf 系统调用
+
+[bpf 系统调用](https://man7.org/linux/man-pages/man2/bpf.2.html) 是 eBPF 用户态程序与内核交互的接口，可通过 `man bpf` 查看说明，系统调用的格式如下：
+
+```c
+#include <linux/bpf.h>
+
+int bpf(int cmd, union bpf_attr *attr, unsigned int size);
+```
+
+- `cmd`: 操作命令，比如 `BPF_PROG_LOAD` 就是加载 eBPF 程序。
+- `attr`: 操作命令对应的属性。
+- `size`: 属性的大小。
+
+不同版本的内核所支持的 BPF 命令是不同的，在内核头文件 `include/uapi/linux/bpf.h` 中的 `bpf_cmd` 定义就是对应内核版本支持的 BPF 操作命令，在 `v6.14` 内核已支持 38 个指令：
+
+```c
+enum bpf_cmd {
+	BPF_MAP_CREATE,
+	BPF_MAP_LOOKUP_ELEM,
+	BPF_MAP_UPDATE_ELEM,
+	BPF_MAP_DELETE_ELEM,
+	BPF_MAP_GET_NEXT_KEY,
+	BPF_PROG_LOAD,
+	BPF_OBJ_PIN,
+	BPF_OBJ_GET,
+	BPF_PROG_ATTACH,
+	BPF_PROG_DETACH,
+	BPF_PROG_TEST_RUN,
+	BPF_PROG_RUN = BPF_PROG_TEST_RUN,
+	BPF_PROG_GET_NEXT_ID,
+	BPF_MAP_GET_NEXT_ID,
+	BPF_PROG_GET_FD_BY_ID,
+	BPF_MAP_GET_FD_BY_ID,
+	BPF_OBJ_GET_INFO_BY_FD,
+	BPF_PROG_QUERY,
+	BPF_RAW_TRACEPOINT_OPEN,
+	BPF_BTF_LOAD,
+	BPF_BTF_GET_FD_BY_ID,
+	BPF_TASK_FD_QUERY,
+	BPF_MAP_LOOKUP_AND_DELETE_ELEM,
+	BPF_MAP_FREEZE,
+	BPF_BTF_GET_NEXT_ID,
+	BPF_MAP_LOOKUP_BATCH,
+	BPF_MAP_LOOKUP_AND_DELETE_BATCH,
+	BPF_MAP_UPDATE_BATCH,
+	BPF_MAP_DELETE_BATCH,
+	BPF_LINK_CREATE,
+	BPF_LINK_UPDATE,
+	BPF_LINK_GET_FD_BY_ID,
+	BPF_LINK_GET_NEXT_ID,
+	BPF_ENABLE_STATS,
+	BPF_ITER_CREATE,
+	BPF_LINK_DETACH,
+	BPF_PROG_BIND_MAP,
+	BPF_TOKEN_CREATE,
+};
+```
+
 ## 使用什么工具开发 eBPF？
 
 ### BCC
@@ -36,7 +95,3 @@ Linux 内核提供的一种动态 hook 机制，可以将自定义代码逻辑 h
 ### bpftrace
 
 如果只想通过简单的脚本来分析或定位内核相关问题，通常使用 bpftrace 来搞定，它基于 bcc，提供类似 awk 的脚本语言，可实现一行命令完成复杂的内核追踪分析。
-
-## bpf 系统调用
-
-[bpf 系统调用](https://man7.org/linux/man-pages/man2/bpf.2.html) 是 Linux 内核提供的用于加载 eBPF 字节码到内核的系统调用，它可以用于加载 eBPF 程序到内核，也可以用于获取 eBPF 程序的状态。
