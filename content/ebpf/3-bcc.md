@@ -32,10 +32,11 @@ int hello_world(void *ctx)
 
 ```python
 #!/usr/bin/env python3
+
 # 1.导入 bcc 包
 from bcc import BPF
 
-# 2. 定义 eBPF 程序，加载内核态部分的 C 语言代码
+# 2. 定义 eBPF 程序，加载内核态部分的 eBPF C 语言代码
 b = BPF(src_file="hello.c")
 
 # 3. hook eBPF 程序到指定的内核事件
@@ -46,6 +47,17 @@ b.trace_print()
 ```
 
 最后执行 `python3 hello.py` 运行 eBPF 程序，就可以看到相应的调试输出。
+
+## eBPF 程序可以 hook 到哪些内核事件？
+
+上面 hello world 中的 `b.attach_kprobe(event="do_sys_openat2", fn_name="hello_world")` 表示将 eBPF 程序 hook 到 `do_sys_openat2` 这个内核函数的调用上，每次这个内核函数被调用时就会回调一下 `hello.c` 中的 `hello_world` 函数。
+
+这种内核函数的 hook 方式称为 kprobe，除此之外，还有其他几种 hook 方式，下面用表格列举一下：
+
+| hook 方式 | 描述             | bcc python attach 函数 |
+| :-------- | :--------------- | :--------------------- |
+| kprobe    | 内核函数调用开始 | attach_kprobe          |
+| kretprobe | 内核函数调用结束 | attach_kretprobe       |
 
 ## 参考资料
 
