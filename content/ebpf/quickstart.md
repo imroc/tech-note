@@ -1,0 +1,53 @@
+# 快速入门
+
+## eBPF 的本质是什么？
+
+Linux 内核提供的一种动态 hook 机制，可以将自定义代码逻辑 hook 到指定内核事件上，当内核触发该事件时就会调用相应的自定义代码逻辑。
+
+## 有哪些内核事件?
+
+- 系统调用
+- 网络包到达
+- 函数调用
+- 定时器
+
+## 如何与用户态程序交互？
+
+因为内核要确保 eBPF 代码执行的安全性，会有许多限制，所以 eBPF 代码一般不会包含业务逻辑，只用于获取相应内核事件相关的关键数据。
+业务逻辑会通过用户态程序实现，比如用 python, golang, rust 等语言写的用户态程序获取 C 语言写的 eBPF 内核态程序返回的数据，然后用户态程序拿到数据后再做相应的业务逻辑处理。
+
+那么用户态程序如何与 eBPF 内核态程序交互呢？是通过内核提供的映射（map）机制实现的。
+
+## eBPF 程序从开发到运行的具体步骤是什么？
+
+1. 编写 C 语言 eBPF 程序。
+2. 用 LLVM 把 eBPF 程序编译为 BPF 字节码。
+3. 通过 bpf 系统调用加载 BPF 字节码到内核。
+4. 内核验证并运行 BPF 字节码，并把相应的状态保存到 BPF 映射中（map）。
+5. 用户态程序读取 BPF 映射并做相应的处理。
+
+## 使用什么工具开发 eBPF？
+
+### BCC
+
+通常我们都会借助 [BCC](https://github.com/iovisor/bcc) 来开发 eBPF 程序，它给我们提供了一个抽象，不需要开发者关心 eBPF 程序的编译、加载、运行等细节。具体而言，开发者用 C 编写内核态 eBPF 程序获取相应内核事件的数据，然后用 Python 编写内核态程序读取这些数据并做相应的业务逻辑处理。
+
+### bpftrace
+
+如果只想通过简单的脚本来分析或定位内核相关问题，通常使用 bpftrace 来搞定，它基于 bcc，提供类似 awk 的脚本语言。
+
+## 如何搭建 eBPF 开发环境？
+
+首先需要使用 Linux，然后用发行版自带的包管理器安装必要的依赖包，比如用 yum 的发行版(REHL、TencentOS)：
+
+```bash
+sudo yum install bcc-tools bcc-devel libbpf-devel llvm clang elfutils-libelf-devel
+```
+
+
+用 apt 的发行版 (ubuntu)：
+
+```bash
+sudo apt-get install -y  make clang llvm libelf-dev libbpf-dev bpfcc-tools libbpfcc-dev linux-tools-$(uname -r) linux-headers-$(uname -r)
+```
+
