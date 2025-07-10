@@ -17,4 +17,6 @@ sudo yum install bcc-tools bcc-devel libbpf-devel llvm clang elfutils-libelf-dev
 sudo apt-get install -y  make clang llvm libelf-dev libbpf-dev bpfcc-tools libbpfcc-dev linux-tools-$(uname -r) linux-headers-$(uname -r)
 ```
 
+## 参考资料
 
+- [bcc Reference Guide](https://github.com/iovisor/bcc/blob/master/docs/reference_guide.md)
