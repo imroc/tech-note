@@ -16,6 +16,38 @@ Ubuntu：
 sudo apt-get install -y  make clang llvm libelf-dev libbpf-dev bpfcc-tools libbpfcc-dev linux-tools-$(uname -r) linux-headers-$(uname -r)
 ```
 
+## hello world
+
+我们来写一个简单的 hello world eBPF 程序，首先写内核态部分的 C 语言代码：
+
+```c title="hello.c"
+int hello_world(void *ctx)
+{
+    bpf_trace_printk("Hello, World!");
+    return 0;
+}
+```
+
+再写用户态部分的 Python 语言代码：
+
+```python
+#!/usr/bin/env python3
+# 1.导入 bcc 包
+from bcc import BPF
+
+# 2. 定义 eBPF 程序，加载内核态部分的 C 语言代码
+b = BPF(src_file="hello.c")
+
+# 3. hook eBPF 程序到指定的内核事件
+b.attach_kprobe(event="do_sys_openat2", fn_name="hello_world")
+
+# 4. 打印内核 trace 输出（/sys/kernel/debug/tracing/trace_pipe，bpf_trace_printk 函数会输出到这里）
+b.trace_print()
+```
+
+最后执行 `python3 hello.py` 运行 eBPF 程序，就可以看到相应的调试输出。
+
 ## 参考资料
 
 - [bcc Reference Guide](https://github.com/iovisor/bcc/blob/master/docs/reference_guide.md)
+
