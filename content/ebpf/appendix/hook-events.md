@@ -151,4 +151,4 @@ tracepoint:syscalls:sys_exit_execve
 tracepoint:syscalls:sys_exit_execveat
 ```
 
-kprobe 和 tracepoint 都有相关内核事件，我们可以选 `tracepoint:syscalls:sys_enter_execve` 这个稳定的跟踪点 API 来进行 hook。
+kprobe 和 tracepoint 都有相关内核事件，我们可以选 `tracepoint:syscalls:sys_enter_execve` 和 `tracepoint:syscalls:sys_enter_execveat` 这两个稳定的跟踪点 API 来进行 hook。
