@@ -55,7 +55,9 @@ sudo grep '\<open' /proc/kallsyms
 
 ## 如何查看内核函数的定义？
 
-在 `/sys/kernel/debug` 目录下的文件内容可查询到，比如查询 `execve` 系统调用的参数格式：
+`/sys/kernel/debug` 挂载了内核调试文件系统，还向用户空间提供了内核调试所需的基本信息，如内核符号列表、跟踪点、函数跟踪（ftrace）状态以及参数格式等。
+
+比如查询 `execve` 系统调用的参数格式：
 
 ```bash
 $ sudo cat /sys/kernel/debug/tracing/events/syscalls/sys_enter_execve/format
@@ -75,6 +77,14 @@ format:
 
 print fmt: "filename: 0x%08lx, argv: 0x%08lx, envp: 0x%08lx", ((unsigned long)(REC->filename)), ((unsigned long)(REC->argv)), ((unsigned long)(REC->envp))
 ```
+
+这个目录如果没有自动挂载，可通过下面命令挂载：
+
+```bash
+sudo mount -t debugfs debugfs /sys/kernel/debug
+```
+
+> eBPF 程序的执行也依赖于这个调试文件系统。
 
 ## eBPF 程序可以调用哪些辅助函数？
 
