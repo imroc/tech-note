@@ -115,10 +115,6 @@ drwxr-xr-x.  3 root root 4.0K  7月 9日 20:56 bcc
 
 最后，确保你的 shell 的启动脚本中设置环境变量 `PYTHONUSERBASE` 为 `$HOME/.local`。
 
-## 参考资料
-
-- [bcc Reference Guide](https://github.com/iovisor/bcc/blob/master/docs/reference_guide.md)
-
 ## eBPF 程序可以调用哪些辅助函数？
 
 可以通过 `bpftool feature probe` 来查询各类 eBPF 程序可以调用的辅助函数，比如 `kprobe`:
@@ -210,3 +206,8 @@ eBPF helpers supported for program type kprobe:
 ```
 
 辅助函数的具体定义可以通过 `man bpf-helpers` 查看，或者参考内核头文件 [include/uapi/linux/bpf.h](https://github.com/torvalds/linux/blob/v6.15/include/uapi/linux/bpf.h#L1847) 中的注释。
+
+## 参考资料
+
+- [bcc Reference Guide](https://github.com/iovisor/bcc/blob/master/docs/reference_guide.md)
+
