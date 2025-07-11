@@ -35,6 +35,19 @@ $ sudo bpftrace -l '*execve*'
 
 另外，Linux 内核通过虚拟文件 `/proc/kallsyms` 动态暴露所有可追踪的符号（函数名、全局变量）:
 
+```bash
+# 1. 查看内核所有可 hook 函数名及内存地址 (需 root 权限)
+sudo cat /proc/kallsyms
+
+# 2. 过滤特定模块的函数 (例如 tcp 相关)
+sudo grep tcp /proc/kallsyms | awk '{print $3}'
+
+# 3. 直接搜索目标函数 (示例：查看所有 open 相关函数)
+sudo grep '\<open' /proc/kallsyms
+```
+
+输出内容：
+
 ```txt
 ffffffff813eae90 t do_sys_openat2
 ffffffffa05ef110 t nf_conntrack_in      [nf_conntrack]
@@ -54,17 +67,6 @@ ffffffffa0636050 t nf_nat_masquerade_ipv4       [nf_nat]
   - `R/r`: 只读数据 (rodata)。
   - `W/w`: 弱引用符号 (weak)。
   - `U`: 未定义符号 (undefined)。
-
-```bash
-# 1. 查看内核所有可 hook 函数名及内存地址 (需 root 权限)
-sudo cat /proc/kallsyms
-
-# 2. 过滤特定模块的函数 (例如 tcp 相关)
-sudo grep tcp /proc/kallsyms | awk '{print $3}'
-
-# 3. 直接搜索目标函数 (示例：查看所有 open 相关函数)
-sudo grep '\<open' /proc/kallsyms
-```
 
 ## 如何查看内核函数的定义？
 
