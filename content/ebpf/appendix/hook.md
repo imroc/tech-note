@@ -53,6 +53,29 @@ sudo grep tcp /proc/kallsyms | awk '{print $3}'
 sudo grep '\<open' /proc/kallsyms
 ```
 
+## 如何查看内核函数的定义？
+
+在 `/sys/kernel/debug` 目录下的文件内容可查询到，比如查询 `execve` 系统调用的参数格式：
+
+```bash
+$ sudo cat /sys/kernel/debug/tracing/events/syscalls/sys_enter_execve/format
+
+name: sys_enter_execve
+ID: 747
+format:
+        field:unsigned short common_type;       offset:0;       size:2; signed:0;
+        field:unsigned char common_flags;       offset:2;       size:1; signed:0;
+        field:unsigned char common_preempt_count;       offset:3;       size:1; signed:0;
+        field:int common_pid;   offset:4;       size:4; signed:1;
+
+        field:int __syscall_nr; offset:8;       size:4; signed:1;
+        field:const char * filename;    offset:16;      size:8; signed:0;
+        field:const char *const * argv; offset:24;      size:8; signed:0;
+        field:const char *const * envp; offset:32;      size:8; signed:0;
+
+print fmt: "filename: 0x%08lx, argv: 0x%08lx, envp: 0x%08lx", ((unsigned long)(REC->filename)), ((unsigned long)(REC->argv)), ((unsigned long)(REC->envp))
+```
+
 ## eBPF 程序可以调用哪些辅助函数？
 
 可以通过 `bpftool feature probe` 来查询各类 eBPF 程序可以调用的辅助函数，比如 `kprobe`:
