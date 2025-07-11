@@ -1,5 +1,31 @@
 # 使用 bcc 开发 eBPF
 
+## 需要安装哪些依赖？
+
+### bcc 工具集
+
+首先要安装有 bcc 工具集，它是用 bcc 写好的问题定位分析工具，参考 [tools 目录](https://github.com/iovisor/bcc/tree/master/tools)。
+
+谁来这个不是运行 bcc 开发的 eBPF 程序的必备条件，但安装这个工具集的其它依赖包中包含了运行 bcc 开发的 eBPF 程序所需的关键依赖：bash、pytyon3、libbpf、bcc 相关 python 包等。
+
+Ubuntu 中对应的包名是 bpfcc-tools，TencentOS/REHL 中对应的包名是 bcc-tools。
+
+### bcc 相关动态链接库
+
+bcc 相关的动态链接库也是需要安装的。
+
+Ubuntu 中对应的包名是 libbpfcc-dev，TencentOS/REHL 中对应的包名是 bcc-devel。
+
+### libbpf 相关头文件
+
+Ubuntu 中对应的包名是 libbpf-dev，TencentOS/REHL 中对应的包名是 libbpf-devel。
+
+### clang 与 LLVM
+
+bcc 会调用 clang 编译 eBPF 的 C 代码，LLVM 作为 clang 的后端，它们都需要安装。
+
+Ubuntu 和 TencentOS/REHL 中对应的包名都是 clang、llvm。
+
 ## 如何运行基于 bcc 开发的 eBPF 程序？
 
 首先需要使用 Linux，然后用发行版自带的包管理器安装必要的依赖包（不用第三方包管理器，比如 homebrew，因为 eBPF 的依赖与当前发行版内核息息相关，第三方包管理器无法适配）。
