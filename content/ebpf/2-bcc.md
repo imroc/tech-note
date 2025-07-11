@@ -2,6 +2,10 @@
 
 ## 需要安装哪些依赖？
 
+### 基础通用工具
+
+bcc 的基础通用工具依赖有：bash, make, python3。
+
 ### bcc 工具集
 
 首先要安装有 bcc 工具集，它是用 bcc 写好的问题定位分析工具，参考 [tools 目录](https://github.com/iovisor/bcc/tree/master/tools)。
@@ -19,6 +23,10 @@ Ubuntu 中对应的包名是 libbpfcc-dev，TencentOS/REHL 中对应的包名是
 ### libbpf 相关头文件
 
 Ubuntu 中对应的包名是 libbpf-dev，TencentOS/REHL 中对应的包名是 libbpf-devel。
+
+### libelf 相关头文件
+
+Ubuntu 中对应的包名是 libelf-dev，TencentOS/REHL 中对应的包名是 elfutils-libelf-devel。
 
 ### Linux 内核头文件
 
