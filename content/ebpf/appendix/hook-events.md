@@ -70,6 +70,8 @@ ffffffffa0636050 t nf_nat_masquerade_ipv4       [nf_nat]
 
 ## 如何查看内核函数的定义？
 
+### 通过内核调试文件系统查看
+
 `/sys/kernel/debug` 挂载了内核调试文件系统，还向用户空间提供了内核调试所需的基本信息，如内核符号列表、跟踪点、函数跟踪（ftrace）状态以及参数格式等。
 
 比如查询 `execve` 系统调用的参数格式：
@@ -101,3 +103,52 @@ sudo mount -t debugfs debugfs /sys/kernel/debug
 
 > eBPF 程序的执行也依赖于这个调试文件系统。
 
+### 通过 bpftrace 查看
+
+```bash
+$ sudo bpftrace -lv tracepoint:syscalls:sys_enter_execve
+tracepoint:syscalls:sys_enter_execve
+    int __syscall_nr
+    const char * filename
+    const char *const * argv
+    const char *const * envp
+```
+
+## 如何选要 hook 的内核事件？
+
+内核函数(kprobe)是不稳定的 API，而跟踪点（tracepoint）是稳定的 API，因此建议如果两者都有的情况下，优先选用 tracepoint。
+
+比如要监控进程的创建，而进程的创建通常需要 `fork()` 和 `execve()`，假设我们通过 eBPF 来 hook `execve()`，先用 bpftrace 查询下相关的内核事件：
+
+```bash
+$ sudo bpftrace -l '*execve*'
+kfunc:vmlinux:__ia32_compat_sys_execve
+kfunc:vmlinux:__ia32_compat_sys_execveat
+kfunc:vmlinux:__ia32_sys_execve
+kfunc:vmlinux:__ia32_sys_execveat
+kfunc:vmlinux:__x64_sys_execve
+kfunc:vmlinux:__x64_sys_execveat
+kfunc:vmlinux:audit_log_execve_info
+kfunc:vmlinux:bprm_execve
+kfunc:vmlinux:kernel_execve
+kfunc:vmlinux:sched_mm_cid_after_execve
+kfunc:vmlinux:sched_mm_cid_before_execve
+kprobe:__ia32_compat_sys_execve
+kprobe:__ia32_compat_sys_execveat
+kprobe:__ia32_sys_execve
+kprobe:__ia32_sys_execveat
+kprobe:__x64_sys_execve
+kprobe:__x64_sys_execveat
+kprobe:audit_log_execve_info
+kprobe:bprm_execve
+kprobe:do_execveat_common.isra.0
+kprobe:kernel_execve
+kprobe:sched_mm_cid_after_execve
+kprobe:sched_mm_cid_before_execve
+tracepoint:syscalls:sys_enter_execve
+tracepoint:syscalls:sys_enter_execveat
+tracepoint:syscalls:sys_exit_execve
+tracepoint:syscalls:sys_exit_execveat
+```
+
+kprobe 和 tracepoint 都有相关内核事件，我们可以选 `tracepoint:syscalls:sys_enter_execve` 这个稳定的跟踪点 API 来进行 hook。
