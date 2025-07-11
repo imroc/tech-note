@@ -6,16 +6,16 @@
 
 这种内核函数的 hook 方式称为 kprobe，除此之外，还有其他几种 hook 方式，下面用表格列举一下：
 
-| hook 类型  | eBPF 程序类型  | 回调时机                       | bcc attach 入口       | 性能开销 |
-| :--------- | :------------- | :----------------------------- | :-------------------- | :------- |
-| 内核函数   | kprobe         | 内核空间函数调用开始           | attach_kprobe         | 极低     |
-| 内核函数   | kretprobe      | 内核空间函数调用结束           | attach_kretprobe      | 极低     |
-| 内核跟踪点 | tracepoint     | 内核跟踪点被执行               | attach_tracepoint     | 一般     |
-| 内核跟踪点 | raw_tracepoint | 内核跟踪点被执行（不解析参数） | attach_raw_tracepoint | 低       |
-| 网络接口   | xdp            | 网络接口收发数据包             | attach_xdp            | 极低     |
-| 用户函数   | uprobe         | 用户空间函数调用开始           | attach_uprobe         | 极低     |
-| 用户函数   | uretprobe      | 用户空间函数调用结束           | attach_uretprobe      | 极低     |
-| 网卡       | raw_socket     | 网卡收包                       | attach_raw_socket     | 极低     |
+| hook 类型  | eBPF 程序类型  | 回调时机                       | 性能开销 |
+| :--------- | :------------- | :----------------------------- | :------- |
+| 内核函数   | kprobe         | 内核空间函数调用开始           | 极低     |
+| 内核函数   | kretprobe      | 内核空间函数调用结束           | 极低     |
+| 内核跟踪点 | tracepoint     | 内核跟踪点被执行               | 一般     |
+| 内核跟踪点 | raw_tracepoint | 内核跟踪点被执行（不解析参数） | 低       |
+| 网络接口   | xdp            | 网络接口收发数据包             | 极低     |
+| 用户函数   | uprobe         | 用户空间函数调用开始           | 极低     |
+| 用户函数   | uretprobe      | 用户空间函数调用结束           | 极低     |
+| 网卡       | raw_socket     | 网卡收包                       | 极低     |
 
 
 ## 哪里可以查具体内核事件列表？
