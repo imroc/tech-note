@@ -90,6 +90,26 @@ b.trace_print()
 
 最后执行 `python3 hello.py` 运行 eBPF 程序，就可以看到相应的调试输出。
 
+## 开发工具如何配置自动补全？
+
+bcc 开发的 eBPF 程序有 C 和 Python 两部分代码，其中 C 代码可能涉及使用内核相关的函数与变量，自动补全会比较麻烦，不建议配置，下面主要介绍 Python 代码的自动补全。
+
+如果你的开发环境是 Linux，且 Python 是使用发行版自带的包管理器安装的，那么安装 bcc 工具集时就已经自动安装了 bcc 的 python 包，你的 IDE/编辑器 通常可以自动识别并自动补全。
+
+其它情况，你可以先用 Linux 发行版安装好 bcc 工具集，然后将自动安装好的 bcc 的 python 包拷贝到你的开发环境中。
+
+先查看 bcc 的 python 包所在的两个目录：
+
+```bash
+$ ls -alh /usr/lib/python3.11/site-packages | grep bcc
+drwxr-xr-x.  3 root root 4.0K  7月 9日 20:56 bcc
+drwxr-xr-x.  2 root root 4.0K  7月 9日 20:56 bcc-0.29.1-py3.11.egg-info
+```
+
+然后将这两个目录拷贝到你的开发环境中中的 `$HOME/.local/lib/python/site-packages` 目录下（目录没有就创建下）。
+
+最后，确保你的 shell 的启动脚本中设置环境变量 `PYTHONUSERBASE` 为 `$HOME/.local`。
+
 ## 参考资料
 
 - [bcc Reference Guide](https://github.com/iovisor/bcc/blob/master/docs/reference_guide.md)
