@@ -1,4 +1,4 @@
-# 使用 bpftrace 开发和运行 eBPF 程序
+# 使用 bpftrace 开发 eBPF
 
 ## 哪里查看 bpftrace 参考手册？
 

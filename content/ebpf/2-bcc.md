@@ -1,4 +1,4 @@
-# 使用 bcc 开发和运行 eBPF 程序
+# 使用 bcc 开发 eBPF
 
 ## 如何运行基于 bcc 开发的 eBPF 程序？
 
