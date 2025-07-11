@@ -18,9 +18,22 @@
 | 网卡       | raw_socket     | 网卡收包                       | attach_raw_socket     | 极低     |
 
 
-## 有哪些内核函数可以被 hook？
+## 哪里可以查具体内核事件列表？
 
-Linux 内核通过虚拟文件 `/proc/kallsyms` 动态暴露所有可追踪的符号（函数名、全局变量）:
+可以通过 `bpftrace` 工具查询所有的内核跟踪点：
+
+```bash
+# 查询所有内核插桩和跟踪点
+$ sudo bpftrace -l
+
+# 使用通配符查询所有的系统调用跟踪点
+$ sudo bpftrace -l 'tracepoint:syscalls:*'
+
+# 使用通配符查询所有名字包含"execve"的跟踪点
+$ sudo bpftrace -l '*execve*'
+```
+
+另外，Linux 内核通过虚拟文件 `/proc/kallsyms` 动态暴露所有可追踪的符号（函数名、全局变量）:
 
 ```txt
 ffffffff813eae90 t do_sys_openat2
