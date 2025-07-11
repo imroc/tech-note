@@ -16,7 +16,7 @@ sudo bpftool btf dump file /sys/kernel/btf/vmlinux format c > vmlinux.h
 
 ## 编译并生成脚手架头文件
 
-使用 clang 和 bpftool 将其编译成 BPF 字节码，然后再生成其脚手架头文件  execsnoop.skel.h （注意，脚手架头文件的名字一般定义为  <程序名>.skel.h）：
+使用 clang 和 bpftool 将其编译成 BPF 字节码，然后再生成其脚手架头文件  execsnoop.skel.h （注意，脚手架头文件的名字一般定义为  `<程序名>.skel.h`）：
 
 ```bash
 clang -g -O2 -target bpf -D__TARGET_ARCH_x86_64 -I/usr/include/x86_64-linux-gnu -I. -c execsnoop.bpf.c -o execsnoop.bpf.o
