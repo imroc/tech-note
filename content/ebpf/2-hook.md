@@ -18,7 +18,7 @@
 | 网卡       | raw_socket     | 网卡收包                       | attach_raw_socket     | 极低     |
 
 
-## 有哪些内核函数可以 hook？
+## 有哪些内核函数可以被 hook？
 
 Linux 内核通过虚拟文件 `/proc/kallsyms` 动态暴露所有可追踪的符号（函数名、全局变量）:
 
@@ -142,3 +142,5 @@ eBPF helpers supported for program type kprobe:
         - bpf_cgrp_storage_delete
 ...
 ```
+
+辅助函数的具体定义可以通过 `man bpf-helpers` 查看，或者参考内核头文件 [include/uapi/linux/bpf.h](https://github.com/torvalds/linux/blob/v6.15/include/uapi/linux/bpf.h#L1847) 中的注释。
