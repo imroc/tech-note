@@ -98,15 +98,14 @@ bcc 开发的 eBPF 程序有 C 和 Python 两部分代码，其中 C 代码可�
 
 其它情况，你可以先用 Linux 发行版安装好 bcc 工具集，然后将自动安装好的 bcc 的 python 包拷贝到你的开发环境中。
 
-先查看 bcc 的 python 包所在的两个目录：
+先查看 bcc 的 python 包所在的目录：
 
 ```bash
 $ ls -alh /usr/lib/python3.11/site-packages | grep bcc
 drwxr-xr-x.  3 root root 4.0K  7月 9日 20:56 bcc
-drwxr-xr-x.  2 root root 4.0K  7月 9日 20:56 bcc-0.29.1-py3.11.egg-info
 ```
 
-然后将这两个目录拷贝到你的开发环境中中的 `$HOME/.local/lib/python/site-packages` 目录下（目录没有就创建下）。
+然后将这个目录拷贝到你的开发环境中中的 `$HOME/.local/lib/python/site-packages` 目录下（目录没有就创建下）。
 
 最后，确保你的 shell 的启动脚本中设置环境变量 `PYTHONUSERBASE` 为 `$HOME/.local`。
 
