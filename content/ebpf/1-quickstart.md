@@ -13,7 +13,7 @@ Linux 内核提供的一种动态 hook 机制，可以将自定义代码逻辑 h
 - 函数调用
 - 定时器
 
-更多详情参考 [附录：hook 内核事件](appendix/hook)。
+更多详情参考 [附录：eBPF 程序类型与可 hook 的内核事件](appendix/prog-type-and-event)。
 
 ## eBPF 程序运行的原理是什么？
 
