@@ -18,7 +18,7 @@ bcc 的基础通用工具依赖有：bash, make, python3。
 
 虽然这个不是运行 bcc 开发的 eBPF 程序的必备条件，但是安装这个工具集的其它依赖包中包含了运行 bcc 开发的 eBPF 程序所需的关键依赖：bash、pytyon3、libbpf、bcc 相关 python 包等。
 
-Ubuntu 中对应的包名是 bpfcc-tools，TencentOS/REHL 中对应的包名是 bcc-tools，安装好后工具集会放在 `/usr/share/bcc/tools` 目录下。
+Ubuntu 中对应的包名是 bpfcc-tools，TencentOS/REHL 中对应的包名是 bcc-tools，安装好后工具集通常会放在 `/usr/share/bcc/tools` 目录下，Ubuntu 会放在 `/sbin` 下（后缀为 `-bpfcc` 的可执行文件）。
 
 ### bcc 相关动态链接库
 
