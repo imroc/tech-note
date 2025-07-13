@@ -52,7 +52,7 @@ linux-image-generic/noble 6.8.0-31.31 amd64
 # 升级指定内核版本
 $ apt install linux-image-generic=6.8.0-63.66
 # 升级到最新内核版本
-# apt install linux-image-generic
+# apt upgrade linux-image-generic
 ```
 
 升级完后重启：
