@@ -35,3 +35,23 @@ $ yum update kernel-6.6.92-34.1.tl4
 reboot
 ```
 
+
+## Ubuntu 升级官方内核
+
+Ubuntu 发行版使用 apt 包管理器，有官方维护的内核，可通过下面的命令查看当前可安装的内核版本：
+
+```bash
+$ apt list linux-image-generic -a
+linux-image-generic/noble-updates 6.8.0-63.66 amd64 [可从该版本升级：6.8.0-39.39]
+linux-image-generic/now 6.8.0-39.39 amd64 [已安装，可升级至：6.8.0-63.66]
+linux-image-generic/noble 6.8.0-31.31 amd64
+```
+
+升级内核：
+
+```bash
+# 升级指定内核版本
+$ apt install linux-image-generic=6.8.0-63.66
+# 升级到最新内核版本
+# apt install linux-image-generic
+```
