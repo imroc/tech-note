@@ -18,7 +18,7 @@ echo "roc ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers
 userdel <username>
 ```
 
-## 修改默认 shell
+## 修改用户登录 shell
 
 ```bash
 chsh -s /bin/bash <username>
