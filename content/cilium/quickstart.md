@@ -20,3 +20,10 @@
   - 使用元数据进行事件监控。当数据包被丢弃时，该工具不仅报告数据包的源 IP 和目标 IP，还提供发送方和接收方的完整标签信息以及许多其他信息。
   - 暴露 Prometheus 指标，可与 Grafana 仪表盘集成。
   - 提供 Hubble 可观测平台，它提供服务依赖关系图、操作监控和警报，以及基于流日志的应用程序和安全可见性。
+
+## Cilium 有哪些组件？
+
+- cilium-agent： 数据面核心组件，作为 DaemonSet 运行在每个节点上，watch Kubernetes 相关资源，并根据资源配置更新数据面。
+- cilium-operator： 控制面组件，作为 Deployment 部署在集群中，用于 IP 分配等。
+- cilium-cni：CNI 插件，用于容器网络配置。
+- cilium-dbg：随 cilium-agent 一起安装的一个用于调试 cilium 的命令行工具。
