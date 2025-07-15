@@ -17,11 +17,9 @@ Linux 内核源码主要是 C 语言，推荐使用 clangd 作为 LSP Server，c
 make CC=clang allyesconfig
 
 # 使用 clang 编译
-make CC=clang
-
-# 如果希望加快编译速度，可以用 -j 参数指定并发编译的核数，最大不超过机器总核数
-# make CC=clang -j 16
+make CC=clang -j $(nproc)
 ```
+
 > 强烈建议在 Linux 机器上编译。笔者尝试过在 MacOS 上编译，但遇到各种报错，比如某些依赖的头文件找不到，或者编译工具版本不兼容等（make, clang, ld），没有全部解决，就不折腾了，直接在 Linux 上编译。
 
 如果编译成功，执行以下命令生成 `compile_commands.json`：
