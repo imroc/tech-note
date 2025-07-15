@@ -1,4 +1,10 @@
-# yum 包管理器
+# yum/dnf 包管理器
+
+## 说明
+
+yum/dnf 是 RPM 包管理器，dnf 是 yum 的替代品，兼容 yum 的命令行参数和语法，但功能更强大，性能更好。
+
+本文中使用 yum 作为示例，也可以将 yum 替代为 dnf 使用。
 
 ## 搜索软件包
 
@@ -100,4 +106,16 @@ package: python3-3.11.6-18.tl4.x86_64
    provider: python3-libs-3.11.6-18.tl4.x86_64
   dependency: rtld(GNU_HASH)
    provider: glibc-2.38-33.tl4.x86_64
+```
+
+## 查看软件源列表
+
+```bash
+$ yum repolist
+仓库 id                                                   仓库名称
+AppStream                                                 TencentOS Server 4 - AppStream
+BaseOS                                                    TencentOS Server 4 - BaseOS
+EPOL                                                      Extra Packages for TencentOS Server 4 - EPOL
+extras                                                    TencentOS Server 4 - extras
+rancher-k3s-common-stable                                 Rancher K3s Common (stable)
 ```
