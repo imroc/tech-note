@@ -90,12 +90,40 @@ enum bpf_cmd {
 
 ## 如何开发 eBPF 程序？
 
-eBPF 程序分为两部分：
-1. 内核态 eBPF 程序：只能用 C 编写，编译后生成 BPF 字节码，需通过 bpf 系统调用加载到内核指定 hook 点并并运行。
-2. 用户态程序：可以用任何语言编写，主要负责将内核态 eBPF 程序加载到内核并运行，然后通过 BPF 映射读取内核态 eBPF 程序输出的数据，最后做相应的业务逻辑处理。
+eBPF 程序分为内核态和用户态两部分，下面分别介绍。
 
-- 对于 1，bcc 提供了一些 C 语言库函数来简化开发，但依赖内核头文件和 LLVM，较新版本的 linux 内核中添加了 [tools/lib/bpf](https://github.com/torvalds/linux/tree/v6.15/tools/lib/bpf)，抽取成了 [libbpf](https://github.com/libbpf/libbpf)，可用于开发 eBPF 程序所引用的 C 语言工具库函数。现在，基本上大多内核态 eBPF 程序都使用 libbpf 来开发了。
-- 对于 2，bcc 提供了一些 Python 语言前端，[cilium/ebpf](https://github.com/cilium/ebpf) 提供了 Go 语言前端。
+### 内核态 eBPF 程序
+
+内核态的 eBPF 程序在内核视角就是 eBPF 字节码，可以用 C 或 Rust 编译而来，分以下几种方案：
+
+- libbpf:
+  - 开发语言：C
+  - 编译依赖：libbpf （用到为编译器提供的宏，如 SEC）。
+  - 运行依赖：无
+- bcc：
+  - 开发语言：C
+  - 编译/运行依赖：bcc、LLVM、内核头文件（bcc 方案是目标机器上进行编译并运行的）
+- Aya：
+  - 开发语言：Rust
+  - 编译依赖：Rust 环境、Aya
+  - 运行依赖：无
+
+### 用户态程序
+
+用户态程序主要负责将内核态 eBPF 程序加载到内核并运行，然后通过 BPF 映射读取内核态 eBPF 程序输出的数据，最后做相应的业务逻辑处理，它可以用任何语言编写，下面列举了一些常用的方案：
+
+- cilium/ebpf:
+  - 开发语言：go
+  - 编译依赖：go、cilium/ebpf
+  - 运行依赖：无
+- bcc：
+  - 开发语言：Python
+  - 编译依赖：无需编译
+  - 运行依赖：Python 环境
+- Aya：
+  - 开发语言：Rust
+  - 编译依赖：Rust 环境、Aya
+  - 运行依赖：无
 
 ## 有哪些常见的开发方式？
 
