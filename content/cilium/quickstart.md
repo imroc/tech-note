@@ -35,7 +35,7 @@
 
 ## Cilium 的数据存哪里？
 
-默认通过 Kubbernete CRD 存储，也可以通过 etcd 存储。
+默认通过 Kubbernete CRD 存储，也可以通过 etcd 存储(>= 3.1.0)。
 
 ## 部署 Cilium 有哪些要求？
 
