@@ -4,6 +4,15 @@
 
 相比 bcc 和 bpftrace，用 libbpf 开发的 eBPF 的依赖最少，只需内核启用 BTF 特性即可（编译内核时开启 `CONFIG_DEBUG_INFO_BTF=y` 和 `CONFIG_DEBUG_INFO=y` 这两个编译选项，较新的发行版都默认开启了的），运行不依赖 LLVM 和内核头文件，可直接在不同机器上运行。
 
+查看当前内核是否启用 BTF 相关编译选项的方法：
+
+```bash
+$ cat /boot/config-* | grep -E 'CONFIG_DEBUG_INFO=|CONFIG_DEBUG_INFO_BTF='
+
+CONFIG_DEBUG_INFO=y
+CONFIG_DEBUG_INFO_BTF=y
+```
+
 ## 导出内核头文件
 
 ```bash
