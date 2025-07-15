@@ -36,3 +36,9 @@
 ## Cilium 的数据存哪里？
 
 默认通过 Kubbernete CRD 存储，也可以通过 etcd 存储。
+
+## 部署 Cilium 有哪些要求？
+
+- CPU: x86(AMD64)/arm(AArch64)。
+- 内核版本：5.4+（一些高级特性需要更高的内核版本，参考 [Required Kernel Versions for Advanced Features](https://docs.cilium.io/en/stable/operations/system_requirements/#required-kernel-versions-for-advanced-features)，另外还有一些编译选项需要开启，参考[Linux Kernel Requirements](https://docs.cilium.io/en/stable/operations/system_requirements/#linux-kernel)。
+- 挂载 eBPF 文件系统：参考 [Mounted eBPF filesystem](https://docs.cilium.io/en/stable/operations/system_requirements/#mounted-ebpf-filesystem)。
