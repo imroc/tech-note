@@ -32,3 +32,7 @@
   - hubble-relay：一个独立的组件，提供统一的 API 来查询和管理集群内所有的 hubble server。
   - hubble (cli): 一个用于连接本地 server 或 hubble-relay 的命令行工具来检索事件。
   - hubble-ui: 一个用于连接 hubble-relay 的 web 界面，提供服务拓扑图。
+
+## Cilium 的数据存哪里？
+
+默认通过 Kubbernete CRD 存储，也可以通过 etcd 存储。
