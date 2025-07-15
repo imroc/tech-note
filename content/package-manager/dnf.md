@@ -9,7 +9,7 @@ dnf 是 RPM 包管理器，也是 yum 的替代品，兼容 yum 的命令行参�
 ## 搜索软件包
 
 ```bash
-$ yum search python3
+$ dnf search python3
 ============================ 名称 精准匹配：python3 ============================
 python3.x86_64 : Python 3.11 interpreter
 ========================== 名称 和 概况 匹配：python3 ==========================
@@ -21,19 +21,19 @@ libcap-ng-python3.x86_64 : Python3 bindings for libcap-ng library
 ## 安装软件包
 
 ```bash
-yum install python3
+dnf install python3
 ```
 
 ## 卸载软件包
 
 ```bash
-yum remove python3
+dnf remove python3
 ```
 
 ## 查询软件包详细信息
 
 ```bash
-$ yum info python3
+$ dnf info python3
 可安装的软件包
 名称         : python3
 版本         : 3.11.6
@@ -64,7 +64,7 @@ URL          : https://www.python.org/
 ## 查询软件包可用版本
 
 ```bash
-$ yum list python3 --showduplicates
+$ dnf list python3 --showduplicates
 已安装的软件包
 python3.x86_64                                                  3.11.6-2.tl4                                                   @System
 可安装的软件包
@@ -76,7 +76,7 @@ python3.x86_64                                                  3.11.6-18.tl4   
 ## 查询软件包的依赖
 
 ```bash
-$ yum deplist python3
+$ dnf deplist python3
 package: python3-3.11.6-16.tl4.x86_64
   dependency: libc.so.6(GLIBC_2.34)(64bit)
    provider: glibc-2.38-33.tl4.x86_64
@@ -111,7 +111,7 @@ package: python3-3.11.6-18.tl4.x86_64
 ## 查看软件源列表
 
 ```bash
-$ yum repolist
+$ dnf repolist
 仓库 id                                                   仓库名称
 AppStream                                                 TencentOS Server 4 - AppStream
 BaseOS                                                    TencentOS Server 4 - BaseOS
