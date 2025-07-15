@@ -111,11 +111,19 @@ package: python3-3.11.6-18.tl4.x86_64
 ## 查看软件源列表
 
 ```bash
-$ dnf repolist
-仓库 id                                                   仓库名称
-AppStream                                                 TencentOS Server 4 - AppStream
-BaseOS                                                    TencentOS Server 4 - BaseOS
-EPOL                                                      Extra Packages for TencentOS Server 4 - EPOL
-extras                                                    TencentOS Server 4 - extras
-rancher-k3s-common-stable                                 Rancher K3s Common (stable)
+$ dnf repolist all
+仓库 id                                           仓库名称                                                                        状态
+AppStream                                         TencentOS Server 4 - AppStream                                                  启用
+AppStream-debuginfo                               TencentOS Server 4 - AppStream-debuginfo                                        禁用
+AppStream-source                                  TencentOS Server 4 - AppStream Sources                                          禁用
+BaseOS                                            TencentOS Server 4 - BaseOS                                                     启用
+BaseOS-debuginfo                                  TencentOS Server 4 - BaseOS-debuginfo                                           禁用
+BaseOS-source                                     TencentOS Server 4 - Base Sources                                               禁用
+EPOL                                              Extra Packages for TencentOS Server 4 - EPOL                                    启用
+EPOL-debuginfo                                    Extra Packages for TencentOS Server 4 - EPOL-debuginfo                          禁用
+EPOL-source                                       Extra Packages for TencentOS Server 4 - EPOL-source                             禁用
+extras                                            TencentOS Server 4 - extras                                                     启用
+extras-debuginfo                                  TencentOS Server 4 - extras-debuginfo                                           禁用
+extras-source                                     TencentOS Server 4 - extras Sources                                             禁用
+rancher-k3s-common-stable                         Rancher K3s Common (stable)                                                     启用
 ```
