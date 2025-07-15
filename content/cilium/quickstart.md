@@ -25,5 +25,10 @@
 
 - cilium-agent： 数据面核心组件，作为 DaemonSet 运行在每个节点上，watch Kubernetes 相关资源，并根据资源配置更新数据面。
 - cilium-operator： 控制面组件，作为 Deployment 部署在集群中，用于 IP 分配等。
-- cilium-cni：CNI 插件，用于容器网络配置。
+- cilium-cni：由 cilium-agent 负责将其安装到节点的 CNI 相关目录（二进制与 cni 配置），用于容器网络配置。
 - cilium-dbg：随 cilium-agent 一起安装的一个用于调试 cilium 的命令行工具。
+- hubble:
+  - server: 内置到了 cilium-agent 中，暴露 gRPC 接口来检索流量，暴露 Prometheus 监控指标。
+  - hubble-relay：一个独立的组件，提供统一的 API 来查询和管理集群内所有的 hubble server。
+  - hubble (cli): 一个用于连接本地 server 或 hubble-relay 的命令行工具来检索事件。
+  - hubble-ui: 一个用于连接 hubble-relay 的 web 界面，提供服务拓扑图。
