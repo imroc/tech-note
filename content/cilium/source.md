@@ -3,11 +3,14 @@
 ## 源码目录结构
 
 - bpf: eBPF 内核态程序源码，处理收发包路径相关 C 代码（该目录下执行 make gen_compile_commands 可生成 clangd 索引代码时需要的 `compile_commands.json`，需在 linux 环境下执行，且依赖 llvm、clang、bear 等工具）。
-- daemon: cilium-agent 相关代码。
+- daemon: cilium-agent 相关代码，cilium 的数据面。
+- operator: cilium-operator 相关代码，cilium-agent 的控制面。
+- cilium-cli: cilium-cli 命令行工具相关代码。
+- cilium-dbg: cilium-dbg 调试工具相关代码。
+- clustermesh-apiserver: clustermesh-apiserver 相关代码，ServiceMesh 能力的控制面。
+- pkg: 项目依赖的各种包，可被多个组件共享。
 
 ## 阅读 C 语言 eBPF 源码
-
-### 生成 `compile_commands.json`
 
 cilium 的 bpf 目录中 Makefile 提供了 `gen_compile_commands` 指令，用于生成 `compile_commands.json` 文件，该文件用于 clangd LSP 索引 C 语言 eBPF 程序：
 
@@ -33,8 +36,8 @@ cilium 项目非常庞大，主要使用 Go 语言，为了便于开发和维护
 
 ## cilium-agent 源码解析
 
-- daemon/main.go: 程序启动入口。
-
+- `daemon/main.go`: 程序启动入口。
+- `daemon/cmd/cells.go`: cilium-agent 所有模块的索引。
 
 ## 参考资料
 
