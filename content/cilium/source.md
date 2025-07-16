@@ -19,3 +19,8 @@ make gen_compile_commands
 然后在基于 clangd 作为 C/C++ 语言 LSP 的 IED/编辑器中就可以愉快的阅读 eBPF 程序代码了：
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F07%2F16%2F20250716105406.gif)
+
+## 参考资料
+
+- [Cilium datapath梳理](https://rexrock.github.io/post/cilium2/)
+- [Cilium eBPF实现机制源码分析](https://www.cnxct.com/how-does-cilium-use-ebpf-with-go-and-c/)
