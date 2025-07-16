@@ -8,6 +8,7 @@
 - cilium-cli: cilium-cli 命令行工具相关代码。
 - cilium-dbg: cilium-dbg 调试工具相关代码。
 - clustermesh-apiserver: clustermesh-apiserver 相关代码，ServiceMesh 能力的控制面。
+- plugins: 容器网络插件，主要是 cilium-cni 插件。
 - pkg: 项目依赖的各种包，可被多个组件共享。
 
 ## 阅读 C 语言 eBPF 源码
