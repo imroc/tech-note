@@ -37,9 +37,21 @@ cilium 项目非常庞大，主要使用 Go 语言，为了便于开发和维护
 
 ## cilium-agent 源码解析
 
+### 核心入口
+
 - `daemon/main.go`: 程序启动入口。
 - `daemon/cmd/cells.go`: cilium-agent 所有模块的索引。目前，cilium 大部分代码均已使用 hive 做了模块化，但 cilium-agent 的 daemon 核心启动逻辑暂未完全适配，这个文件中中的 `daemonCell` 就是将 daemon 老代码包装成 hive 的 cell 对象。
 - `daemon_main.go#newDaemonPromise`: 即为 cilium-agent 的 daemon 核心启动逻辑，属于暂未完全 hive 模块化的中间状态。
+
+### eBPF 程序加载流程
+
+## FAQ
+
+### 为什么 cilium 要动态编译 eBPF 程序？
+
+内核 eBPF 子系统提供了 CO-RE 的特性，可以实现一次编译到处运行，为什么 cilium 不直接在编译 cilium-agent 镜像的时候，就直接用 clang 将 eBPF 程序编译为字节码，然后编译 Go 程序时用 embed 特性直接字节码嵌入到 Go 的二进制，在 Go 代码里直接通过系统调用将 eBPF 字节码提交给内核去加载和运行呢？（毕竟 cilium 自家开源了 [ebpf-go](https://github.com/cilium/ebpf)  就是利用这个原理实现用 Go 语言编写 eBPF 程序并编译成二进制实现一次编译到处运行的）
+
+答案是：cilium-agent 需要根据运行环境（CPU、内核情况等），动态的生成 ebpf 代码，所以不能提前编译。
 
 ## 参考资料
 
