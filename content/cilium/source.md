@@ -47,17 +47,18 @@ cilium 项目非常庞大，主要使用 Go 语言，为了便于开发和维护
   - `cells.go`: 一般通过 `cell.Module` 将许多 Cell 组合成一个 Cell，即表示一个大模块，其中包含许多小模块。
   - `cell.go`: 一般是包含最小粒度的全局 Cell 对象，用于被 `cells.go` 中的 `cell.Module` 引用，组合到大模块中去。
 
+然后，cilium 还有部分仍未完全 hive 化，还在逐步迁移中。
+
 ## cilium-agent 源码解析
 
-### 核心入口
+### 入口
 
 - `daemon/main.go`: 程序启动入口。
-- `daemon/cmd/cells.go`: cilium-agent 所有模块的索引。目前，cilium 大部分代码均已使用 hive 做了模块化，但 cilium-agent 的 daemon 核心启动逻辑暂未完全适配，这个文件中中的 `daemonCell` 就是将 daemon 老代码包装成 hive 的 cell 对象。
-- `daemon/cmd/daemon_main.go#newDaemonPromise`: 即为 cilium-agent 的 daemon 核心启动逻辑，属于暂未完全 hive 模块化的中间状态。
-  - `daemon/cmd/daemon.go#newDaemon`: daemon 的核心初始化逻辑，包括初始化 eBPF 程序依赖的各种map。
-    - `daemon/cmd/datapath.go#initMaps`: 初始化 eBPF 程序需要的各种 map。
+- `daemon/cmd/cells.go`: cilium-agent 所有模块的索引。目前，cilium 大部分代码均已使用 hive 做了模块化，但 cilium-agent 的 daemon 部分逻辑暂未完全适配，这个文件中中的 `daemonCell` 就是将 daemon 还未 hive 化的启动代码包装成 hive 的 cell 对象。
 
 ### eBPF 程序加载流程
+
+首先是 eBPF Map 的初始化，大部分在 `pkg/datapath/cells.go` 中，各种 Map 的初始化都 hive 化了，用 cell 对象包装。还有部分未 hive 化的 Map 的初始化代码放在 `daemon/cmd/datapath.go#initMaps` 中，这部分应该主要处理特殊场景和遗留功能，因硬件交互和条件逻辑不适合抽象。这是架构演进过程中的过渡状态，未来可能统一。
 
 ## FAQ
 
@@ -66,6 +67,8 @@ cilium 项目非常庞大，主要使用 Go 语言，为了便于开发和维护
 内核 eBPF 子系统提供了 CO-RE 的特性，可以实现一次编译到处运行，为什么 cilium 不直接在编译 cilium-agent 镜像的时候，就直接用 clang 将 eBPF 程序编译为字节码，然后编译 Go 程序时用 embed 特性直接字节码嵌入到 Go 的二进制，在 Go 代码里直接通过系统调用将 eBPF 字节码提交给内核去加载和运行呢？（毕竟 cilium 自家开源了 [ebpf-go](https://github.com/cilium/ebpf)  就是利用这个原理实现用 Go 语言编写 eBPF 程序并编译成二进制实现一次编译到处运行的）
 
 答案是：cilium-agent 需要根据运行环境（CPU、内核情况等），动态的生成 ebpf 代码，所以不能提前编译。
+
+未来演进：社区已经发现内核5.2以上支持了只读 map 特性，可以将运行时环境的配置信息传到这个只读 map 中去，然后 eBPF 程序在运行的时候读取 map 中的配置，根据配置来决定是否进行某些操作，这样就可以在编译镜像的时候就将 eBPF 字节码编译好并嵌入到 Go 程序中，实现一次编译到处运行（CO-RE），镜像中也不再需要 clang、LLVM 这些东西了，既可以给镜像瘦身，又可以降低启动时的资源占用（启动时无需动态编译了）。具体参考 [Background](https://docs.cilium.io/en/latest/contributing/development/datapath_config/#background)。
 
 ## 参考资料
 
