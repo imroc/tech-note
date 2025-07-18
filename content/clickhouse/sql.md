@@ -1,4 +1,4 @@
-# clickhouse SQL 语言
+# clickhouse SQL 语法
 
 ## 查询有哪些数据库
 
