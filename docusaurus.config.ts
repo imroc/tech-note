@@ -178,6 +178,7 @@ const config: Config = {
         // languages enabled by default: https://github.com/FormidableLabs/prism-react-renderer/blob/master/packages/generate-prism-languages/index.ts#L9-L23
         // prism supported languages: https://prismjs.com/#supported-languages
         additionalLanguages: [
+          'sql',
           'java',
           'json',
           'hcl',
