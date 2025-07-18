@@ -13,6 +13,8 @@
 
 ## 阅读 C 语言 eBPF 源码
 
+### 生成 compile_commands.json
+
 cilium 的 bpf 目录中 Makefile 提供了 `gen_compile_commands` 指令，用于生成 `compile_commands.json` 文件，该文件用于 clangd LSP 索引 C 语言 eBPF 程序：
 
 ```bash
@@ -23,6 +25,16 @@ make gen_compile_commands
 然后在基于 clangd 作为 C/C++ 语言 LSP 的 IED/编辑器中就可以愉快的阅读 eBPF 程序代码了：
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F07%2F16%2F20250716105406.gif)
+
+### eBPF 程序函数入口
+
+cilium 中所有要挂载到内核的 eBPF 程序的函数，都会在函数名上面打一个 `__section_entry` 宏的标记，这个宏是给编译器看的，让编译器在编译 eBPF 程序字节码时，将标记的函数放入指定 ELF 段的位置，后续通过系统调用加载 eBPF 程序时，指定对应的 ELF 段位置作为运行入口。
+
+所有的入口函数都是以 `cil_` 开头，cil 是 cilium 的简写。
+
+### eBPF Map 数据结构
+
+与 eBPF 程序函数入口的定义类似，所有的 eBPF Map 数据结构的定义，都会在结构体名上面打一个 `__section_maps_btf` 宏的标记，让编译器在编译 eBPF 程序字节码时，将标记的 Map 结构体放入指定 ELF 段的位置。
 
 ## 阅读 Go 源码
 
