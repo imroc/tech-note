@@ -41,7 +41,9 @@ cilium 项目非常庞大，主要使用 Go 语言，为了便于开发和维护
 
 - `daemon/main.go`: 程序启动入口。
 - `daemon/cmd/cells.go`: cilium-agent 所有模块的索引。目前，cilium 大部分代码均已使用 hive 做了模块化，但 cilium-agent 的 daemon 核心启动逻辑暂未完全适配，这个文件中中的 `daemonCell` 就是将 daemon 老代码包装成 hive 的 cell 对象。
-- `daemon_main.go#newDaemonPromise`: 即为 cilium-agent 的 daemon 核心启动逻辑，属于暂未完全 hive 模块化的中间状态。
+- `daemon/cmd/daemon_main.go#newDaemonPromise`: 即为 cilium-agent 的 daemon 核心启动逻辑，属于暂未完全 hive 模块化的中间状态。
+  - `daemon/cmd/daemon.go#newDaemon`: daemon 的核心初始化逻辑，包括初始化 eBPF 程序依赖的各种map。
+    - `daemon/cmd/datapath.go#initMaps`: 初始化 eBPF 程序需要的各种 map。
 
 ### eBPF 程序加载流程
 
