@@ -60,6 +60,11 @@ cilium 项目非常庞大，主要使用 Go 语言，为了便于开发和维护
 
 首先是 eBPF Map 的初始化，大部分在 `pkg/datapath/cells.go` 中，各种 Map 的初始化都 hive 化了，用 cell 对象包装。还有部分未 hive 化的 Map 的初始化代码放在 `daemon/cmd/datapath.go#initMaps` 中，这部分应该主要处理特殊场景和遗留功能，因硬件交互和条件逻辑不适合抽象。这是架构演进过程中的过渡状态，未来可能统一。
 
+然后是 eBPF 程序的动态编译与加载，在 `pkg/datapath/cells.go` 中引用：
+1. `loader.Cell`: 动态编译加载 eBPF 程序的工具(eBPF 加载器)。
+2. `orchestrator.Cell`：编排器，其中 `orchestrator.ReloadDatapath` 会调用上面的加载器，加载 eBPF 程序。
+3. `pkg/endpoint/events.go` Endpoint 事件会触发 Endpoint 执行 `regenerate`，最终会调用 `orchestrator.ReloadDatapath` 加载 eBPF 程序。
+
 ## FAQ
 
 ### 为什么 cilium 要动态编译 eBPF 程序？
