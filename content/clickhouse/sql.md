@@ -16,7 +16,8 @@ USE database_name;
 ## 查询有哪些表
 
 ```sql
-SHOW TABLES FROM default;
+SHOW TABLES; -- 查询当前 db 有哪些表
+SHOW TABLES FROM default; -- 查询指定 db 有哪些表
 -- SELECT name FROM system.tables WHERE database = 'default';
 ```
 
