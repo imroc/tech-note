@@ -3,18 +3,26 @@
 ## 代码目录
 
 eBPF C 代码在 `bpf` 目录下，包含以下代码文件：
-- `bpf_alignchecker.c`: 
-- `bpf_host.c`: 
-- `bpf_lxc.c`: 
-- `bpf_network.c`: 
-- `bpf_overlay.c`: 
-- `bpf_probes.c`: 
-- `bpf_sock.c`: 
-- `bpf_sock_term.c`: 
-- `bpf_wireguard.c`: 
-- `bpf_xdp.c`: 
+- `bpf_alignchecker.c`: TODO
+- `bpf_host.c`: TODO
+- `bpf_lxc.c`: TODO
+- `bpf_network.c`: TODO
+- `bpf_overlay.c`: TODO
+- `bpf_probes.c`: TODO
+- `bpf_sock.c`: TODO
+- `bpf_sock_term.c`: TODO
+- `bpf_wireguard.c`: TODO
+- `bpf_xdp.c`: TODO
 
-## 内核函数
+另外还 include 了一些辅助函数和宏，在 `bpf/include` 目录下：
+
+- `bpf/include/bpf`: 一些 cilium 专用的辅助函数和宏。
+- `bpf/include/linux`:  一些 linux 内核中的数据结构、常量和枚举类型。
+## cilium 辅助宏和函数
+
+### bpf/include/bpf/helpers.h
+
+- BPF_FUNC_REMAP: 
 
 ## bpf_lxc.c
 
