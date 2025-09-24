@@ -24,11 +24,9 @@ npm install --save docusaurus-plugin-sass sass
 
 > 参考官方文档：https://docusaurus.io/zh-CN/docs/styling-layout#sassscss
 
-## plugin-image-zoom
+## docusaurus-plugin-zooming
 
-单击图片放大插件，效果：
-
-![](https://raw.githubusercontent.com/flexanalytics/plugin-image-zoom/master/img/zoom_example.gif)
+单击图片放大插件。
 
 安装：
 
