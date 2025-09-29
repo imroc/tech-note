@@ -189,7 +189,7 @@ enum bpf_func_id {
 
 展开后的效果：
 
-```bash
+```c
 enum bpf_func_id {
 	BPF_FUNC_unspec = 0,
 	...
