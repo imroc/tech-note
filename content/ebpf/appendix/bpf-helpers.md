@@ -199,7 +199,7 @@ enum bpf_func_id {
 ```
 
 
-## BPF 程序入口
+## BPF 辅助函数调用流程
 
 当 eBPF 程序 hook 到内核后，会等待事件触发其执行，以 XDP 为例，事件触发的代码调用流程：
 
@@ -250,7 +250,90 @@ eBPF 程序有两种执行模式：
 1. JIT：此时 `prog->bpf_func` 指向的是编译好的机器码，会直接将机器码提交给 CPU 执行。
 2. 解释器：此时 `prog->bpf_func` 指向的是解释器函数，会走到 `___bpf_prog_run`(三条下划线)。
 
-一般使用的是 JIT 模式，性能更好，但由于这里是直接提交机器码给 CPU 执行了，我们不方便从源码分析 eBPF 程序的执行流程，下面以解释器模式继续分析。
+一般使用的是 JIT 模式，性能更好，下面基于此模式进一步分析。
+
+JIT 模式下，eBPF 程序会先通过 bpf 系统调用被加载到内核，bpf 系统调用定义如下：
+
+```c title="kernel/bpf/syscall.c"
+// 定义 bpf 系统调用
+SYSCALL_DEFINE3(bpf, int, cmd, union bpf_attr __user *, uattr, unsigned int, size)
+{
+	return __sys_bpf(cmd, USER_BPFPTR(uattr), size);
+}
+
+// bpf 系统调用实现函数
+static int __sys_bpf(enum bpf_cmd cmd, bpfptr_t uattr, unsigned int size)
+{
+  // ...
+	switch (cmd) {
+	case BPF_PROG_LOAD: // 执行加载 eBPF 程序的逻辑
+		err = bpf_prog_load(&attr, uattr, size);
+		break;
+  // ...
+}
+
+// 加载 eBPF 程序的实现函数
+static int bpf_prog_load(union bpf_attr *attr, bpfptr_t uattr, u32 uattr_size)
+{
+  // ...
+  // 尝试 JIT 编译
+	prog = bpf_prog_select_runtime(prog, &err);
+  // ...
+}
+```
+
+```c title="kernel/bpf/core.c"
+struct bpf_prog *bpf_prog_select_runtime(struct bpf_prog *fp, int *err)
+{
+	if (!bpf_prog_is_offloaded(fp->aux)) {
+    // ...
+    // 执行 JIT 编译 eBPF 程序
+		fp = bpf_int_jit_compile(fp);
+    // ...
+	} else {
+		*err = bpf_prog_offload_compile(fp);
+    // ...
+	}
+}
+```
+
+`bpf_int_jit_compile` 这个 JIT 实现函数在不同的 CPU 架构下实现不同，下面以 x86 架构为例分析：
+
+```c title="arch/x86/net/bpf_jit_comp.c"
+struct bpf_prog *bpf_int_jit_compile(struct bpf_prog *prog)
+{
+  	for (pass = 0; pass < MAX_PASSES || image; pass++) {
+    // ...
+		proglen = do_jit(prog, addrs, image, rw_image, oldproglen, &ctx, padding);
+    // ...
+    }
+}
+static int do_jit(struct bpf_prog *bpf_prog, int *addrs, u8 *image, u8 *rw_image,
+		  int oldproglen, struct jit_context *ctx, bool jmp_padding)
+{
+  // ...
+	for (i = 1; i <= insn_cnt; i++, insn++) {
+    // 记录辅助函数 ID
+		const s32 imm32 = insn->imm;
+    // ...
+		switch (insn->code) {
+    // ...
+    // 操作指令：辅助函数调用
+		case BPF_JMP | BPF_CALL: {
+			u8 *ip = image + addrs[i - 1];
+      // 根据辅助函数 ID 获取辅助函数地址
+			func = (u8 *) __bpf_call_base + imm32;
+      // ...
+      // 执行辅助函数
+			if (emit_call(&prog, func, ip))
+				return -EINVAL;
+      // ...
+    }
+    // ...
+  }
+  // ...
+}
+```
 
 解释器模式下，eBPF 程序最终会执行到 `___bpf_prog_run` 函数：
 
