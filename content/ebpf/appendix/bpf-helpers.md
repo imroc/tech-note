@@ -103,12 +103,12 @@ eBPF helpers supported for program type kprobe:
 在内核代码 `include/linux/filter.h` 中，提供了定义 BPF 辅助函数的宏：
 
 ```c
-#define BPF_CALL_0(name, ...)	BPF_CALL_x(0, __NOATTR, name, __VA_ARGS__)
-#define BPF_CALL_1(name, ...)	BPF_CALL_x(1, __NOATTR, name, __VA_ARGS__)
-#define BPF_CALL_2(name, ...)	BPF_CALL_x(2, __NOATTR, name, __VA_ARGS__)
-#define BPF_CALL_3(name, ...)	BPF_CALL_x(3, __NOATTR, name, __VA_ARGS__)
-#define BPF_CALL_4(name, ...)	BPF_CALL_x(4, __NOATTR, name, __VA_ARGS__)
-#define BPF_CALL_5(name, ...)	BPF_CALL_x(5, __NOATTR, name, __VA_ARGS__)
+#define BPF_CALL_0(name, ...)  BPF_CALL_x(0, __NOATTR, name, __VA_ARGS__)
+#define BPF_CALL_1(name, ...)  BPF_CALL_x(1, __NOATTR, name, __VA_ARGS__)
+#define BPF_CALL_2(name, ...)  BPF_CALL_x(2, __NOATTR, name, __VA_ARGS__)
+#define BPF_CALL_3(name, ...)  BPF_CALL_x(3, __NOATTR, name, __VA_ARGS__)
+#define BPF_CALL_4(name, ...)  BPF_CALL_x(4, __NOATTR, name, __VA_ARGS__)
+#define BPF_CALL_5(name, ...)  BPF_CALL_x(5, __NOATTR, name, __VA_ARGS__)
 ```
 
 - 末尾数字 n 代表接收 n 个参数。
@@ -121,23 +121,23 @@ eBPF helpers supported for program type kprobe:
 ```c title="net/core/filter.c"
 BPF_CALL_2(bpf_redirect_peer, u32, ifindex, u64, flags)
 {
-	struct bpf_redirect_info *ri = bpf_net_ctx_get_ri();
+  struct bpf_redirect_info *ri = bpf_net_ctx_get_ri();
 
-	if (unlikely(flags))
-		return TC_ACT_SHOT;
+  if (unlikely(flags))
+    return TC_ACT_SHOT;
 
-	ri->flags = BPF_F_PEER;
-	ri->tgt_index = ifindex;
+  ri->flags = BPF_F_PEER;
+  ri->tgt_index = ifindex;
 
-	return TC_ACT_REDIRECT;
+  return TC_ACT_REDIRECT;
 }
 
 static const struct bpf_func_proto bpf_redirect_peer_proto = {
-	.func           = bpf_redirect_peer,
-	.gpl_only       = false,
-	.ret_type       = RET_INTEGER,
-	.arg1_type      = ARG_ANYTHING,
-	.arg2_type      = ARG_ANYTHING,
+  .func           = bpf_redirect_peer,
+  .gpl_only       = false,
+  .ret_type       = RET_INTEGER,
+  .arg1_type      = ARG_ANYTHING,
+  .arg2_type      = ARG_ANYTHING,
 };
 ```
 
@@ -149,10 +149,10 @@ BPF 编译时，验证器就会将要调用的辅助函数 ID 替换成实际要
 static const struct bpf_func_proto *
 tc_cls_act_func_proto(enum bpf_func_id func_id, const struct bpf_prog *prog)
 {
-	switch (func_id) {
+  switch (func_id) {
   // ...
-	case BPF_FUNC_redirect_peer:
-		return &bpf_redirect_peer_proto;
+  case BPF_FUNC_redirect_peer:
+    return &bpf_redirect_peer_proto;
   // ...
 }
 ```
@@ -166,11 +166,11 @@ BPF 辅助函数列表在 `include/uapi/linux/bpf.h` 这里定义。
 通过 `___BPF_FUNC_MAPPER` 定义了辅助函数名称和对应的 ID：
 
 ```c
-#define ___BPF_FUNC_MAPPER(FN, ctx...)			\
-	FN(unspec, 0, ##ctx)				\
-	FN(map_lookup_elem, 1, ##ctx)			\
+#define ___BPF_FUNC_MAPPER(FN, ctx...)      \
+  FN(unspec, 0, ##ctx)        \
+  FN(map_lookup_elem, 1, ##ctx)      \
   // ...
-	FN(cgrp_storage_delete, 211, ##ctx)		\
+  FN(cgrp_storage_delete, 211, ##ctx)    \
 ```
 
 通过 `__BPF_ENUM_FN` 这个临时宏，将辅助函数列表展开到枚举 `bpf_func_id` 中：
@@ -181,8 +181,8 @@ BPF 辅助函数列表在 `include/uapi/linux/bpf.h` 这里定义。
  */
 #define __BPF_ENUM_FN(x, y) BPF_FUNC_ ## x = y,
 enum bpf_func_id {
-	___BPF_FUNC_MAPPER(__BPF_ENUM_FN)
-	__BPF_FUNC_MAX_ID,
+  ___BPF_FUNC_MAPPER(__BPF_ENUM_FN)
+  __BPF_FUNC_MAX_ID,
 };
 #undef __BPF_ENUM_FN
 ```
@@ -191,10 +191,10 @@ enum bpf_func_id {
 
 ```c
 enum bpf_func_id {
-	BPF_FUNC_unspec = 0,
-	...
+  BPF_FUNC_unspec = 0,
+  ...
   BPF_FUNC_redirect_peer = 155,
-	...
+  ...
 };
 ```
 
@@ -219,10 +219,10 @@ bpf_prog_run_xdp(xdp_prog, &xdp)
 
 ```c title="include/net/xdp.h" showLineNumbers
 static __always_inline u32 bpf_prog_run_xdp(const struct bpf_prog *prog,
-					    struct xdp_buff *xdp)
+              struct xdp_buff *xdp)
 {
   // ...
-	u32 act = __bpf_prog_run(prog, xdp, BPF_DISPATCHER_FUNC(xdp));
+  u32 act = __bpf_prog_run(prog, xdp, BPF_DISPATCHER_FUNC(xdp));
   // ...
 }
 ```
@@ -231,19 +231,19 @@ eBPF 程序的执行最终会走到 `__bpf_prog_run` 函数，进一步会调用
 
 ```c
 static __always_inline u32 __bpf_prog_run(const struct bpf_prog *prog,
-					  const void *ctx,
-					  bpf_dispatcher_fn dfunc)
+            const void *ctx,
+            bpf_dispatcher_fn dfunc)
 {
-	u32 ret;
+  u32 ret;
 
-	if (static_branch_unlikely(&bpf_stats_enabled_key)) {
+  if (static_branch_unlikely(&bpf_stats_enabled_key)) {
     // ...
-		ret = dfunc(ctx, prog->insnsi, prog->bpf_func);
+    ret = dfunc(ctx, prog->insnsi, prog->bpf_func);
     // ...
-	} else {
-		ret = dfunc(ctx, prog->insnsi, prog->bpf_func);
-	}
-	return ret;
+  } else {
+    ret = dfunc(ctx, prog->insnsi, prog->bpf_func);
+  }
+  return ret;
 ```
 
 eBPF 程序有两种执行模式：
@@ -258,17 +258,17 @@ JIT 模式下，eBPF 程序会先通过 bpf 系统调用被加载到内核，bpf
 // 定义 bpf 系统调用
 SYSCALL_DEFINE3(bpf, int, cmd, union bpf_attr __user *, uattr, unsigned int, size)
 {
-	return __sys_bpf(cmd, USER_BPFPTR(uattr), size);
+  return __sys_bpf(cmd, USER_BPFPTR(uattr), size);
 }
 
 // bpf 系统调用实现函数
 static int __sys_bpf(enum bpf_cmd cmd, bpfptr_t uattr, unsigned int size)
 {
   // ...
-	switch (cmd) {
-	case BPF_PROG_LOAD: // 执行加载 eBPF 程序的逻辑
-		err = bpf_prog_load(&attr, uattr, size);
-		break;
+  switch (cmd) {
+  case BPF_PROG_LOAD: // 执行加载 eBPF 程序的逻辑
+    err = bpf_prog_load(&attr, uattr, size);
+    break;
   // ...
 }
 
@@ -277,7 +277,7 @@ static int bpf_prog_load(union bpf_attr *attr, bpfptr_t uattr, u32 uattr_size)
 {
   // ...
   // 尝试 JIT 编译
-	prog = bpf_prog_select_runtime(prog, &err);
+  prog = bpf_prog_select_runtime(prog, &err);
   // ...
 }
 ```
@@ -285,15 +285,15 @@ static int bpf_prog_load(union bpf_attr *attr, bpfptr_t uattr, u32 uattr_size)
 ```c title="kernel/bpf/core.c"
 struct bpf_prog *bpf_prog_select_runtime(struct bpf_prog *fp, int *err)
 {
-	if (!bpf_prog_is_offloaded(fp->aux)) {
+  if (!bpf_prog_is_offloaded(fp->aux)) {
     // ...
     // 执行 JIT 编译 eBPF 程序
-		fp = bpf_int_jit_compile(fp);
+    fp = bpf_int_jit_compile(fp);
     // ...
-	} else {
-		*err = bpf_prog_offload_compile(fp);
+  } else {
+    *err = bpf_prog_offload_compile(fp);
     // ...
-	}
+  }
 }
 ```
 
@@ -302,31 +302,31 @@ struct bpf_prog *bpf_prog_select_runtime(struct bpf_prog *fp, int *err)
 ```c title="arch/x86/net/bpf_jit_comp.c"
 struct bpf_prog *bpf_int_jit_compile(struct bpf_prog *prog)
 {
-  	for (pass = 0; pass < MAX_PASSES || image; pass++) {
+    for (pass = 0; pass < MAX_PASSES || image; pass++) {
     // ...
-		proglen = do_jit(prog, addrs, image, rw_image, oldproglen, &ctx, padding);
+    proglen = do_jit(prog, addrs, image, rw_image, oldproglen, &ctx, padding);
     // ...
     }
 }
 static int do_jit(struct bpf_prog *bpf_prog, int *addrs, u8 *image, u8 *rw_image,
-		  int oldproglen, struct jit_context *ctx, bool jmp_padding)
+      int oldproglen, struct jit_context *ctx, bool jmp_padding)
 {
   // ...
-	for (i = 1; i <= insn_cnt; i++, insn++) {
+  for (i = 1; i <= insn_cnt; i++, insn++) {
     // 记录辅助函数 ID
-		const s32 imm32 = insn->imm;
+    const s32 imm32 = insn->imm;
     // ...
-		switch (insn->code) {
+    switch (insn->code) {
     // ...
     // 操作指令：辅助函数调用
-		case BPF_JMP | BPF_CALL: {
-			u8 *ip = image + addrs[i - 1];
+    case BPF_JMP | BPF_CALL: {
+      u8 *ip = image + addrs[i - 1];
       // 根据辅助函数 ID 获取辅助函数地址
-			func = (u8 *) __bpf_call_base + imm32;
+      func = (u8 *) __bpf_call_base + imm32;
       // ...
       // 执行辅助函数
-			if (emit_call(&prog, func, ip))
-				return -EINVAL;
+      if (emit_call(&prog, func, ip))
+        return -EINVAL;
       // ...
     }
     // ...
@@ -341,14 +341,14 @@ static int do_jit(struct bpf_prog *bpf_prog, int *addrs, u8 *image, u8 *rw_image
 static u64 ___bpf_prog_run(u64 *regs, const struct bpf_insn *insn)
 {
   // ...
-	JMP_CALL:
-		/* Function call scratches BPF_R1-BPF_R5 registers,
-		 * preserves BPF_R6-BPF_R9, and stores return value
-		 * into BPF_R0.
-		 */
-		BPF_R0 = (__bpf_call_base + insn->imm)(BPF_R1, BPF_R2, BPF_R3,
-						       BPF_R4, BPF_R5);
-		CONT;
+  JMP_CALL:
+    /* Function call scratches BPF_R1-BPF_R5 registers,
+     * preserves BPF_R6-BPF_R9, and stores return value
+     * into BPF_R0.
+     */
+    BPF_R0 = (__bpf_call_base + insn->imm)(BPF_R1, BPF_R2, BPF_R3,
+                   BPF_R4, BPF_R5);
+    CONT;
   // ...
 }
 ```
