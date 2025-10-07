@@ -304,7 +304,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_prog *prog)
 {
     for (pass = 0; pass < MAX_PASSES || image; pass++) {
     // ...
-    proglen = do_jit(prog, addrs, image, rw_image, oldproglen, &ctx, padding);
+      proglen = do_jit(prog, addrs, image, rw_image, oldproglen, &ctx, padding);
     // ...
     }
 }
