@@ -63,9 +63,9 @@ type apiParams struct {
 }
 ```
 
-## bpf maps 初始化
+## ebpf Map 初始化
 
-ebpf 程序主要通过 maps 进行数据交互，cilium-agent 用户态程序将对账后的数据存到 ebpf maps 中，内核态的 ebpf 程序通过 maps 数据执行相应的逻辑。
+ebpf 程序主要通过 Map 进行数据交互，cilium-agent 用户态程序将对账后的数据存到 ebpf maps 中，内核态的 ebpf 程序通过 maps 数据执行相应的逻辑。
 
 cilium 不同的逻辑使用不同的 map 存储数据，具体的初始化逻辑在也在不同的模块下，使用 hive 模块化管理，方便维护。daemon 还有一部分启动逻辑未 hive 化，在这个启动逻辑中也对一些 map 显式的进行了初始化。
 
@@ -116,6 +116,8 @@ func (r *BPFLBMaps) allMaps() ([]mapDesc, []mapDesc) {
 }
 ```
 
+最终 Map 的创建会到 bpf 系统调用，操作命令为 `BPF_MAP_CREATE`。
+
 
 ## 数据对账与同步
 
@@ -125,7 +127,6 @@ cilium 使用 statedb 存储数据，通过泛型实现存储任意数据类型�
 
 ```go title="pkg/loadbalancer/reconciler/bpf_reconciler.go"
 func newBPFReconciler(p reconciler.Params, g job.Group, cfg loadbalancer.Config, ops *BPFOps, fes statedb.Table[*loadbalancer.Frontend], w *writer.Writer) (reconciler.Reconciler[*loadbalancer.Frontend], error) {
-...
 ```
 
 
