@@ -67,7 +67,55 @@ type apiParams struct {
 
 ebpf 程序主要通过 maps 进行数据交互，cilium-agent 用户态程序将对账后的数据存到 ebpf maps 中，内核态的 ebpf 程序通过 maps 数据执行相应的逻辑。
 
-cilium 不同的逻辑使用不同的 map 存储数据，具体的初始化逻辑在也在不同的包下，模块化管理，方便维护。
+cilium 不同的逻辑使用不同的 map 存储数据，具体的初始化逻辑在也在不同的模块下，使用 hive 模块化管理，方便维护。daemon 还有一部分启动逻辑未 hive 化，在这个启动逻辑中也对一些 map 显式的进行了初始化。
+
+显式初始化：
+
+```go title="daemon/cmd/datapath.go"
+func (d *Daemon) initMaps() error {
+  // 显式初始化一些 bpf maps
+}
+```
+
+其它 maps 初始化逻辑主要分布在 `pkg/maps` 下的一些子模块，负载均衡的比较特殊，在 `pkg/loadbalancer/maps` 这个模块下：
+
+```go title="pkg/loadbalancer/maps/lbmaps.go"
+func (r *BPFLBMaps) Start(ctx cell.HookContext) (err error) {
+	mapsToCreate, mapsToDelete := r.allMaps()
+	for _, desc := range mapsToCreate {
+		if r.Pinned {
+			if err := m.OpenOrCreate(); err != nil {
+				return fmt.Errorf("opening map %s: %w", m.Name(), err)
+			}
+		} 
+	}
+  ...
+}
+func (r *BPFLBMaps) allMaps() ([]mapDesc, []mapDesc) {
+  ...
+	v4Maps := []mapDesc{
+		{&r.service4Map, NewService4Map, r.Cfg.LBServiceMapEntries},
+		{&r.backend4Map, NewBackend4Map, r.Cfg.LBBackendMapEntries},
+		{&r.revNat4Map, NewRevNat4Map, r.Cfg.LBRevNatEntries},
+		{&r.maglev4Map, newMaglev4, r.Cfg.LBMaglevMapEntries},
+		{&r.sockRevNat4Map, NewSockRevNat4Map, r.Cfg.LBSockRevNatEntries},
+		{&r.affinity4Map, newAffinity4Map, r.Cfg.LBAffinityMapEntries},
+	}
+	v6Maps := []mapDesc{
+		{&r.service6Map, NewService6Map, r.Cfg.LBServiceMapEntries},
+		{&r.backend6Map, NewBackend6Map, r.Cfg.LBBackendMapEntries},
+		{&r.revNat6Map, NewRevNat6Map, r.Cfg.LBRevNatEntries},
+		{&r.maglev6Map, newMaglev6, r.Cfg.LBMaglevMapEntries},
+		{&r.sockRevNat6Map, NewSockRevNat6Map, r.Cfg.LBSockRevNatEntries},
+		{&r.affinity6Map, newAffinity6Map, r.Cfg.LBAffinityMapEntries},
+	}
+	affinityMap := mapDesc{&r.affinityMatchMap, NewAffinityMatchMap, r.Cfg.LBAffinityMapEntries}
+	v4SourceRangeMap := mapDesc{&r.sourceRange4Map, NewSourceRange4Map, r.Cfg.LBSourceRangeMapEntries}
+	v6SourceRangeMap := mapDesc{&r.sourceRange6Map, NewSourceRange6Map, r.Cfg.LBSourceRangeMapEntries}
+  ...
+}
+```
+
 
 ## 数据对账与同步
 
