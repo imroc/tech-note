@@ -10,9 +10,9 @@ cilium-agent 提供了一套 HTTP API，本机的 `cilium-cni` 插件会通过 u
 
 比如当一个新的 Pod 被创建，cilium-cni 会调用 `cilium-agent` 提供的 `PUT /endpoint/{id}` 接口，然后 `cilium-agent` 会再向 apiserver 写入 `CiliumEndpoint` 对象，再返回相关信息给 `cilium-cni`。
 
-具体各个 API 的 Handler 索引在 `api/v1/server/server.go` 文件中：
+API 的 Handler 索引:
 
-```go
+```go title="api/v1/server/server.go"
 type apiParams struct {
   ...
 	EndpointDeleteEndpointHandler        endpoint.DeleteEndpointHandler
@@ -62,3 +62,23 @@ type apiParams struct {
 	PolicyPutPolicyHandler               policy.PutPolicyHandler
 }
 ```
+
+## 数据对账与同步
+
+cilium 使用 statedb 存储数据，并使用 statedb 运行 reconciler 对这些数据进行同步。
+
+`newBPFReconciler` 是创建 ebpf 数据同步调谐器的关键函数：
+
+```go title="pkg/loadbalancer/reconciler/bpf_reconciler.go"
+func newBPFReconciler(p reconciler.Params, g job.Group, cfg loadbalancer.Config, ops *BPFOps, fes statedb.Table[*loadbalancer.Frontend], w *writer.Writer) (reconciler.Reconciler[*loadbalancer.Frontend], error) {
+...
+```
+
+
+传入的 `BPFOps` 包含 statedb 中 `loadbalancer.Frontend` 数据变化时的对账逻辑，关键入口是 `Update` 函数：
+
+```go
+// Update implements reconciler.Operations.
+func (ops *BPFOps) Update(_ context.Context, txn statedb.ReadTxn, _ statedb.Revision, fe *loadbalancer.Frontend) error {
+```
+
