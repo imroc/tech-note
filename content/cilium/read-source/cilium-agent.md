@@ -63,9 +63,15 @@ type apiParams struct {
 }
 ```
 
+## bpf maps 初始化
+
+ebpf 程序主要通过 maps 进行数据交互，cilium-agent 用户态程序将对账后的数据存到 ebpf maps 中，内核态的 ebpf 程序通过 maps 数据执行相应的逻辑。
+
+cilium 不同的逻辑使用不同的 map 存储数据，具体的初始化逻辑在也在不同的包下，模块化管理，方便维护。
+
 ## 数据对账与同步
 
-cilium 使用 statedb 存储数据，并使用 statedb 运行 reconciler 对这些数据进行同步。
+cilium 使用 statedb 存储数据，通过泛型实现存储任意数据类型的数据，并可添加数据变化时的 hook 操作逻辑，实现任意数据类型的对账。
 
 `newBPFReconciler` 是创建 ebpf 数据同步调谐器的关键函数：
 
