@@ -22,6 +22,21 @@ cd bpf
 make gen_compile_commands
 ```
 
+:::tip[说明]
+
+安装的 llvm 版本需要与 [cilium llvm 基础镜像](https://github.com/cilium/image-tools/blob/master/images/llvm/Dockerfile) 中的 llvm 版本一致，否则可能出现报错的情况。
+
+笔者当前分析的 cilium 最新版本是 1.18.2，llvm 基础镜像中的 llvm 版本是 19.x，而通过 brew 安装的 llvm 最新版本是 20.x，所以通过 brew 安装 llvm 时需指定下版本：
+
+```bash
+brew install llvm@19
+# 如果已经有 20.x 的 llvm 安装，通过一下方式 llvm 的软链接指向 19.x 的版本
+# brew unlink llvm
+# brew link llvm@19
+```
+
+:::
+
 然后在基于 clangd 作为 C/C++ 语言 LSP 的 IED/编辑器中就可以愉快的阅读 eBPF 程序代码了：
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F07%2F16%2F20250716105406.gif)
