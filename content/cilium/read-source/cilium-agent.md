@@ -120,8 +120,9 @@ func (r *BPFLBMaps) allMaps() ([]mapDesc, []mapDesc) {
 
 ## ebpf 程序加载
 
-```go
-
+```go title="pkg/datapath/loader/base.go"
+func (l *loader) Reinitialize(ctx context.Context, lnc *datapath.LocalNodeConfiguration, tunnelConfig tunnel.Config, iptMgr datapath.IptablesManager, p datapath.Proxy) error {
+}
 ```
 
 ## 数据对账与同步
