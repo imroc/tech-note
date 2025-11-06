@@ -24,7 +24,7 @@ website # website root directory
 
 电子书的侧边栏（目录）是通过配置文件 `sidebars.js` 配置的，默认文件路径是项目根目录下的 `./sidebar.js`：
 
-```ts showLineNubmers title="docusaurus.config.js"
+```ts showLineNumbers title="docusaurus.config.js"
 export default {
   presets: [
     [
@@ -42,7 +42,7 @@ export default {
 
 如果希望侧边栏目录根据 `docs`  目录下的文件自动生成，可以使用类似如下的配置：
 
-```ts showLineNubmers title="sidebars.js"
+```ts showLineNumbers title="sidebars.js"
 import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 const sidebars: SidebarsConfig = {
   // highlight-next-line
