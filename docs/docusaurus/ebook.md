@@ -164,7 +164,7 @@ mkdir -p i18n/en/docusaurus-plugin-content-docs/current
 cp -r docs/** i18n/en/docusaurus-plugin-content-docs/current
 ```
 
-然后将内容原地翻译成目标语言（可利用 AI 进行翻译），翻译完成后最终构建出来的电子书就支持国际化了，可点击语言选择下拉框来切换语言。
+然后将内容原地翻译成目标语言（可利用 AI 进行翻译），翻译完成后最终构建出来的电子书就支持国际化了，可点击语言选择下拉框来切换语言（参考[TKE 实践指南](https://imroc.cc/tke)）。
 
 预览不支持多语言切换，需显式指定 locale：
 
