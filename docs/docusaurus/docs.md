@@ -73,6 +73,46 @@ const sidebars: SidebarsConfig = {
 export default sidebars;
 ```
 
+## 国际化
+
+当电子书需要支持多语言时，先配置下 i18n，并加上切换语言的下拉框：
+
+```ts showLineNumbers
+export default {
+  i18n: {
+    defaultLocale: 'zh',
+    // highlight-add-start
+    locales: ['zh', 'en'],
+    localeConfigs: {
+      zh: {
+        label: '中文',
+        htmlLang: 'zh-CN',
+      },
+      en: {
+        label: 'English',
+        htmlLang: 'en-US',
+      },
+    }
+    // highlight-add-end
+  },
+  themeConfig: {
+    navbar: {
+      items: [
+        // ...
+        // highlight-add-start
+        {
+          type: 'localeDropdown', // 语言选择下拉框
+          position: 'right', // 放在右上方
+        },
+        // highlight-add-end
+        // ...
+      ],
+    },
+  },
+  // ...
+};
+```
+
 ## 参考资料
 
 - [i18n - 教程](https://docusaurus.io/zh-CN/docs/i18n/tutorial)
