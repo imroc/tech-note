@@ -172,9 +172,21 @@ cp -r docs/** i18n/en/docusaurus-plugin-content-docs/current
 npm run start -- --locale en
 ```
 
+## 支持多版本
+
+TODO
+
+## 多文档共存
+
+TODO
+
+参考 [Kubernetes 排障指南](https://imroc.cc/kubernetes-troubleshooting)。
+
 ## 参考资料
 
 - [Docusaurus 文档](https://docusaurus.io/zh-CN/docs/docs-introduction)
 - [i18n - 教程](https://docusaurus.io/zh-CN/docs/i18n/tutorial)
 - [TypeScript 支持](https://docusaurus.io/zh-CN/docs/typescript-support)
 - [Complex sidebars example](https://docusaurus.io/docs/sidebar#complex-sidebars-example)
+- [分版](https://docusaurus.io/zh-CN/docs/versioning)
+- [文档多实例](https://docusaurus.io/zh-CN/docs/docs-multi-instance)
