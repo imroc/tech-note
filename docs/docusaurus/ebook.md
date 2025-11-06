@@ -31,7 +31,6 @@ npm install --save-dev typescript @docusaurus/module-type-aliases @docusaurus/ts
 rm -rf src/components/HomepageFeatures
 rm -rf src/pages/*
 rm -rf blog
-rm -rf docs
 rm -rf static/img/*
 ```
 
