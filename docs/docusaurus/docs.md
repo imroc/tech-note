@@ -128,6 +128,12 @@ cp -r docs/** i18n/en/docusaurus-plugin-content-docs/current
 
 然后将内容原地翻译成目标语言（可利用 AI 进行翻译），翻译完成后最终构建出来的电子书就支持国际化了，可点击语言选择下拉框来切换语言。
 
+预览不支持多语言切换，需显式指定 locale：
+
+```bash
+npm run start -- --locale en
+```
+
 ## 参考资料
 
 - [i18n - 教程](https://docusaurus.io/zh-CN/docs/i18n/tutorial)
