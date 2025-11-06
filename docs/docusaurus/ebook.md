@@ -177,3 +177,4 @@ npm run start -- --locale en
 - [Docusaurus 文档](https://docusaurus.io/zh-CN/docs/docs-introduction)
 - [i18n - 教程](https://docusaurus.io/zh-CN/docs/i18n/tutorial)
 - [TypeScript 支持](https://docusaurus.io/zh-CN/docs/typescript-support)
+- [Complex sidebars example](https://docusaurus.io/docs/sidebar#complex-sidebars-example)
