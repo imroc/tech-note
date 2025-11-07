@@ -54,17 +54,10 @@ npm install --save docusaurus-plugin-zooming
 
 安装后在程序列表中就可以直接以应用的形式打开本网站了。
 
-
 安装插件:
 
 ```bash npm2yarn
 npm install --save @docusaurus/plugin-pwa
-```
-
-如果你用的 docusaurus 是 next 版本，就这样安装：
-
-```bash npm2yarn
-npm install --save @docusaurus/plugin-pwa@next
 ```
 
 创建[PWA manifest](https://web.dev/add-manifest/):
