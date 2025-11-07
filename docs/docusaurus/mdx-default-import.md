@@ -20,7 +20,7 @@ sidebar_position: 45
 
 ## 副作用
 
-默认 import 虽然带来了便利，但在预览或编译文档时也会多消耗一些内存，当你的文档数量非常多时，可能导致 build 时占用内存过高而：
+默认 import 虽然带来了便利，但在预览或编译文档时也会多消耗一些内存，当你的文档数量非常多时，可能导致 build 时占用内存过高而报错：
 
 ```txt
 FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory
