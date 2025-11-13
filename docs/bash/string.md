@@ -23,7 +23,7 @@ cat > ca-csr.json <<EOF
 EOF
 ```
 
-## 多行字符串传给命令标准输入
+## 多行字符串传入其它命令的标准输入
 ```bash
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
