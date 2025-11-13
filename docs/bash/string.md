@@ -24,6 +24,15 @@ EOF
 ```
 
 ## 将多行字符串作为标准输入传给其它命令
+
+```bash
+unshare --mount --pid --fork bash <<EOF
+echo "hello world"
+EOF
+```
+
+有些命令末尾通过 `-` 标识接收标准输入：
+
 ```bash
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
@@ -32,11 +41,5 @@ metadata:
   name: hello
 data:
   hello: world
-EOF
-```
-
-```bash
-unshare --mount --pid --fork bash <<EOF
-echo "hello world"
 EOF
 ```
