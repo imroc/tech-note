@@ -22,7 +22,7 @@
   lazy = false,
   opts = {
     default_im_select = "com.apple.keylayout.ABC",
-    default_command = "ims-mac",
+    default_command = "macism",
   },
 }
 ```
@@ -35,7 +35,7 @@
   // If enabled, the input method switches automatically when the mode changes.
   "vim.autoSwitchInputMethod.enable": true,
   // The shell command to get current input method.
-  "vim.autoSwitchInputMethod.obtainIMCmd": "/opt/homebrew/bin/ims-mac",
+  "vim.autoSwitchInputMethod.obtainIMCmd": "/opt/homebrew/bin/macism",
   // The shell command to switch input method.
-  "vim.autoSwitchInputMethod.switchIMCmd": "/opt/homebrew/bin/ims-mac {im}",
+  "vim.autoSwitchInputMethod.switchIMCmd": "/opt/homebrew/bin/macism {im}",
 ```
