@@ -9,6 +9,8 @@ git worktree add ../test
 git worktree add ../test test-1
 # 添加 origin 下的 test/test-1 分支到 ../test 目录
 git worktree add ../test origin/test/test-1
+# 基于当前分支创建 test 分支，并添加该分支到 worktree，目录为 ../test
+git worktree add -b test ../test
 ```
 
 ## 查询
