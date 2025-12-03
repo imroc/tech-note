@@ -3,11 +3,22 @@
 
 ```bash
 if [ -d "$dir" ]; then
-  echo "$dir exists"
+  echo "directory $dir exists"
 else
-  echo "$dir does not exist"
+  echo "directory $dir does not exist"
 fi
 ```
+
+## 判断文件是否存在
+
+ ```bash
+if [ -f "$file" ]; then
+  echo "file $file exists"
+else
+  echo "file $file does not exist"
+fi
+ 
+ ```
 
 ## 判断命令是否存在
 
