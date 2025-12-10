@@ -33,5 +33,5 @@ CMD [ "sleep", "infinity" ]
 或者直接用 mycli 命令导出 CSV：
 
 ```bash
-mycli -u user -p password -D database --csv -e "SELECT * FROM t_table LIMIT 3" > /tmp/export.csv
+mycli -h host -u user -p password -D database --csv -e "SELECT * FROM t_table LIMIT 3" > /tmp/export.csv
 ```
