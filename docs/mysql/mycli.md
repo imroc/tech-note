@@ -1,4 +1,4 @@
-# 使用 mycli 执行 SQL
+# 使用 mycli 管理 mysql 数据
 
 ## 打包镜像
 
