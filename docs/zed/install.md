@@ -16,4 +16,4 @@ brew upgrade zed --cask
 
 ## 发布日志
 
-zed 处于快速开发阶段，可以经常关注下 release log：https://zed.dev/releases/stable
+zed 处于快速开发阶段，可以经常关注下 release log: https://zed.dev/releases/stable
