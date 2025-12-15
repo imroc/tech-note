@@ -496,5 +496,5 @@ macOS 26.2 新增了严格签名检查（之前版本可能放行，现在直接
 重新编译 tree-sitter 插件:
 
 ```bash
-nvim +'TSInstallSync markdown' +qa
+nvim +'TSInstall markdown' +qa
 ```
