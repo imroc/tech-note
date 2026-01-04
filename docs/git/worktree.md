@@ -11,6 +11,8 @@ git worktree add ../test test-1
 git worktree add ../test origin/test/test-1
 # 基于当前分支创建 test 分支，并添加该分支到 worktree，目录为 ../test
 git worktree add -b test ../test
+# 使用 v1.18.5 这个 tag 创建 v1.18.5-debug 分支并添加该分支到 worktree，目录为 ../v1.18.5-debug
+git worktree add -b v1.18.5-debug ../v1.18.5-debug v1.18.5
 ```
 
 ## 查询

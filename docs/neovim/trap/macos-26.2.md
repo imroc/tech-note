@@ -493,8 +493,10 @@ macOS 26.2 新增了严格签名检查（之前版本可能放行，现在直接
 
 ## 解决方案
 
-重新编译 tree-sitter 插件:
+清理 tree-sitter 的 site 目录：
 
 ```bash
-nvim +'TSInstall markdown' +qa
+rm -rf ~/.local/share/nvim/site
 ```
+
+然后重新打开 nvim 触发 tree-sitter 插件自动重新下载全部依赖的动态链接库。
