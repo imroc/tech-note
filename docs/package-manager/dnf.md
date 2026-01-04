@@ -30,6 +30,12 @@ dnf install python3
 dnf remove python3
 ```
 
+## 查询已安装软件包
+
+```bash
+dnf list --installed
+```
+
 ## 查询软件包详细信息
 
 ```bash
