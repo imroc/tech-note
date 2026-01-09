@@ -31,3 +31,22 @@ $ git worktree list
 # 删除 worktree 中指定目录
 git worktree remove ../test
 ```
+
+## 最佳实践
+
+```bash
+# 准备一个目录存放项目所有分支代码
+mkdir kubernetes
+cd kubernetes
+
+# 克隆裸仓库并添加主分支到子目录
+git clone --bare https://github.com/kubernetes/kubernetes.git .git
+git worktree add master
+
+# 添加其它 fork 的仓库到 remote
+git remote add imroc https://github.com/imroc/kubernetes.git
+git fetch imroc
+
+# 基于 test-c 分支或 tag 新建一个 test-a 分支并添加到 test-b 目录
+git worktree add -b test-a test-b test-c
+```
