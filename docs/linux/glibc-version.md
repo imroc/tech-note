@@ -22,6 +22,25 @@ lrwxrwxrwx 1 root root 12 May  7  2021 /lib64/libc.so.6 -> libc-2.17.so
 
 ## 查看 libc.so 文件内容
 
+首先找到 libc.so 文件：
+
+```bash
+# 安装了 find 命令可直接搜索文件所在路径
+find / -name "libc.so*" -type f 2>/dev/null
+
+# 如果有 ldconfig 命令可查看系统中所有动态库文件，同时也能看到所在目录
+ldconfig -v 2>/dev/nul
+```
+
+常见路径：
+
+- `/lib64`
+- `/lib/x86_64-linux-gnu/libc.so.6`
+
+效果示例：
+
+> 输出的最高版本号为当前 libc 的版本号。
+
 ```bash
 $ strings /lib64/libc.so.6 | grep GLIBC
 GLIBC_2.2.5
@@ -44,11 +63,7 @@ GLIBC_2.14
 GLIBC_2.15
 GLIBC_2.16
 GLIBC_2.17
-```
 
-或者：
-
-```bash
 $ strings /lib/x86_64-linux-gnu/libc.so.6 | grep GLIBC
 GLIBC_2.2.5
 GLIBC_2.2.6
